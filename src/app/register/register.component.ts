@@ -11,7 +11,7 @@ export class RegisterComponent {
   firstName: string = '';
   lastName: string = '';
   email: string = '';
-  mobile: number = 1234567890;
+  mobile: number | undefined;
 
   constructor() {
 

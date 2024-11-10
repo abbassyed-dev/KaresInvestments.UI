@@ -18,7 +18,18 @@ export class LoginComponent {
 
     valCheck: string[] = ['remember'];
 
-    password!: string;
+    email: string = ''
+    password: string = ''
+    isSubmitting: boolean = false
+    validationErrors: Array<any> = [];
 
     constructor(public layoutService: LayoutService) { }
+
+    login() {
+        let payload = {
+            email: this.email,
+            password: this.password,
+        }
+        alert(payload);
+    }
 }

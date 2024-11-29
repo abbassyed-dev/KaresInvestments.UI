@@ -4,12 +4,21 @@ import { filter, Subscription } from 'rxjs';
 import { LayoutService } from "./service/app.layout.service";
 import { AppSidebarComponent } from "./app.sidebar.component";
 import { AppTopBarComponent } from './app.topbar.component';
+import { MessageService } from 'primeng/api';
+import { User } from '../models/user.model';
+import { AuthStateService } from '../shared/services/auth-state.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-layout',
     templateUrl: './app.layout.component.html'
 })
 export class AppLayoutComponent implements OnDestroy {
+
+    user: User | undefined = this.authStateService.getUser();
+
+    showChangePasswordDialog: boolean = false;
+    showUserProfileDialog: boolean = false;
 
     overlayMenuOpenSubscription: Subscription;
 
@@ -21,13 +30,17 @@ export class AppLayoutComponent implements OnDestroy {
 
     @ViewChild(AppTopBarComponent) appTopbar!: AppTopBarComponent;
 
-    constructor(public layoutService: LayoutService, public renderer: Renderer2, public router: Router) {
+    loggedInUserName: string;
+
+    constructor(public layoutService: LayoutService, public renderer: Renderer2,
+        public router: Router, private toastr: ToastrService,
+        private authStateService: AuthStateService,) {
         this.overlayMenuOpenSubscription = this.layoutService.overlayOpen$.subscribe(() => {
             if (!this.menuOutsideClickListener) {
                 this.menuOutsideClickListener = this.renderer.listen('document', 'click', event => {
-                    const isOutsideClicked = !(this.appSidebar.el.nativeElement.isSameNode(event.target) || this.appSidebar.el.nativeElement.contains(event.target) 
+                    const isOutsideClicked = !(this.appSidebar.el.nativeElement.isSameNode(event.target) || this.appSidebar.el.nativeElement.contains(event.target)
                         || this.appTopbar.menuButton.nativeElement.isSameNode(event.target) || this.appTopbar.menuButton.nativeElement.contains(event.target));
-                    
+
                     if (isOutsideClicked) {
                         this.hideMenu();
                     }
@@ -55,6 +68,8 @@ export class AppLayoutComponent implements OnDestroy {
                 this.hideMenu();
                 this.hideProfileMenu();
             });
+
+        this.loggedInUserName = this.user?.lastName + " " + this.user?.firstName;
     }
 
     hideMenu() {
@@ -117,5 +132,30 @@ export class AppLayoutComponent implements OnDestroy {
         if (this.menuOutsideClickListener) {
             this.menuOutsideClickListener();
         }
+    }
+
+    topMenuActionListener(action: string) {
+        if (action === "logOut") {
+            this.toastr.success("Logout Success");
+            this.authStateService.logout();
+            this.router.navigate(['/']);
+        } else if (action === "changePassword") {
+            this.showChangePasswordDialog = true
+        } else if (action === "showProfile") {
+            this.showUserProfileDialog = true
+        }
+    }
+
+    closeChangePasswordDialogHandler(evt: boolean) {
+        this.toastr.success("Please login with new password", "Password Changed Successfully");
+        // ! is for hiding the dialog as it returns True from child component
+        this.showChangePasswordDialog = !evt;
+        this.authStateService.logout();
+        this.router.navigate(['/login']);
+    }
+
+    closeUserProfileDialogHandler(evt: boolean) {
+        // ! is for hiding the dialog as it returns True from child component
+        this.showUserProfileDialog = !evt;
     }
 }

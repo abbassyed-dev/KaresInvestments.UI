@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { DashboardComponent } from './dashboard.component';
+import { AdminDashboardComponent } from './admin-dashboard.component';
 
 @NgModule({
     imports: [RouterModule.forChild([
-        { path: '', component: DashboardComponent }
+        { path: '', component: AdminDashboardComponent }
     ])],
     exports: [RouterModule]
 })
-export class DashboardsRoutingModule { }
+export class AdminDashboardsRoutingModule { }

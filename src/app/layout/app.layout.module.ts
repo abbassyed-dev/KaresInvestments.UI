@@ -3,12 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { InputTextModule } from 'primeng/inputtext';
-import { SidebarModule } from 'primeng/sidebar';
-import { BadgeModule } from 'primeng/badge';
-import { RadioButtonModule } from 'primeng/radiobutton';
-import { InputSwitchModule } from 'primeng/inputswitch';
-import { RippleModule } from 'primeng/ripple';
 import { AppMenuComponent } from './app.menu.component';
 import { AppMenuitemComponent } from './app.menuitem.component';
 import { RouterModule } from '@angular/router';
@@ -17,6 +11,13 @@ import { AppFooterComponent } from './app.footer.component';
 import { AppConfigModule } from './config/config.module';
 import { AppSidebarComponent } from "./app.sidebar.component";
 import { AppLayoutComponent } from "./app.layout.component";
+import { MessageService } from 'primeng/api';
+import { PrimeNgModule } from '../shared/change-password/prime-ng.module';
+import { ChangePasswordComponent } from '../shared/change-password/change-password.component';
+import { UsersService } from '../admin/users/users.service';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { UserProfileComponent } from '../shared/user-profile/user-profile.component';
+
 
 @NgModule({
     declarations: [
@@ -26,21 +27,22 @@ import { AppLayoutComponent } from "./app.layout.component";
         AppMenuComponent,
         AppSidebarComponent,
         AppLayoutComponent,
+        ChangePasswordComponent,
+        UserProfileComponent,
     ],
     imports: [
         BrowserModule,
-        FormsModule,
+        FormsModule.withConfig({
+            callSetDisabledState: 'always'
+        }),
         HttpClientModule,
         BrowserAnimationsModule,
-        InputTextModule,
-        SidebarModule,
-        BadgeModule,
-        RadioButtonModule,
-        InputSwitchModule,
-        RippleModule,
         RouterModule,
-        AppConfigModule
+        AppConfigModule,
+        PrimeNgModule,
+        NgxSpinnerModule.forRoot({ type: 'timer' })
     ],
+    providers: [MessageService, UsersService],
     exports: [AppLayoutComponent]
 })
 export class AppLayoutModule { }

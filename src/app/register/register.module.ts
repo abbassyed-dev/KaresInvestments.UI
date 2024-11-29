@@ -2,26 +2,19 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RegisterRoutingModule } from './register-routing.module';
 import { RegisterComponent } from './register.component';
-import { ButtonModule } from 'primeng/button';
-import { CheckboxModule } from 'primeng/checkbox';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { PasswordModule } from 'primeng/password';
-import { InputTextModule } from 'primeng/inputtext';
-import { MessagesModule } from 'primeng/messages';
-import { MessageModule } from 'primeng/message';
+import { FormsModule } from '@angular/forms';
+import { RegisterService } from './register.service';
+import { ToastModule } from 'primeng/toast';
+import { PrimeNgModule } from '../shared/change-password/prime-ng.module';
 
 @NgModule({
     imports: [
         CommonModule,
         RegisterRoutingModule,
-        ButtonModule,
-        CheckboxModule,
-        InputTextModule,
         FormsModule,
-        PasswordModule,
-        MessagesModule,
-        MessageModule
+        PrimeNgModule
     ],
-    declarations: [RegisterComponent]
+    declarations: [RegisterComponent],
+    providers: [RegisterService]
 })
 export class RegisterModule { }

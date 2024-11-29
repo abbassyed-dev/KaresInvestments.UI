@@ -1,0 +1,103 @@
+<form #userProfileForm="ngForm" (ngSubmit)="updateDetails(userProfileForm)">
+    <div class="formgrid grid mb-2">
+        <div class="field col">
+            <label for="firstName">First Name</label>
+            <input type="text" pInputText id="firstName" name="firstName" [(ngModel)]="userProfile.firstName"
+                #fName="ngModel" required />
+            <div *ngIf="fName.invalid && fName.touched" class="text-danger">
+                <small>First Name is required.</small>
+            </div>
+        </div>
+        <div class="field col">
+            <label for="lastName">Last Name</label>
+            <input type="text" pInputText id="lastName" name="lastName" [(ngModel)]="userProfile.lastName"
+                #lName="ngModel" required />
+            <div *ngIf="lName.invalid && lName.touched" class="text-danger">
+                <small>Last Name is required.</small>
+            </div>
+        </div>
+    </div>
+    <div class="formgrid grid mb-2">
+        <div class="field col">
+            <label for="dateOfBirth">Date Of Birth</label>
+            <p-calendar id="dateOfBirth" name="dateOfBirth" [(ngModel)]="userProfile.dateOfBirth" [showIcon]="true"
+                [showOnFocus]="true" inputId="buttondisplay" #dateOfBirth="ngModel" required dateFormat="dd/mm/yy"
+                [showTime]="false" />
+            <div *ngIf="dateOfBirth.invalid && dateOfBirth.touched" class="text-danger">
+                <small>Date Of Birth is required.</small>
+            </div>
+        </div>
+        <div class="field col">
+            <label for="phoneNo">Mobile #</label>
+            <input type="text" pInputText id="phoneNo" name="phoneNo" [(ngModel)]="userProfile.phoneNo" required
+                #phoneNo="ngModel" pattern="^\d{10}$" />
+            <div *ngIf="phoneNo.invalid && phoneNo.touched" class="text-danger">
+                <small>Mobile # is required and must be 10-digit number.</small>
+            </div>
+        </div>
+    </div>
+    <div class="formgrid grid mb-2">
+        <div class="field col">
+            <label for="email">Email</label>
+            <input type="text" email pInputText id="email" name="email" [(ngModel)]="userProfile.email" #email="ngModel"
+                required [disabled]="true" />
+            <div *ngIf="email.invalid && email.touched" class="text-danger">
+                <small>Email is required & must be valid</small>
+            </div>
+        </div>
+        <div class="field col">
+            <label for="userName">Username</label>
+            <input type="text" pInputText name="userName" [ngModel]="userProfile.userName" [disabled]="true" />
+        </div>
+    </div>
+    <div class="formgrid grid mb-2">
+        <div class="field col">
+            <label for="addressLine1">Address Line 1</label>
+            <input type="text" pInputText id="addressLine1" name="addressLine1"
+                [(ngModel)]="userProfile.addressLine1" />
+        </div>
+        <div class="field col">
+            <label for="addressLine2">Address Line 2</label>
+            <input type="text" pInputText id="addressLine2" name="addressLine2"
+                [(ngModel)]="userProfile.addressLine2" />
+        </div>
+    </div>
+    <div class="formgrid grid mb-2">
+        <div class="field col">
+            <label for="city">City</label>
+            <input type="text" pInputText id="city" name="city" [(ngModel)]="userProfile.city" />
+        </div>
+        <div class="field col">
+            <label for="state">State</label>
+            <input type="text" pInputText id="state" name="state" [(ngModel)]="userProfile.state" />
+        </div>
+    </div>
+
+    <div class="formgrid grid mb-2">
+        <div class="field col">
+            <label for="country">Country</label>
+            <input type="text" pInputText id="country" name="country" [(ngModel)]="userProfile.country" />
+        </div>
+        <div class="field col">
+            <label for="zipCode">Zip Code</label>
+            <p-inputNumber id="zipCode" name="zipCode" [useGrouping]="false" [(ngModel)]="userProfile.zipCode" />
+        </div>
+    </div>
+
+    <!-- <div class="field">
+        <label for="remarks">Remarks</label>
+        <textarea id="remarks" name="remarks" pInputTextarea [(ngModel)]="userProfile.remarks" required rows="3"
+            cols="20">
+    </textarea>
+        <input id="disabled-input" type="text" pInputText [disabled]="true" [(ngModel)]="userProfile.remarks" />
+    </div> -->
+
+    <div class="formgrid grid mb-2">
+        <div class="field col">
+            <button pButton type="submit" label="Update Profile"></button>
+        </div>
+        <div class="field col">
+            <button pButton label="Close" class="secondary" (click)="closeProfileDialog()"></button>
+        </div>
+    </div>
+</form>

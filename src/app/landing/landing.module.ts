@@ -1,23 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LandingRoutingModule } from './landing-routing.module';
 import { LandingComponent } from './landing.component';
-import { StyleClassModule } from 'primeng/styleclass';
-import { DividerModule } from 'primeng/divider';
-import { ChartModule } from 'primeng/chart';
-import { PanelModule } from 'primeng/panel';
-import { ButtonModule } from 'primeng/button';
+import { HomeComponent } from '../home/home.component';
+import { RouterModule } from '@angular/router';
+import { PrimeNgModule } from '../shared/change-password/prime-ng.module';
 
 @NgModule({
     imports: [
         CommonModule,
-        LandingRoutingModule,
-        DividerModule,
-        StyleClassModule,
-        ChartModule,
-        PanelModule,
-        ButtonModule
+        RouterModule,
+        PrimeNgModule
     ],
-    declarations: [LandingComponent]
+    declarations: [LandingComponent,
+        HomeComponent]
 })
 export class LandingModule { }

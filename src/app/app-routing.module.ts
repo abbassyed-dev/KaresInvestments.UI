@@ -1,6 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppLayoutComponent } from './layout/app.layout.component';
+import { AboutUsComponent } from './about-us/about-us.component';
+import { LandingComponent } from './landing/landing.component';
+import { HomeComponent } from './home/home.component';
+import { authGuard } from './guards/auth-guard';
 
 // const routes: Routes = [];
 
@@ -13,15 +17,25 @@ import { AppLayoutComponent } from './layout/app.layout.component';
 @NgModule({
   imports: [
     RouterModule.forRoot([
-      { path: '', loadChildren: () => import('./landing/landing.module').then(m => m.LandingModule) },
+      // { path: '', loadChildren: () => import('./landing/landing.module').then(m => m.LandingModule) },
       {
-        path: 'dashboard', component: AppLayoutComponent,
+        path: '', component: LandingComponent,
         children: [
-          { path: '', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) },
+          { path: '', component: HomeComponent },
+          { path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginModule) },
+          { path: 'register', loadChildren: () => import('./register/register.module').then(m => m.RegisterModule) },
+          { path: 'aboutUs', component: AboutUsComponent },
         ]
       },
-      { path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginModule) },
-      { path: 'register', loadChildren: () => import('./register/register.module').then(m => m.RegisterModule) },
+      {
+        path: 'dashboard', component: AppLayoutComponent, canActivate: [authGuard],
+        children: [
+          { path: 'admin', loadChildren: () => import("./admin/admin-dashboard.module").then(m => m.AdminDashboardModule) },
+          { path: 'user', loadChildren: () => import("./user/user-dashboard.module").then(m => m.UserDashboardModule) },
+        ]
+      },
+      // { path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginModule) },
+      // { path: 'register', loadChildren: () => import('./register/register.module').then(m => m.RegisterModule) },
     ], { scrollPositionRestoration: 'enabled', anchorScrolling: 'enabled', onSameUrlNavigation: 'reload' })
   ],
   exports: [RouterModule]

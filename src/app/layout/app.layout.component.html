@@ -1,8 +1,8 @@
 <div class="layout-wrapper" [ngClass]="containerClass">
-    <app-topbar></app-topbar>
-    <div class="layout-sidebar">
+    <app-topbar [userName]="loggedInUserName" (action)="topMenuActionListener($event)"></app-topbar>
+    <!-- <div class="layout-sidebar">
         <app-sidebar></app-sidebar>
-    </div>
+    </div> -->
     <div class="layout-main-container">
         <div class="layout-main">
             <router-outlet></router-outlet>
@@ -11,4 +11,25 @@
     </div>
     <!-- <app-config></app-config> -->
     <div class="layout-mask"></div>
+
+    <p-toast />
+
+    <p-dialog [(visible)]="showChangePasswordDialog" [style]="{ width: '550px' }" header="Change Password"
+        [modal]="true" styleClass="p-fluid">
+        <ng-template pTemplate="content">
+            <app-password (closeChangePasswordDialog)="closeChangePasswordDialogHandler($event)"></app-password>
+        </ng-template>
+    </p-dialog>
+
+    <p-dialog [(visible)]="showUserProfileDialog" [style]="{ width: '550px' }" header="My Profile" [modal]="true"
+        styleClass="p-fluid">
+        <ng-template pTemplate="content">
+            <app-user-profile (closeUserProfileDialog)="closeUserProfileDialogHandler($event)"></app-user-profile>
+        </ng-template>
+    </p-dialog>
+
 </div>
+
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="timer" [fullScreen]="true">
+    <p style="color: white"> Loading... </p>
+</ngx-spinner>

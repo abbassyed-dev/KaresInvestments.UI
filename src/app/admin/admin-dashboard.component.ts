@@ -1,15 +1,18 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { Subscription, debounceTime } from 'rxjs';
+import { Observable, Subscription, debounceTime } from 'rxjs';
 import { LayoutService } from '../layout/service/app.layout.service';
 import { Product } from '../api/product';
 import { ProductService } from '../service/product.service';
+import { User } from '../models/user.model';
+import { AdminDashboardService } from './admin-dashboard.service';
 
 
 @Component({
-    templateUrl: './dashboard.component.html',
+    templateUrl: './admin-dashboard.component.html',
+    styleUrls: ['./admin-dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit, OnDestroy {
+export class AdminDashboardComponent implements OnInit, OnDestroy {
 
     items!: MenuItem[];
 
@@ -20,8 +23,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
     chartOptions: any;
 
     subscription!: Subscription;
+    activeTabIndex: number = 0;
 
-    constructor(private productService: ProductService, public layoutService: LayoutService) {
+
+    constructor(private productService: ProductService, public layoutService: LayoutService
+    ) {
         this.subscription = this.layoutService.configUpdate$
             .pipe(debounceTime(25))
             .subscribe((config) => {

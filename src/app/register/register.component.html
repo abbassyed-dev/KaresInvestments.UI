@@ -13,7 +13,7 @@
 
                     <div class="form-group mb-5">
                         <label for="firstName" class="block text-900 text-xl font-medium mb-2">First Name</label>
-                        <input id="firstName" name="firstName" [(ngModel)]="firstName" required minlength="2"
+                        <input id="firstName" name="firstName" [(ngModel)]="model.firstName" required minlength="2"
                             #fName="ngModel" type="text" placeholder="First Name" pInputText class="w-full md:w-30rem"
                             style="padding:1rem">
                         <div *ngIf="fName.invalid && fName.touched" class="text-danger">
@@ -23,7 +23,7 @@
 
                     <div class="form-group mb-5">
                         <label for="lastName" class="block text-900 text-xl font-medium mb-2">Last Name</label>
-                        <input id="lastName" name="lastName" [(ngModel)]="lastName" required minlength="2"
+                        <input id="lastName" name="lastName" [(ngModel)]="model.lastName" required minlength="2"
                             #lName="ngModel" type="text" placeholder="Last Name" pInputText class="w-full md:w-30rem"
                             style="padding:1rem">
                         <div *ngIf="lName.invalid && lName.touched" class="text-danger">
@@ -32,9 +32,9 @@
                     </div>
 
                     <div class="form-group mb-5">
-                        <label for="mobile" class="block text-900 text-xl font-medium mb-2">Mobile</label>
-                        <input id="mobile" name="mobile" [(ngModel)]="mobile" required #mob="ngModel" type="text"
-                            placeholder="Mobile #" pInputText class="w-full md:w-30rem" pattern="^\d{10}$"
+                        <label for="mobileNum" class="block text-900 text-xl font-medium mb-2">Mobile #</label>
+                        <input id="mobileNum" name="mobileNum" [(ngModel)]="model.mobileNum" required #mob="ngModel"
+                            type="text" placeholder="Mobile #" pInputText class="w-full md:w-30rem" pattern="^\d{10}$"
                             style="padding:1rem">
                         <div *ngIf="mob.invalid && mob.touched" class="text-danger">
                             <small>Mobile number is required and must be a valid 10-digit number.</small>
@@ -43,11 +43,18 @@
 
                     <div class="form-group mb-5">
                         <label for="email" class="block text-900 text-xl font-medium mb-2">Email</label>
-                        <input id="email" name="email" [(ngModel)]="email" required #emailId="ngModel" type="text" email
-                            placeholder="Email" pInputText class="w-full md:w-30rem" style="padding:1rem">
+                        <input id="email" name="email" [(ngModel)]="model.email" required #emailId="ngModel" type="text"
+                            email placeholder="Email" pInputText class="w-full md:w-30rem" style="padding:1rem">
                         <div *ngIf="emailId.invalid && emailId.touched" class="text-danger">
                             <small>Email is required and must be a valid email address.</small>
                         </div>
+                    </div>
+
+                    <div class="form-group mb-5">
+                        <label for="remarks" class="block text-900 text-xl font-medium mb-2">Comments</label>
+                        <textarea id="remarks" name="remarks" [(ngModel)]="model.remarks" #remarks="ngModel" type="text"
+                            placeholder="User Remarks" pInputText class="w-full md:w-30rem"
+                            style="padding:1rem"></textarea>
                     </div>
 
                     <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid"
@@ -57,3 +64,20 @@
         </div>
     </div>
 </div>
+
+<p-toast />
+<p-dialog header="Confirmation" [(visible)]="registrationConfirmation" [modal]="true" [closable]="false"
+    [style]="{ width: '25rem' }">
+    <ng-template pTemplate="header">
+        <div class="inline-flex align-items-center justify-content-center gap-2">
+            <span class="font-bold white-space-nowrap">
+                Thank you
+            </span>
+        </div>
+    </ng-template>
+    <span class="p-text-secondary block mb-5">Our Team will contact you soon.</span>
+
+    <ng-template pTemplate="footer">
+        <p-button label="Ok" [outlined]="true" severity="secondary" (onClick)="regDialogClose()" />
+    </ng-template>
+</p-dialog>

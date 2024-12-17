@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { UserDashboardComponent } from './user-dashboard.component';
 
 import { UserDashboardsRoutingModule } from './user-dashboard-routing.module';
-import { PrimeNgModule } from '../shared/change-password/prime-ng.module';
+import { PrimeNgModule } from '../shared/prime-ng.module';
 
 @NgModule({
     imports: [

@@ -23,15 +23,23 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { TagModule } from 'primeng/tag';
 import { CalendarModule } from 'primeng/calendar';
+import { DropdownModule } from 'primeng/dropdown';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
 
 const PrimeNgModules = [
     CalendarModule,
     ConfirmDialogModule,
     ToolbarModule,
+    IconFieldModule,
+    InputIconModule,
     InputTextareaModule,
     TagModule,
     InputNumberModule,
+    DropdownModule,
     InputTextModule,
+    // IconField,
+    // InputIcon,
     SidebarModule,
     BadgeModule,
     RadioButtonModule,

@@ -1,0 +1,48 @@
+<p-table [value]="userInterests" dataKey="userRequestId" editMode="row">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Phone No</th>
+            <th>Remarks</th>
+            <th>Req Submitted On</th>
+            <th>Action</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-userInterest let-editing="editing" let-ri="rowIndex">
+        <tr [pEditableRow]="userInterest">
+            <td>{{ userInterest.firstName }}</td>
+            <td>{{ userInterest.lastName }}</td>
+            <td>{{ userInterest.email }}</td>
+            <td>{{ userInterest.mobileNum }}</td>
+            <td>{{ userInterest.remarks }}</td>
+            <td>{{ userInterest.reqSubmittedOn | date: 'dd/MM/yyyy' }}</td>
+            <td>
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="userInterest.action" required />
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{userInterest.action}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>
+                <div class="flex align-items-center justify-content-center gap-2">
+                    <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil"
+                        (click)="onRowEditInit(userInterest)" class="p-button-rounded p-button-text">
+                    </button>
+                    <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check"
+                        (click)="onRowEditSave(userInterest)"
+                        class="p-button-rounded p-button-text p-button-success mr-2">
+                    </button>
+                    <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times"
+                        (click)="onRowEditCancel(userInterest, ri)"
+                        class="p-button-rounded p-button-text p-button-danger">
+                    </button>
+                </div>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

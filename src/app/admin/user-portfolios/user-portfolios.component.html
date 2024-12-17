@@ -1,0 +1,80 @@
+<div class="col-12">
+    <div class="card">
+        <!-- <p-toolbar styleClass="mb-4 gap-2">
+            <ng-template pTemplate="left">
+                <p-button severity="success" label="Add User Portfolio" icon="pi pi-plus" class="mr-2"
+                    (onClick)="addUserPortfolio()" />
+            </ng-template>
+        </p-toolbar> -->
+        <p-table #userPortfolioGrid [value]="userPortfolios" [paginator]="true" [rows]="10" responsiveLayout="scroll"
+            [globalFilterFields]="['userName', 'email', 'portfolioName']">
+            <ng-template pTemplate="caption">
+                <div class="flex">
+                    <p-button severity="success" label="Add User Portfolio" icon="pi pi-plus" class="mr-2"
+                        (onClick)="addUserPortfolio()" />
+                    <p-iconField iconPosition="left" class="ml-auto">
+                        <p-inputIcon>
+                            <i class="pi pi-search"></i>
+                        </p-inputIcon>
+                        <input pInputText type="text" #searchInput
+                            (input)="userPortfolioGrid.filterGlobal(searchInput.value, 'contains')"
+                            placeholder="Search keyword" />
+                    </p-iconField>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Portfolio</th>
+                    <th>Status</th>
+                    <th>View</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-userPortfolio>
+                <tr>
+                    <td>{{userPortfolio.userName}}</td>
+                    <td>{{userPortfolio.email}}</td>
+                    <td>{{userPortfolio.portfolioName}}</td>
+                    <td><p-inputSwitch id="isActive" name="isActive" [ngModel]="userPortfolio.isActive"
+                            [disabled]="true" /></td>
+                    <td><p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" severity="success"
+                            (onClick)="editUserPortfolio(userPortfolio)" /></td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
+<form #userPortfolioForm="ngForm" (ngSubmit)="saveUserPortfolio(userPortfolioForm)">
+    <p-dialog [(visible)]="userPortfolioDialog" [style]="{width: '30vw'}" header="Add/Edit User Portfolio"
+        [modal]="true" styleClass="p-fluid">
+        <ng-template pTemplate="content">
+            <div class="field">
+                <label for="user">User</label>
+                <app-user-dropdown id="user" name="user" (emitSelectedUser)="setUserDetails($event)"
+                    *ngIf="!isEditMode"></app-user-dropdown>
+                <input type="text" pInputText id="user" name="user" [ngModel]="userPortfolio.userName"
+                    *ngIf="isEditMode" disabled />
+            </div>
+            <div class="field">
+                <label for="portfolio">Portfolio</label>
+                <p-dropdown [options]="lookupData.portfolios" name="portfolioId" [(ngModel)]="userPortfolio.portfolioId"
+                    optionLabel="portfolioName" optionValue="portfolioId" placeholder="Select Portfolio"
+                    appendTo="body">
+                </p-dropdown>
+            </div>
+            <div class="field" style="display: flex; align-items: center; gap: 10px;">
+                <label for="isActive" style="margin-right: 10px;">Status</label>
+                <p-inputSwitch id="isActive" name="isActive" [(ngModel)]="userPortfolio.isActive" />
+            </div>
+
+        </ng-template>
+
+        <ng-template pTemplate="footer">
+            <p-button label="Cancel" icon="pi pi-times" [text]="true" (onClick)="hideDialog()" />
+            <p-button label="Save" icon="pi pi-check" [disabled]="userPortfolioForm.invalid"
+                (onClick)="saveUserPortfolio(userPortfolioForm)" />
+        </ng-template>
+
+    </p-dialog>
+</form>

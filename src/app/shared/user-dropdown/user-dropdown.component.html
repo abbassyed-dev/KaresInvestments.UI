@@ -1,0 +1,43 @@
+<div class="custom-dropdown">
+    <input type="text" id="selectedUser" [(ngModel)]="selectedUser.userName" readonly placeholder="Select a user" />
+    <button pButton type="button" icon="pi pi-search" (click)="openUserDialog()"></button>
+</div>
+
+<!-- User Selection Dialog -->
+<p-dialog [(visible)]="isUserDialogVisible" header="Select User" [modal]="true" [style]="{width: '30vw'}">
+    <div>
+        <!-- Search Input -->
+        <div style="margin-bottom: 10px;">
+            <input type="text" [(ngModel)]="searchQuery" (input)="filterUsers()" placeholder="Search by name"
+                class="search-input" />
+        </div>
+        <!-- Table -->
+        <div *ngIf="filteredUsers.length > 0; else noData">
+            <p-table [value]="filteredUsers" selectionMode="single" [(selection)]="selectedUserObj"
+                (onRowSelect)="onUserSelected($event)">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-user>
+                    <tr [pSelectableRow]="user">
+                        <td>{{ user.firstName }}</td>
+                        <td>{{ user.lastName }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.phoneNo }}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        <ng-template #noData>
+            <p>No users found</p>
+        </ng-template>
+    </div>
+    <p-footer>
+        <button pButton type="button" label="Close" icon="pi pi-times" (click)="isUserDialogVisible=false"></button>
+    </p-footer>
+</p-dialog>

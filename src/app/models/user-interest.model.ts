@@ -4,4 +4,7 @@ export interface UserInterest {
     email: string;
     mobileNum: string;
     remarks: string;
+    reqSubmittedOn?: Date;
+    action?: string;
+    userRequestId?: string;
 }

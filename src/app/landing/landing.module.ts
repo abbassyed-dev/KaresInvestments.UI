@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LandingComponent } from './landing.component';
 import { HomeComponent } from '../home/home.component';
 import { RouterModule } from '@angular/router';
-import { PrimeNgModule } from '../shared/change-password/prime-ng.module';
+import { PrimeNgModule } from '../shared/prime-ng.module';
 
 @NgModule({
     imports: [

@@ -1,13 +1,27 @@
 <div class="col-12">
     <div class="card">
-        <p-toast />
-        <p-toolbar styleClass="mb-4 gap-2">
+        <!-- <p-toolbar styleClass="mb-4 gap-2">
             <ng-template pTemplate="left">
                 <p-button severity="success" label="Add User" icon="pi pi-user-plus" class="mr-2"
                     (onClick)="addUser()" />
             </ng-template>
-        </p-toolbar>
-        <p-table [value]="users" [paginator]="true" [rows]="5" responsiveLayout="scroll">
+        </p-toolbar> -->
+        <p-table #usersGrid [value]="users" [paginator]="true" [rows]="10" responsiveLayout="scroll"
+            [globalFilterFields]="['firstName', 'lastName', 'email', 'phoneNo']">
+            <ng-template pTemplate="caption">
+                <div class="flex">
+                    <p-button severity="success" label="Add User" icon="pi pi-user-plus" class="mr-2"
+                        (onClick)="addUser()" />
+                    <p-iconField iconPosition="left" class="ml-auto">
+                        <p-inputIcon>
+                            <i class="pi pi-search"></i>
+                        </p-inputIcon>
+                        <input pInputText type="text" #searchInput
+                            (input)="usersGrid.filterGlobal(searchInput.value, 'contains')"
+                            placeholder="Search keyword" />
+                    </p-iconField>
+                </div>
+            </ng-template>
             <ng-template pTemplate="header">
                 <tr>
                     <th>First Name</th>
@@ -66,7 +80,7 @@
                     <label for="dateOfBirth">Date Of Birth</label>
                     <p-calendar id="dateOfBirth" name="dateOfBirth" [(ngModel)]="user.dateOfBirth" [showIcon]="true"
                         [showOnFocus]="true" inputId="buttondisplay" #dateOfBirth="ngModel" required
-                        dateFormat="dd/mm/yy" [showTime]="false" />
+                        dateFormat="dd-mm-yy" [showTime]="false" [dataType]="'date'" />
                     <div *ngIf="dateOfBirth.invalid && dateOfBirth.touched" class="text-danger">
                         <small>Date Of Birth is required.</small>
                     </div>
@@ -89,11 +103,10 @@
                         <small>Email is required & must be valid</small>
                     </div>
                 </div>
-                <div class="field col">
+                <!-- <div class="field col">
                     <label for="userName">Username</label>
-                    <input type="text" pInputText name="userName" [disabled]="userNameDisabled"
-                        [ngModel]="user.userName" />
-                </div>
+                    <input type="text" pInputText name="userName" [disabled]="true" [(ngModel)]="user.email" />
+                </div> -->
             </div>
             <div class="formgrid grid mb-2">
                 <div class="field col">

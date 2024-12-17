@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserInterest } from '../models/user-interest.model';
 import { RegisterService } from './register.service';
 import { Router } from '@angular/router';
-import { MessageService } from 'primeng/api';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -16,7 +16,7 @@ export class RegisterComponent {
   registrationConfirmation: boolean = false;
 
   constructor(private dataService: RegisterService,
-    private router: Router, private msgService: MessageService
+    private router: Router, private toastr: ToastrService
   ) {
     this.model = {
       firstName: '',
@@ -26,7 +26,6 @@ export class RegisterComponent {
       remarks: ''
     }
   }
-
 
   onSubmit(form: any) {
     if (form.valid) {
@@ -38,7 +37,7 @@ export class RegisterComponent {
           }
         });
     } else {
-      this.msgService.add({ severity: 'error', summary: 'Error', detail: 'Something went wrong. Please try again later.' });
+      this.toastr.error("Something went wrong. Please try again later.");
     }
   }
 
@@ -46,6 +45,4 @@ export class RegisterComponent {
     this.registrationConfirmation = false;
     this.router.navigateByUrl('/');
   }
-
-
 }

@@ -1,0 +1,116 @@
+<div class="col-12">
+    <div class="card">
+        <p-table #userTransactionsGrid [value]="userTransactions" [paginator]="true" [rows]="10"
+            responsiveLayout="scroll" [globalFilterFields]="['userName', 'email']">
+            <ng-template pTemplate="caption">
+                <div class="flex">
+                    <p-button severity="success" label="New Transaction" icon="pi pi-plus" class="mr-2"
+                        (onClick)="addTransaction()" />
+                    <p-iconField iconPosition="left" class="ml-auto">
+                        <p-inputIcon>
+                            <i class="pi pi-search"></i>
+                        </p-inputIcon>
+                        <input pInputText type="text" #searchInput
+                            (input)="userTransactionsGrid.filterGlobal(searchInput.value, 'contains')"
+                            placeholder="Search keyword" />
+                    </p-iconField>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>User Name</th>
+                    <th>Email</th>
+                    <th>Amount</th>
+                    <th>Portfolio</th>
+                    <th>Transaction Date</th>
+                    <th>Transaction Type</th>
+                    <th>Transaction Category</th>
+                    <th>Payment Mode</th>
+                    <th>Action</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-transaction>
+                <tr>
+                    <td>{{transaction.userName}}</td>
+                    <td>{{transaction.email}}</td>
+                    <td>{{transaction.amount}}</td>
+                    <td>{{transaction.portfolioName}}</td>
+                    <td>{{transaction.transactionDate | date: 'dd/MM/yyyy'}}</td>
+                    <td>{{transaction.transactionType}}</td>
+                    <td>{{transaction.transactionCategory}}</td>
+                    <td>{{transaction.paymentMode}}</td>
+                    <td><p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" severity="success"
+                            (onClick)="editTransaction(transaction)" /></td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
+
+<form #transactionForm="ngForm" (ngSubmit)="saveTransaction(transactionForm)">
+    <p-dialog [(visible)]="userTransactionDialog" [style]="{ width: '550px' }" header="Add User" [modal]="true"
+        styleClass="p-fluid">
+        <ng-template pTemplate="content">
+            <div class="field">
+                <label for="user">User</label>
+                <app-user-dropdown id="user" name="user" (emitSelectedUser)="setUserDetails($event)"
+                    *ngIf="!isEditMode"></app-user-dropdown>
+                <input type="text" pInputText id="user" name="user" [ngModel]="userTransaction.userName"
+                    *ngIf="isEditMode" disabled />
+            </div>
+            <div class="formgrid grid mb-2">
+                <div class="field col">
+                    <label for="userPortfolioId">User Portfolios</label>
+                    <p-dropdown [options]="lookupData.userPortfolios" name="userPortfolioId"
+                        [(ngModel)]="userTransaction.portfolioId" optionLabel="portfolioName" optionValue="portfolioId"
+                        placeholder="Select Portfolio" appendTo="body">
+                    </p-dropdown>
+                </div>
+            </div>
+            <div class="formgrid grid mb-2">
+                <div class="field col">
+                    <label for="transactionTypeId">Transaction Type</label>
+                    <p-dropdown [options]="lookupData.transactionTypes" name="transactionTypeId"
+                        [(ngModel)]="userTransaction.transactionTypeId" optionLabel="transactionTypeName"
+                        optionValue="transactionTypeId" placeholder="Select Transaction Type" appendTo="body">
+                    </p-dropdown>
+                </div>
+                <div class="field col">
+                    <label for="transactionCategoryId">Transaction Category</label>
+                    <p-dropdown [options]="lookupData.transactionCategories" name="transactionCategoryId"
+                        [(ngModel)]="userTransaction.transactionCategoryId" optionLabel="transactionCatgName"
+                        optionValue="transactionCatgId" placeholder="Select Category" appendTo="body">
+                    </p-dropdown>
+                </div>
+            </div>
+            <div class="formgrid grid mb-2">
+                <div class="field col">
+                    <label for="paymentModeId">Payment Mode</label>
+                    <p-dropdown [options]="lookupData.paymentMethods" name="paymentModeId"
+                        [(ngModel)]="userTransaction.paymentModeId" optionLabel="paymentModeName"
+                        optionValue="paymentModeId" placeholder="Payment Type" appendTo="body">
+                    </p-dropdown>
+                </div>
+                <div class="field col">
+                    <label for="amount">Amount</label>
+                    <p-inputNumber [(ngModel)]="userTransaction.amount" name="amount" mode="currency" inputId="amount"
+                        currency="INR" currencyDisplay="code" locale="en-IN" />
+                </div>
+            </div>
+            <div class="field">
+                <label for="remarks">Remarks</label>
+                <textarea id="remarks" name="remarks" pInputTextarea [(ngModel)]="userTransaction.remarks" required
+                    rows="3" cols="20">
+                </textarea>
+            </div>
+
+        </ng-template>
+
+        <ng-template pTemplate="footer">
+            <p-button label="Cancel" icon="pi pi-times" [text]="true" (onClick)="hideDialog()" />
+            <p-button label="Save" icon="pi pi-check" [disabled]="transactionForm.invalid"
+                (onClick)="saveTransaction(transactionForm)" />
+        </ng-template>
+
+    </p-dialog>
+</form>

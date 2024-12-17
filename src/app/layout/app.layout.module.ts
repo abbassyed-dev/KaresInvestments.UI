@@ -12,7 +12,7 @@ import { AppConfigModule } from './config/config.module';
 import { AppSidebarComponent } from "./app.sidebar.component";
 import { AppLayoutComponent } from "./app.layout.component";
 import { MessageService } from 'primeng/api';
-import { PrimeNgModule } from '../shared/change-password/prime-ng.module';
+import { PrimeNgModule } from '../shared/prime-ng.module';
 import { ChangePasswordComponent } from '../shared/change-password/change-password.component';
 import { UsersService } from '../admin/users/users.service';
 import { NgxSpinnerModule } from 'ngx-spinner';
@@ -28,7 +28,7 @@ import { UserProfileComponent } from '../shared/user-profile/user-profile.compon
         AppSidebarComponent,
         AppLayoutComponent,
         ChangePasswordComponent,
-        UserProfileComponent,
+        UserProfileComponent
     ],
     imports: [
         BrowserModule,

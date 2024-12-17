@@ -14,6 +14,4 @@ export class RegisterService {
     saveUserInterest(data: UserInterest): Observable<UserInterest> {
         return this.http.post<UserInterest>(`${environment.apiBaseUrl}/api/UserInterest`, data);
     }
-
-
 }

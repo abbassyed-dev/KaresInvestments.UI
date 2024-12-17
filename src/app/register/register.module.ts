@@ -5,7 +5,7 @@ import { RegisterComponent } from './register.component';
 import { FormsModule } from '@angular/forms';
 import { RegisterService } from './register.service';
 import { ToastModule } from 'primeng/toast';
-import { PrimeNgModule } from '../shared/change-password/prime-ng.module';
+import { PrimeNgModule } from '../shared/prime-ng.module';
 
 @NgModule({
     imports: [

@@ -65,7 +65,6 @@
     </div>
 </div>
 
-<p-toast />
 <p-dialog header="Confirmation" [(visible)]="registrationConfirmation" [modal]="true" [closable]="false"
     [style]="{ width: '25rem' }">
     <ng-template pTemplate="header">
@@ -75,9 +74,9 @@
             </span>
         </div>
     </ng-template>
-    <span class="p-text-secondary block mb-5">Our Team will contact you soon.</span>
+    <span class="p-text-secondary block mb-5">Kares Team will contact you soon.</span>
 
     <ng-template pTemplate="footer">
-        <p-button label="Ok" [outlined]="true" severity="secondary" (onClick)="regDialogClose()" />
+        <p-button label="Ok" severity="secondary" (onClick)="regDialogClose()" />
     </ng-template>
 </p-dialog>

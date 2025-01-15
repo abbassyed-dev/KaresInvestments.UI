@@ -1,14 +1,12 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { LoginService } from '../login/login.service';
 import { jwtDecode } from "jwt-decode";
 import { AuthStateService } from '../shared/services/auth-state.service';
 
 export const authGuard: CanActivateFn = (route, state) => {
     const router = inject(Router);
     const cookieService = inject(CookieService);
-    const loginService = inject(LoginService);
     const authStateService = inject(AuthStateService);
 
     const user = authStateService.getUser();

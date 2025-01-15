@@ -10,5 +10,5 @@ export class AdminHomeComponent {
 
     constructor(private authStateService: AuthStateService) { }
 
-    userName: string = `${this.authStateService.getLoggedInUserProperty('lastName')} ${this.authStateService.getLoggedInUserProperty('firstName')}`;
+    userName = `${this.authStateService.getLoggedInUserProperty('lastName')} ${this.authStateService.getLoggedInUserProperty('firstName')}`;
 }

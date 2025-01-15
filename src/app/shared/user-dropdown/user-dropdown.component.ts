@@ -11,9 +11,9 @@ import { User } from '../../models/user.model';
 export class UserDropdownComponent implements OnInit {
     users: any[] = []; // Holds all users fetched from the API
     filteredUsers: any[] = []; // Holds the filtered list of users
-    searchQuery: string = ''; // Search query string
+    searchQuery = ''; // Search query string
     selectedUserObj: any = null; // Holds the selected user object
-    isUserDialogVisible: boolean = false;
+    isUserDialogVisible = false;
     selectedUser: any = {};
     @Output() emitSelectedUser = new EventEmitter<any>();
 

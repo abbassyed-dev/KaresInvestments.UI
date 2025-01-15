@@ -120,7 +120,7 @@ export class LayoutService {
 
     changeTheme() {
         const config = this.config();
-        const themeLink = <HTMLLinkElement>document.getElementById('theme-css');
+        const themeLink = document.getElementById('theme-css') as HTMLLinkElement;
         const themeLinkHref = themeLink.getAttribute('href')!;
         const newHref = themeLinkHref
             .split('/')
@@ -137,8 +137,8 @@ export class LayoutService {
     }
     replaceThemeLink(href: string) {
         const id = 'theme-css';
-        let themeLink = <HTMLLinkElement>document.getElementById(id);
-        const cloneLinkElement = <HTMLLinkElement>themeLink.cloneNode(true);
+        const themeLink = document.getElementById(id) as HTMLLinkElement;
+        const cloneLinkElement = themeLink.cloneNode(true) as HTMLLinkElement;
 
         cloneLinkElement.setAttribute('href', href);
         cloneLinkElement.setAttribute('id', id + '-clone');

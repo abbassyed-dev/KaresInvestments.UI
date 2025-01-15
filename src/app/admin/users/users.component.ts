@@ -14,11 +14,11 @@ export class UsersComponent implements OnInit {
 
     users: User[];
     user: User = {} as User;
-    userDialog: boolean = false;
-    submitted: boolean = false;
-    userNameDisabled: boolean = false;
+    userDialog = false;
+    submitted = false;
+    userNameDisabled = false;
 
-    @Input() fetchAdmins: string = 'N';
+    @Input() fetchAdmins = 'N';
 
     constructor(private dataService: UsersService, private toastr: ToastrService,
         private authStateService: AuthStateService) { }

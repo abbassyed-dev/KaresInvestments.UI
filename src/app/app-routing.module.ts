@@ -17,11 +17,11 @@ import { authGuard } from './guards/auth-guard';
 @NgModule({
   imports: [
     RouterModule.forRoot([
-      // { path: '', loadChildren: () => import('./landing/landing.module').then(m => m.LandingModule) },
+      { path: '', redirectTo: '/home', pathMatch: 'full' },
       {
         path: '', component: LandingComponent,
         children: [
-          { path: '', component: HomeComponent },
+          { path: 'home', component: HomeComponent },
           { path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginModule) },
           { path: 'register', loadChildren: () => import('./register/register.module').then(m => m.RegisterModule) },
           { path: 'aboutUs', component: AboutUsComponent },

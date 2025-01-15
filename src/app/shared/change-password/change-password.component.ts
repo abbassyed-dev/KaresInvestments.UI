@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { AuthStateService } from '../services/auth-state.service';
 import { UsersService } from '../../admin/users/users.service';
 import { User } from '../../models/user.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
+import { LoginResponseDto } from '../../models/login-response.model';
 
 @Component({
     selector: 'app-password',
@@ -11,27 +12,23 @@ import { ToastrService } from 'ngx-toastr';
     styleUrls: ['./change-password.component.scss']
 })
 export class ChangePasswordComponent {
-    password: string = '';
-    confirmPassword: string = '';
-    passwordMismatch: boolean = false;
+    password = '';
+    confirmPassword = '';
+    passwordMismatch = false;
 
     @Output() closeChangePasswordDialog = new EventEmitter<boolean>();
 
-    user: User | undefined = this.authStateService.getUser();
+    user: LoginResponseDto | undefined = this.authStateService.getUser();
 
     constructor(private authStateService: AuthStateService, private userService: UsersService,
         private toastr: ToastrService
     ) { }
 
-    ngOnInit() {
-
-    }
-
-    onSubmit(form: any) {
+    onSubmit() {
         if (this.password === this.confirmPassword) {
-            console.log('Form Submitted:', form.value);
 
-            let payload = {
+
+            const payload = {
                 email: this.user?.email,
                 password: this.password
             }

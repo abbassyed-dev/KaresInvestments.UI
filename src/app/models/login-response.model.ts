@@ -1,5 +1,11 @@
-export interface LoginResponse {
-  token: string;
+export class LoginResponseDto {
+  firstName: string;
+  lastName: string;
   email: string;
-  roles: string[];
+  userName: string;
+  isAdmin: boolean;
+  token: string;
+  userId: string;
+  defaultPasswordChanged: boolean;
 }
+

@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { AuthStateService } from '../../shared/services/auth-state.service';
 import { UserTransactionsService } from './user-transactions.service';
 import { UserTransaction } from '../../models/user-transaction.model';
@@ -9,14 +9,14 @@ import { ToastrService } from 'ngx-toastr';
     templateUrl: './user-transactions.component.html',
     styleUrl: './user-transactions.component.scss'
 })
-export class UserTransactionsComponent {
+export class UserTransactionsComponent implements OnInit {
 
     userTransactions: UserTransaction[];
     userTransaction: UserTransaction = {} as UserTransaction;
-    userTransactionDialog: boolean = false;
-    submitted: boolean = false;
+    userTransactionDialog = false;
+    submitted = false;
     lookupData: any;
-    isEditMode: boolean = false;
+    isEditMode = false;
 
     constructor(private authStateService: AuthStateService, private toastr: ToastrService,
         private dataService: UserTransactionsService) { }

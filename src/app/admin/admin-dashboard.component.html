@@ -1,22 +1,22 @@
 <div class="col-12">
     <p-tabView [(activeIndex)]="activeTabIndex">
         <p-tabPanel header="Home">
-            <app-admin-home *ngIf="activeTabIndex==0"></app-admin-home>
+            <app-admin-home *ngIf="activeTabIndex===0"></app-admin-home>
         </p-tabPanel>
         <p-tabPanel header="Users">
-            <app-users [fetchAdmins]="'N'" *ngIf="activeTabIndex==1"></app-users>
+            <app-users [fetchAdmins]="'N'" *ngIf="activeTabIndex===1"></app-users>
         </p-tabPanel>
         <p-tabPanel header="Admins">
-            <app-users [fetchAdmins]="'Y'" *ngIf="activeTabIndex==2"></app-users>
+            <app-users [fetchAdmins]="'Y'" *ngIf="activeTabIndex===2"></app-users>
         </p-tabPanel>
         <p-tabPanel header="User Interests">
-            <app-user-interests *ngIf="activeTabIndex==3"></app-user-interests>
+            <app-user-interests *ngIf="activeTabIndex===3"></app-user-interests>
         </p-tabPanel>
         <p-tabPanel header="User Portfolios">
-            <app-user-portfolios *ngIf="activeTabIndex==4"></app-user-portfolios>
+            <app-user-portfolios *ngIf="activeTabIndex===4"></app-user-portfolios>
         </p-tabPanel>
         <p-tabPanel header="User Transactions">
-            <app-user-transactions *ngIf="activeTabIndex==5"></app-user-transactions>
+            <app-user-transactions *ngIf="activeTabIndex===5"></app-user-transactions>
         </p-tabPanel>
     </p-tabView>
 </div>

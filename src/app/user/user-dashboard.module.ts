@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UserDashboardComponent } from './user-dashboard.component';
 
 import { UserDashboardsRoutingModule } from './user-dashboard-routing.module';
 import { PrimeNgModule } from '../shared/prime-ng.module';
+import { UserDashboardService } from './user-dashboard.service';
 
 @NgModule({
     imports: [
@@ -13,6 +14,7 @@ import { PrimeNgModule } from '../shared/prime-ng.module';
         PrimeNgModule,
         UserDashboardsRoutingModule
     ],
-    declarations: [UserDashboardComponent]
+    declarations: [UserDashboardComponent],
+    providers: [UserDashboardService, DatePipe,]
 })
 export class UserDashboardModule { }

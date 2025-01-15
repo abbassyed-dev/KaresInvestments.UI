@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { LandingComponent } from './landing.component';
 import { HomeComponent } from '../home/home.component';
 
 @NgModule({

@@ -16,6 +16,9 @@
     <p-dialog [(visible)]="showChangePasswordDialog" [style]="{ width: '550px' }" header="Change Password"
         [modal]="true" styleClass="p-fluid">
         <ng-template pTemplate="content">
+            <small id="username-help" *ngIf="!user?.defaultPasswordChanged">
+                <p class="password-note">{{passwordNote}}</p>
+            </small>
             <app-password (closeChangePasswordDialog)="closeChangePasswordDialogHandler($event)"></app-password>
         </ng-template>
     </p-dialog>

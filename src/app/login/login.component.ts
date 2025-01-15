@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthStateService } from '../shared/services/auth-state.service';
+import { LoginResponseDto } from '../models/login-response.model';
 
 @Component({
     selector: 'app-login',
@@ -21,10 +22,9 @@ import { AuthStateService } from '../shared/services/auth-state.service';
 })
 export class LoginComponent {
 
-    email: string = ''
-    password: string = ''
-    isSubmitting: boolean = false
-    validationErrors: Array<any> = [];
+    email = ''
+    password = ''
+    isSubmitting = false
 
     constructor(public layoutService: LayoutService, public loginService: LoginService,
         private cookieService: CookieService, private router: Router,
@@ -32,13 +32,13 @@ export class LoginComponent {
     ) { }
 
     login() {
-        let payload = {
+        const payload = {
             email: this.email,
             password: this.password,
         }
         this.loginService.login(payload)
             .subscribe({
-                next: (response) => {
+                next: (response: LoginResponseDto) => {
                     // Set Auth Cookie
                     this.cookieService.set('Authorization', `Bearer ${response.token}`,
                         undefined, '/', undefined, true, 'Strict');
@@ -51,10 +51,11 @@ export class LoginComponent {
                     }
                 },
                 error: (err: HttpErrorResponse) => {
-                    // Handle login error
-                    console.error('Login failed', err.error.errors["authError"][0]);
-                    // Show an error message to the user
-                    this.toastr.error(err.error.errors["authError"][0]);
+                    if (err?.message) {
+                        this.toastr.error(err.message);
+                    } else {
+                        this.toastr.error('An unexpected error occurred.', 'Error');
+                    }
                 }
             });
     }

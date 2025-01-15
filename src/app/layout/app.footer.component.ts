@@ -9,5 +9,5 @@ export class AppFooterComponent {
     constructor(public layoutService: LayoutService) { }
 
     currentYear: number = new Date().getFullYear();
-    appTitle: string = 'Kares Investments';
+    appTitle = 'Kares Investments';
 }

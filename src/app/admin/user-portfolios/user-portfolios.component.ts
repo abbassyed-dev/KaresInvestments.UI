@@ -13,10 +13,10 @@ export class UserPortfoliosComponent implements OnInit {
 
     userPortfolios: UserPortfolio[];
     userPortfolio: UserPortfolio = {} as UserPortfolio;
-    userPortfolioDialog: boolean = false;
-    submitted: boolean = false;
+    userPortfolioDialog = false;
+    submitted = false;
     lookupData: any;
-    isEditMode: boolean = false;
+    isEditMode = false;
 
     constructor(private dataService: UserPortfolioService,
         private authStateService: AuthStateService) { }

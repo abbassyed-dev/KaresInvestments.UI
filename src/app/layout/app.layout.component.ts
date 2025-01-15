@@ -8,17 +8,19 @@ import { MessageService } from 'primeng/api';
 import { User } from '../models/user.model';
 import { AuthStateService } from '../shared/services/auth-state.service';
 import { ToastrService } from 'ngx-toastr';
+import { LoginResponseDto } from '../models/login-response.model';
 
 @Component({
     selector: 'app-layout',
-    templateUrl: './app.layout.component.html'
+    templateUrl: './app.layout.component.html',
+    styleUrls: ['./app.layout.component.scss']
 })
 export class AppLayoutComponent implements OnDestroy {
 
-    user: User | undefined = this.authStateService.getUser();
+    user: LoginResponseDto | undefined = this.authStateService.getUser();
 
-    showChangePasswordDialog: boolean = false;
-    showUserProfileDialog: boolean = false;
+    showChangePasswordDialog = false;
+    showUserProfileDialog = false;
 
     overlayMenuOpenSubscription: Subscription;
 
@@ -31,6 +33,7 @@ export class AppLayoutComponent implements OnDestroy {
     @ViewChild(AppTopBarComponent) appTopbar!: AppTopBarComponent;
 
     loggedInUserName: string;
+    passwordNote = "Note: Your default password is currently in use. We recommend changing it immediately.";
 
     constructor(public layoutService: LayoutService, public renderer: Renderer2,
         public router: Router, private toastr: ToastrService,
@@ -70,6 +73,9 @@ export class AppLayoutComponent implements OnDestroy {
             });
 
         this.loggedInUserName = this.user?.lastName + " " + this.user?.firstName;
+        if (!this.user?.defaultPasswordChanged) {
+            this.showChangePasswordDialog = true;
+        }
     }
 
     hideMenu() {

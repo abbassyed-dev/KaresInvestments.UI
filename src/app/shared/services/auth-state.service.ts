@@ -1,31 +1,31 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { User } from '../../models/user.model';
 import { CookieService } from 'ngx-cookie-service';
+import { LoginResponseDto } from '../../models/login-response.model';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthStateService {
 
-    $user = new BehaviorSubject<User | undefined>(undefined);
+    $user = new BehaviorSubject<LoginResponseDto | undefined>(undefined);
 
     constructor(private cookieService: CookieService) { }
 
-    setUser(user: User): void {
+    setUser(user: LoginResponseDto): void {
         this.$user.next(user);
         localStorage.setItem('userDetails', JSON.stringify(user));
     }
 
-    user(): Observable<User | undefined> {
+    user(): Observable<LoginResponseDto | undefined> {
         return this.$user.asObservable();
     }
 
-    getUser(): User | undefined {
+    getUser(): LoginResponseDto | undefined {
         const userDetails = localStorage.getItem('userDetails');
 
         if (userDetails) {
-            const user: User = JSON.parse(userDetails);
+            const user: LoginResponseDto = JSON.parse(userDetails);
             return user;
         }
         return undefined;
@@ -41,7 +41,7 @@ export class AuthStateService {
         const userDetails = localStorage.getItem('userDetails');
 
         if (userDetails) {
-            const user: User = JSON.parse(userDetails);
+            const user: LoginResponseDto = JSON.parse(userDetails);
             return user.email;
         }
         return undefined;
@@ -51,7 +51,7 @@ export class AuthStateService {
         const userDetails = localStorage.getItem('userDetails');
 
         if (userDetails) {
-            const user: User = JSON.parse(userDetails);
+            const user: LoginResponseDto = JSON.parse(userDetails);
             return user.lastName + " " + user.firstName;
         }
         return undefined;
@@ -61,20 +61,41 @@ export class AuthStateService {
         const userDetails = localStorage.getItem('userDetails');
 
         if (userDetails) {
-            const user: User = JSON.parse(userDetails);
+            const user: LoginResponseDto = JSON.parse(userDetails);
             return user.userId;
         }
         return undefined;
     }
 
-    getLoggedInUserProperty<T extends keyof User>(property: T): User[T] | undefined {
+    getLoggedInUserProperty<T extends keyof LoginResponseDto>(property: T): LoginResponseDto[T] | undefined {
         const userDetails = localStorage.getItem('userDetails');
 
         if (userDetails) {
-            const user: User = JSON.parse(userDetails);
+            const user: LoginResponseDto = JSON.parse(userDetails);
             return user[property];
         }
         return undefined;
     }
+
+    updateUserName(firstName: string, lastName: string): void {
+
+        // Get the existing user details from localStorage
+        const userDetails = localStorage.getItem('userDetails');
+
+        if (userDetails) {
+            // Parse the existing user data
+            const user: LoginResponseDto = JSON.parse(userDetails);
+
+            // Update the username or any other property
+            user.firstName = firstName;
+            user.lastName = lastName;
+            this.setUser(user);
+            console.log("Updated");
+            // Store the updated user object back into localStorage
+            //localStorage.setItem('userDetails', JSON.stringify(userDetails));
+        }
+    }
+
+
 
 }

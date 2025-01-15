@@ -8,6 +8,6 @@ export class UserDashboardService {
     constructor(private http: HttpClient) { }
 
     getUserTransactions(userId: string) {
-        return this.http.get(`${environment.apiBaseUrl}/api/UserTransaction`);
+        return this.http.get(`${environment.apiBaseUrl}/api/UserTransaction/${userId}`);
     }
 }

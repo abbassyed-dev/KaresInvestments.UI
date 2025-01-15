@@ -13,7 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 export class RegisterComponent {
 
   model: UserInterest;
-  registrationConfirmation: boolean = false;
+  registrationConfirmation = false;
 
   constructor(private dataService: RegisterService,
     private router: Router, private toastr: ToastrService

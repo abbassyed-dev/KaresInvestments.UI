@@ -1,20 +1,21 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { AuthStateService } from '../services/auth-state.service';
 import { UsersService } from '../../admin/users/users.service';
 import { User } from '../../models/user.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
+import { LoginResponseDto } from '../../models/login-response.model';
 
 @Component({
     selector: 'app-user-profile',
     templateUrl: './user-profile.component.html',
     styleUrls: ['./user-profile.component.scss']
 })
-export class UserProfileComponent {
+export class UserProfileComponent implements OnInit {
 
     @Output() closeUserProfileDialog = new EventEmitter<boolean>();
 
-    userFromState: User | undefined = this.authStateService.getUser();
+    userFromState: LoginResponseDto | undefined = this.authStateService.getUser();
 
     userProfile: User;
 
@@ -57,7 +58,7 @@ export class UserProfileComponent {
     //     }
     // }
 
-    updateDetails(form: any) {
+    updateDetails() {
         if (this.userFromState?.userId) {
             console.log("********Updating User***********", this.userProfile);
             this.userProfile.zipCode = this.userProfile.zipCode.toString();
@@ -65,8 +66,9 @@ export class UserProfileComponent {
             this.userProfile.isAdmin = this.userFromState.isAdmin;
             this.userProfile.remarks = this.userProfile.createdBy + " updated his profile."
             this.userService.updateUser(this.userFromState.userId, this.userProfile).subscribe({
-                next: (response) => {
+                next: (response: any) => {
                     console.log(response);
+                    this.authStateService.updateUserName(response.firstName, response.lastName);
                     this.toastr.success("Profile Updated");
                     this.closeUserProfileDialog.emit(true);
                 },

@@ -1,9 +1,4 @@
-import { Component } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { Product } from '../api/product';
-import { debounceTime, Subscription } from 'rxjs';
-import { ProductService } from '../service/product.service';
-import { LayoutService } from '../layout/service/app.layout.service';
+import { Component, OnInit } from '@angular/core';
 import { UserTransaction } from '../models/user-transaction.model';
 import { AuthStateService } from '../shared/services/auth-state.service';
 import { ToastrService } from 'ngx-toastr';
@@ -14,10 +9,10 @@ import { UserDashboardService } from './user-dashboard.service';
   templateUrl: './user-dashboard.component.html',
   styleUrl: './user-dashboard.component.scss'
 })
-export class UserDashboardComponent {
+export class UserDashboardComponent implements OnInit {
 
   userTransactions: UserTransaction[];
-  userName: string = '';
+  userName = '';
   userId: string | undefined = '';
 
   constructor(private authStateService: AuthStateService, private toastr: ToastrService,

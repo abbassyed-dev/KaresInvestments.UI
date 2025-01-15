@@ -12,7 +12,7 @@ export class UserInterestsComponent implements OnInit {
 
     userInterests: UserInterest[];
 
-    clonedUserInterest: { [s: string]: UserInterest } = {};
+    clonedUserInterest: Record<string, UserInterest> = {};
 
     constructor(private dataService: UserInterestService) {
 

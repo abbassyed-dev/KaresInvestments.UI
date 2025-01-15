@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { LayoutService } from "./service/app.layout.service";
 
@@ -7,11 +7,11 @@ import { LayoutService } from "./service/app.layout.service";
     templateUrl: './app.topbar.component.html',
     styleUrls: ['./app.toolbar.component.scss']
 })
-export class AppTopBarComponent {
+export class AppTopBarComponent implements OnInit {
 
     items: MenuItem[];
 
-    @Input("userName") userName: string;
+    @Input() userName: string;
 
     @ViewChild('menubutton') menuButton!: ElementRef;
 

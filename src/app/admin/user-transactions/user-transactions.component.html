@@ -48,8 +48,8 @@
 </div>
 
 <form #transactionForm="ngForm" (ngSubmit)="saveTransaction(transactionForm)">
-    <p-dialog [(visible)]="userTransactionDialog" [style]="{ width: '550px' }" header="Add User" [modal]="true"
-        styleClass="p-fluid">
+    <p-dialog [(visible)]="userTransactionDialog" [style]="{ width: '40vw' }" header="Add/Edit User Transaction"
+        [modal]="true" styleClass="p-fluid">
         <ng-template pTemplate="content">
             <div class="field">
                 <label for="user">User</label>

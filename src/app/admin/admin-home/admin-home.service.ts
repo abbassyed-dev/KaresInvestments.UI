@@ -16,4 +16,8 @@ export class AdminHomeService {
     getAdminDashboardGraphData() {
         return this.http.get<DashboardStats>(`${environment.apiBaseUrl}/api/AdminDashboard/user-transactions-graph`);
     }
+
+    getAdminDashboardPieChartData() {
+        return this.http.get<DashboardStats>(`${environment.apiBaseUrl}/api/AdminDashboard/inv-port-dist`);
+    }
 }

@@ -14,6 +14,7 @@ export class AdminHomeComponent implements OnInit {
     Highcharts = Highcharts;
     updateFlag = false;
     chartOptions: any;
+    pieChartOptions: any;
     dashboardStats: DashboardStats | null = null;
     errorMessage: string | null = null;
     transactionsGraphData: GraphData[] = [];
@@ -28,6 +29,7 @@ export class AdminHomeComponent implements OnInit {
     ngOnInit() {
         this.getAdminDashboardData();
         this.getAdminDashboardGraphData();
+        this.getAdminDashboardPieChartData();
 
         this.chartOptions = {
             chart: {
@@ -68,6 +70,36 @@ export class AdminHomeComponent implements OnInit {
                 shared: true
             }
         };
+
+        // Define Highcharts options
+        this.pieChartOptions = {
+            chart: {
+                type: 'pie'
+            },
+            title: {
+                text: 'Investment Distribution by Portfolio'
+            },
+            tooltip: {
+                pointFormat: '<b>{point.name}</b>: {point.y} ({point.percentage:.1f}%)'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false,
+                        format: '{point.name}: {point.y}'
+                    }
+                }
+            },
+            series: [
+                {
+                    type: 'pie',
+                    name: 'Investments',
+                    data: []
+                }
+            ]
+        };
     }
 
     getAdminDashboardData() {
@@ -86,18 +118,34 @@ export class AdminHomeComponent implements OnInit {
     getAdminDashboardGraphData(): void {
         this.dataService.getAdminDashboardGraphData().subscribe({
             next: (data: any) => {
-                this.transactionsGraphData = data.transactions; // Data for transactions
-                this.usersGraphData = data.users; // Data for users
+                this.transactionsGraphData = data.transactionsGraphData; // Data for transactions
+                this.usersGraphData = data.usersGraphData; // Data for users
                 const categories = this.transactionsGraphData.map(item => item.xAxis);
                 const usersData = this.usersGraphData.map(item => item.yAxisValue);
                 const transactionsData = this.transactionsGraphData.map(item => item.yAxisValue);
-                console.log(usersData);
-                console.log(categories);
-                console.log(transactionsData);
                 // Update chart options
                 this.chartOptions.xAxis.categories = categories;
                 this.chartOptions.series[0].data = usersData;
                 this.chartOptions.series[1].data = transactionsData;
+                this.updateFlag = true;
+            },
+            error: (error) => {
+                console.error('Error fetching data:', error);
+            },
+        });
+    }
+
+    getAdminDashboardPieChartData(): void {
+        this.dataService.getAdminDashboardPieChartData().subscribe({
+            next: (data: any) => {
+                console.log(data);
+                const chartData = data.map((item: any) => ({
+                    name: item.portfolioName,
+                    y: item.amount
+                }));
+                console.log('chartData', chartData);
+                // Update chart options
+                this.pieChartOptions.series[0].data = chartData;
                 this.updateFlag = true;
             },
             error: (error) => {

@@ -15,7 +15,7 @@
         <!-- Table -->
         <div *ngIf="filteredUsers.length > 0; else noData">
             <p-table [value]="filteredUsers" selectionMode="single" [(selection)]="selectedUserObj"
-                (onRowSelect)="onUserSelected($event)">
+                (onRowSelect)="onUserSelected($event)" [paginator]="true" [rows]="10" responsiveLayout="scroll">
                 <ng-template pTemplate="header">
                     <tr>
                         <th>First Name</th>

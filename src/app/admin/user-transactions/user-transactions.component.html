@@ -51,14 +51,14 @@
     <p-dialog [(visible)]="userTransactionDialog" [style]="{ width: '40vw' }" header="Add/Edit User Transaction"
         [modal]="true" styleClass="p-fluid">
         <ng-template pTemplate="content">
-            <div class="field">
-                <label for="user">User</label>
-                <app-user-dropdown id="user" name="user" (emitSelectedUser)="setUserDetails($event)"
-                    *ngIf="!isEditMode"></app-user-dropdown>
-                <input type="text" pInputText id="user" name="user" [ngModel]="userTransaction.userName"
-                    *ngIf="isEditMode" disabled />
-            </div>
             <div class="formgrid grid mb-2">
+                <div class="field col">
+                    <label for="user">User</label>
+                    <app-user-dropdown id="user" name="user" (emitSelectedUser)="setUserDetails($event)"
+                        *ngIf="!isEditMode"></app-user-dropdown>
+                    <input type="text" pInputText id="user" name="user" [ngModel]="userTransaction.userName"
+                        *ngIf="isEditMode" disabled />
+                </div>
                 <div class="field col">
                     <label for="userPortfolioId">User Portfolios</label>
                     <p-dropdown [options]="lookupData.userPortfolios" name="userPortfolioId"

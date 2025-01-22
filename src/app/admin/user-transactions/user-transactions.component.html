@@ -93,8 +93,9 @@
                 </div>
                 <div class="field col">
                     <label for="amount">Amount</label>
-                    <p-inputNumber [(ngModel)]="userTransaction.amount" name="amount" mode="currency" inputId="amount"
-                        currency="USD" currencyDisplay="code" locale="en-US" />
+                    <!-- <p-inputNumber [(ngModel)]="userTransaction.amount" name="amount" mode="currency" inputId="amount"
+                        currency="USD" currencyDisplay="code" locale="en-US" /> -->
+                    <p-inputNumber [(ngModel)]="userTransaction.amount" inputId="amount" name="amount" prefix="$" />
                 </div>
             </div>
             <div class="field">

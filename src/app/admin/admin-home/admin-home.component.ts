@@ -33,37 +33,38 @@ export class AdminHomeComponent implements OnInit {
 
         this.chartOptions = {
             chart: {
-                type: 'line'
+                type: 'column'
             },
             title: {
-                text: 'Users vs Transactions'
+                text: 'Users & Transactions Trend'
             },
             xAxis: {
                 categories: ['as', 'bc', 'de']
             },
             yAxis: [
                 {
-                    title: { text: 'Users' },
-                    opposite: false
+                    min: 0,
+                    title: { text: '' },
+                    // opposite: false
                 },
-                {
-                    title: { text: 'Transactions' },
-                    opposite: true,
-                    min: 0
-                }
+                // {
+                //     title: { text: 'Transactions' },
+                //     opposite: true,
+                //     min: 0
+                // }
             ],
             series: [
                 {
                     name: 'Users',
-                    type: 'line',
+                    type: 'column',
                     // data: [1, 2, 3],
-                    yAxis: 0
+                    // yAxis: 0
                 },
                 {
                     name: 'Transactions',
                     type: 'column',
                     // data: [1, 2, 3],
-                    yAxis: 1
+                    // yAxis: 1
                 }
             ],
             tooltip: {

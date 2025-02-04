@@ -1,3 +1,31 @@
+<div class="row">
+    <div class="col-3">
+        <div class="input-group">
+            <label class="input-label" for="userContext">User:</label>
+            <app-user-dropdown id="userContext" name="userContext" [userIdFromContext]="userFromContext.userId"
+                (emitSelectedUser)="setUserDetails($event)"></app-user-dropdown>
+        </div>
+    </div>
+    <div class="col-9" *ngIf="userFromContext.userId">
+        <div class="radio-button-group">
+            <label class="group-label">Portfolios:</label>
+            <div class="radio-button-list">
+                <p-radioButton name="category" [value]="0" [(ngModel)]="selectedPortfolio" [label]="'ALL'"
+                    (onClick)="fetchUserTransactions(0)">
+                </p-radioButton>
+                <p-radioButton *ngFor="let portfolio of userPortfolios" name="category" [value]="portfolio.portfolioId"
+                    [(ngModel)]="selectedPortfolio" [label]="portfolio.portfolioName"
+                    (onClick)="fetchUserTransactions(portfolio.portfolioId)">
+                </p-radioButton>
+            </div>
+        </div>
+        <!-- <div class="radio-button-list">
+            <p-radioButton *ngFor="let category of categories" name="category" [value]="category.key"
+                [(ngModel)]="selectedCategory" [label]="category.name">
+            </p-radioButton>
+        </div> -->
+    </div>
+</div>
 <div class="col-12">
     <div class="card">
         <p-table #userTransactionsGrid [value]="userTransactions" [paginator]="true" [rows]="10"
@@ -35,7 +63,7 @@
                     <td>{{transaction.email}}</td>
                     <td>{{transaction.amount}}</td>
                     <td>{{transaction.portfolioName}}</td>
-                    <td>{{transaction.transactionDate | date: 'dd/MM/yyyy'}}</td>
+                    <td>{{transaction.transactionDate | date: 'MM/dd/yyyy'}}</td>
                     <td>{{transaction.transactionType}}</td>
                     <td>{{transaction.transactionCategory}}</td>
                     <td>{{transaction.paymentMode}}</td>

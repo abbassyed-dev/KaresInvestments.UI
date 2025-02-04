@@ -4,6 +4,7 @@ import { AdminHomeService } from './admin-home.service';
 import { DashboardStats } from '../../models/dashboard-stats.model';
 import * as Highcharts from 'highcharts';
 import { GraphData } from '../../models/graph-data.model';
+import { mergeMap, tap } from 'rxjs';
 
 @Component({
     selector: 'app-admin-home',
@@ -12,7 +13,8 @@ import { GraphData } from '../../models/graph-data.model';
 })
 export class AdminHomeComponent implements OnInit {
     Highcharts = Highcharts;
-    updateFlag = false;
+    updateColumnChartFlag = false;
+    updatePieChartFlag = false;
     chartOptions: any;
     pieChartOptions: any;
     dashboardStats: DashboardStats | null = null;
@@ -27,9 +29,10 @@ export class AdminHomeComponent implements OnInit {
     userName = `${this.authStateService.getLoggedInUserProperty('lastName')} ${this.authStateService.getLoggedInUserProperty('firstName')}`;
 
     ngOnInit() {
-        this.getAdminDashboardData();
-        this.getAdminDashboardGraphData();
-        this.getAdminDashboardPieChartData();
+        this.loadDashboardDataSequentially();
+        // this.getAdminDashboardData();
+        // this.getAdminDashboardGraphData();
+        // this.getAdminDashboardPieChartData();
 
         this.chartOptions = {
             chart: {
@@ -103,55 +106,100 @@ export class AdminHomeComponent implements OnInit {
         };
     }
 
-    getAdminDashboardData() {
-        this.dataService.getAdminDashboardStats().subscribe({
-            next: (data) => {
-                this.dashboardStats = data;
-                this.errorMessage = null;
-            },
-            error: (err) => {
-                console.error('Error fetching user statistics', err);
-                this.errorMessage = 'Failed to load dashboard statistics';
-            },
-        });
+    // getAdminDashboardData() {
+    //     this.dataService.getAdminDashboardStats().subscribe({
+    //         next: (data) => {
+    //             this.dashboardStats = data;
+    //             this.errorMessage = null;
+    //         },
+    //         error: (err) => {
+    //             console.error('Error fetching user statistics', err);
+    //             this.errorMessage = 'Failed to load dashboard statistics';
+    //         },
+    //     });
+    // }
+
+    // getAdminDashboardGraphData(): void {
+    //     this.dataService.getAdminDashboardGraphData().subscribe({
+    //         next: (data: any) => {
+    //             this.transactionsGraphData = data.transactionsGraphData; // Data for transactions
+    //             this.usersGraphData = data.usersGraphData; // Data for users
+    //             const categories = this.transactionsGraphData.map(item => item.xAxis);
+    //             const usersData = this.usersGraphData.map(item => item.yAxisValue);
+    //             const transactionsData = this.transactionsGraphData.map(item => item.yAxisValue);
+    //             // Update chart options
+    //             this.chartOptions.xAxis.categories = categories;
+    //             this.chartOptions.series[0].data = usersData;
+    //             this.chartOptions.series[1].data = transactionsData;
+    //             this.updateFlag = true;
+    //         },
+    //         error: (error) => {
+    //             console.error('Error fetching data:', error);
+    //         },
+    //     });
+    // }
+
+    // getAdminDashboardPieChartData(): void {
+    //     this.dataService.getAdminDashboardPieChartData().subscribe({
+    //         next: (data: any) => {
+    //             console.log(data);
+    //             const chartData = data.map((item: any) => ({
+    //                 name: item.portfolioName,
+    //                 y: item.amount
+    //             }));
+    //             console.log('chartData', chartData);
+    //             // Update chart options
+    //             this.pieChartOptions.series[0].data = chartData;
+    //             this.updateFlag = true;
+    //         },
+    //         error: (error) => {
+    //             console.error('Error fetching data:', error);
+    //         },
+    //     });
+    // }
+
+    loadDashboardDataSequentially(): void {
+        this.dataService.getAdminDashboardStats()
+            .pipe(
+                tap((data) => this.handleDashboardStats(data)),
+                mergeMap(() => this.dataService.getAdminDashboardGraphData().pipe(
+                    tap((data) => this.handleGraphData(data))
+                )),
+                mergeMap(() => this.dataService.getAdminDashboardPieChartData().pipe(
+                    tap((data) => this.handlePieChartData(data))
+                ))
+            )
+            .subscribe({
+                next: () => console.log('All dashboard data loaded successfully'),
+                error: (error) => {
+                    console.error('Error during dashboard data loading:', error);
+                    // No need for specific handling here since it's done in the interceptor
+                },
+            });
     }
 
-    getAdminDashboardGraphData(): void {
-        this.dataService.getAdminDashboardGraphData().subscribe({
-            next: (data: any) => {
-                this.transactionsGraphData = data.transactionsGraphData; // Data for transactions
-                this.usersGraphData = data.usersGraphData; // Data for users
-                const categories = this.transactionsGraphData.map(item => item.xAxis);
-                const usersData = this.usersGraphData.map(item => item.yAxisValue);
-                const transactionsData = this.transactionsGraphData.map(item => item.yAxisValue);
-                // Update chart options
-                this.chartOptions.xAxis.categories = categories;
-                this.chartOptions.series[0].data = usersData;
-                this.chartOptions.series[1].data = transactionsData;
-                this.updateFlag = true;
-            },
-            error: (error) => {
-                console.error('Error fetching data:', error);
-            },
-        });
+    handleDashboardStats(data: any) {
+        this.dashboardStats = data;
+        this.errorMessage = null;
     }
 
-    getAdminDashboardPieChartData(): void {
-        this.dataService.getAdminDashboardPieChartData().subscribe({
-            next: (data: any) => {
-                console.log(data);
-                const chartData = data.map((item: any) => ({
-                    name: item.portfolioName,
-                    y: item.amount
-                }));
-                console.log('chartData', chartData);
-                // Update chart options
-                this.pieChartOptions.series[0].data = chartData;
-                this.updateFlag = true;
-            },
-            error: (error) => {
-                console.error('Error fetching data:', error);
-            },
-        });
+    handleGraphData(data: any) {
+        const categories = data.transactionsGraphData.map((item: any) => item.xAxis);
+        const usersData = data.usersGraphData.map((item: any) => item.yAxisValue);
+        const transactionsData = data.transactionsGraphData.map((item: any) => item.yAxisValue);
+
+        this.chartOptions.xAxis.categories = categories;
+        this.chartOptions.series[0].data = usersData;
+        this.chartOptions.series[1].data = transactionsData;
+        this.updateColumnChartFlag = true;
+    }
+
+    handlePieChartData(data: any) {
+        const chartData = data.map((item: any) => ({
+            name: item.portfolioName,
+            y: item.amount,
+        }));
+        this.pieChartOptions.series[0].data = chartData;
+        this.updatePieChartFlag = true;
     }
 }

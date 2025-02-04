@@ -33,8 +33,8 @@ export class UsersService {
         return this.http.post<any>(`${environment.apiBaseUrl}/api/User/changePassword`, payload);
     }
 
-    getUserById(id: string) {
-        return this.http.get(`${environment.apiBaseUrl}/api/User/${id}`);
+    getUserById(userId: string) {
+        return this.http.get(`${environment.apiBaseUrl}/api/User/${userId}`);
     }
 
     // Function to convert date to UTC and format it in 'yyyy-MM-dd' format
@@ -46,4 +46,7 @@ export class UsersService {
         return this.datePipe.transform(utcDate, 'yyyy-MM-dd');
     }
 
+    deleteUser(id: string) {
+        return this.http.delete(`${environment.apiBaseUrl}/api/User/${id}`);
+    }
 }

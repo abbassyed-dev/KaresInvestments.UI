@@ -22,9 +22,8 @@ import { LoginResponseDto } from '../models/login-response.model';
 })
 export class LoginComponent {
 
-    email = ''
-    password = ''
-    isSubmitting = false
+    email = '';
+    password = '';
 
     constructor(public layoutService: LayoutService, public loginService: LoginService,
         private cookieService: CookieService, private router: Router,

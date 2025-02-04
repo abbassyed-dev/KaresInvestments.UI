@@ -13,6 +13,7 @@ import { LoginResponseDto } from '../../models/login-response.model';
 })
 export class ChangePasswordComponent {
     password = '';
+    oldPassword = '';
     confirmPassword = '';
     passwordMismatch = false;
 
@@ -26,11 +27,10 @@ export class ChangePasswordComponent {
 
     onSubmit() {
         if (this.password === this.confirmPassword) {
-
-
             const payload = {
                 email: this.user?.email,
-                password: this.password
+                currentPassword: this.oldPassword,
+                newPassword: this.password
             }
             this.userService.changePassword(payload).subscribe({
                 next: (response) => {

@@ -26,9 +26,13 @@ import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
+import { TooltipModule } from 'primeng/tooltip';
+import { PanelModule } from 'primeng/panel';
+import { CardModule } from 'primeng/card';
 
 const PrimeNgModules = [
     CalendarModule,
+    CardModule,
     ConfirmDialogModule,
     ToolbarModule,
     IconFieldModule,
@@ -38,6 +42,7 @@ const PrimeNgModules = [
     InputNumberModule,
     DropdownModule,
     InputTextModule,
+    TooltipModule,
     // IconField,
     // InputIcon,
     SidebarModule,
@@ -51,6 +56,7 @@ const PrimeNgModules = [
     TableModule,
     ButtonModule,
     StyleClassModule,
+    PanelModule,
     PanelMenuModule,
     PasswordModule,
     DividerModule,

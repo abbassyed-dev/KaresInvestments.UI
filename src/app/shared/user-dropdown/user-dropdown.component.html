@@ -1,5 +1,6 @@
 <div class="custom-dropdown">
-    <input type="text" id="selectedUser" [(ngModel)]="selectedUser.userName" readonly placeholder="Select a user" />
+    <input type="text" id="selectedUser" [(ngModel)]="selectedUser.userName" readonly placeholder="Select a user"
+        (click)="openUserDialog()" />
     <button pButton type="button" icon="pi pi-search" (click)="openUserDialog()"></button>
 </div>
 

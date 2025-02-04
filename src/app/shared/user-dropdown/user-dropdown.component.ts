@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { User } from '../../models/user.model';
@@ -17,6 +17,8 @@ export class UserDropdownComponent implements OnInit {
     selectedUser: any = {};
     @Output() emitSelectedUser = new EventEmitter<any>();
 
+    @Input() userIdFromContext = '';
+
     constructor(private http: HttpClient) { }
 
     ngOnInit(): void {
@@ -28,12 +30,19 @@ export class UserDropdownComponent implements OnInit {
     //'https://localhost:7109/api/User/lov' 
 
     fetchUsers() {
+        console.log('From dropdown', this.userIdFromContext);
         const apiUrl = environment.apiBaseUrl + '/api/User/lov';
-        //const apiUrl = 'https://api.example.com/users'; // Replace with your API endpoint
-        this.http.get<any[]>(apiUrl).subscribe(
+        this.http.get<User[]>(apiUrl).subscribe(
             (data) => {
                 this.users = data;
                 this.filteredUsers = [...this.users]; // Initialize filtered users
+                console.log(this.users);
+
+                if (this.userIdFromContext) {
+                    const userContextSearch = this.users.filter(user => user.userId === this.userIdFromContext);
+                    this.selectedUserObj = userContextSearch.length > 0 ? userContextSearch[0] : null;
+                    this.onUserSelected(null);
+                }
             },
             (error) => {
                 console.error('Error fetching users:', error);

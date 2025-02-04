@@ -17,7 +17,7 @@
             <td>{{ userInterest.email }}</td>
             <td>{{ userInterest.mobileNum }}</td>
             <td>{{ userInterest.remarks }}</td>
-            <td>{{ userInterest.reqSubmittedOn | date: 'dd/MM/yyyy' }}</td>
+            <td>{{ userInterest.reqSubmittedOn | date: 'MM/dd/yyyy' }}</td>
             <td>
                 <p-cellEditor>
                     <ng-template pTemplate="input">
@@ -31,14 +31,22 @@
             <td>
                 <div class="flex align-items-center justify-content-center gap-2">
                     <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil"
-                        (click)="onRowEditInit(userInterest)" class="p-button-rounded p-button-text">
+                        (click)="onRowEditInit(userInterest)" class="p-button-rounded p-button-text" pTooltip="Edit">
+                    </button>
+                    <button *ngIf="!editing" pButton pRipple type="button" icon="pi pi-user-plus"
+                        (click)="addNewUser(userInterest)" pTooltip="Create User"
+                        class="p-button-rounded p-button-text p-button-success">
+                    </button>
+                    <button *ngIf="!editing" pButton pRipple type="button" icon="pi pi-trash"
+                        (click)="deleteUserInterest(userInterest)" pTooltip="Delete"
+                        class="p-button-rounded p-button-text p-button-danger">
                     </button>
                     <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check"
-                        (click)="onRowEditSave(userInterest)"
+                        (click)="onRowEditSave(userInterest)" pTooltip="Save"
                         class="p-button-rounded p-button-text p-button-success mr-2">
                     </button>
                     <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times"
-                        (click)="onRowEditCancel(userInterest, ri)"
+                        (click)="onRowEditCancel(userInterest, ri)" pTooltip="Cancel"
                         class="p-button-rounded p-button-text p-button-danger">
                     </button>
                 </div>
@@ -46,3 +54,110 @@
         </tr>
     </ng-template>
 </p-table>
+
+<form #userForm="ngForm" (ngSubmit)="saveUser(userForm)">
+    <p-dialog [(visible)]="userDialog" [style]="{ width: '550px' }" header="Add User" [modal]="true"
+        styleClass="p-fluid">
+        <ng-template pTemplate="content">
+
+            <div class="formgrid grid mb-2">
+                <div class="field col">
+                    <label for="firstName">First Name</label>
+                    <input type="text" pInputText id="firstName" name="firstName" [(ngModel)]="newUser.firstName"
+                        #fName="ngModel" required />
+                    <div *ngIf="fName.invalid && fName.touched" class="text-danger">
+                        <small>First Name is required.</small>
+                    </div>
+                </div>
+                <div class="field col">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" pInputText id="lastName" name="lastName" [(ngModel)]="newUser.lastName"
+                        #lName="ngModel" required />
+                    <div *ngIf="lName.invalid && lName.touched" class="text-danger">
+                        <small>Last Name is required.</small>
+                    </div>
+                </div>
+            </div>
+            <div class="formgrid grid mb-2">
+                <div class="field col">
+                    <label for="dateOfBirth">Date Of Birth</label>
+                    <p-calendar id="dateOfBirth" name="dateOfBirth" [(ngModel)]="newUser.dateOfBirth" [showIcon]="true"
+                        [showOnFocus]="true" inputId="buttondisplay" #dateOfBirth="ngModel" required
+                        dateFormat="mm/dd/yy" [showTime]="false" [dataType]="'date'" />
+                    <div *ngIf="dateOfBirth.invalid && dateOfBirth.touched" class="text-danger">
+                        <small>Date Of Birth is required.</small>
+                    </div>
+                </div>
+                <div class="field col">
+                    <label for="phoneNo">Mobile #</label>
+                    <input type="text" pInputText id="phoneNo" name="phoneNo" [(ngModel)]="newUser.phoneNo" required
+                        #phoneNo="ngModel" pattern="^\d{10}$" />
+                    <div *ngIf="phoneNo.invalid && phoneNo.touched" class="text-danger">
+                        <small>Mobile # is required and must be 10-digit number.</small>
+                    </div>
+                </div>
+            </div>
+            <div class="formgrid grid mb-2">
+                <div class="field col">
+                    <label for="email">Email</label>
+                    <input type="text" email pInputText id="email" name="email" [(ngModel)]="newUser.email"
+                        #email="ngModel" required />
+                    <div *ngIf="email.invalid && email.touched" class="text-danger">
+                        <small>Email is required & must be valid</small>
+                    </div>
+                </div>
+                <!-- <div class="field col">
+                    <label for="userName">Username</label>
+                    <input type="text" pInputText name="userName" [disabled]="true" [(ngModel)]="newUser.email" />
+                </div> -->
+            </div>
+            <div class="formgrid grid mb-2">
+                <div class="field col">
+                    <label for="addressLine1">Address Line 1</label>
+                    <input type="text" pInputText id="addressLine1" name="addressLine1"
+                        [(ngModel)]="newUser.addressLine1" />
+                </div>
+                <div class="field col">
+                    <label for="addressLine2">Address Line 2</label>
+                    <input type="text" pInputText id="addressLine2" name="addressLine2"
+                        [(ngModel)]="newUser.addressLine2" />
+                </div>
+            </div>
+            <div class="formgrid grid mb-2">
+                <div class="field col">
+                    <label for="city">City</label>
+                    <input type="text" pInputText id="city" name="city" [(ngModel)]="newUser.city" />
+                </div>
+                <div class="field col">
+                    <label for="state">State</label>
+                    <input type="text" pInputText id="state" name="state" [(ngModel)]="newUser.state" />
+                </div>
+            </div>
+
+            <div class="formgrid grid mb-2">
+                <div class="field col">
+                    <label for="country">Country</label>
+                    <input type="text" pInputText id="country" name="country" [(ngModel)]="newUser.country" />
+                </div>
+                <div class="field col">
+                    <label for="zipCode">Zip Code</label>
+                    <p-inputNumber id="zipCode" name="zipCode" [useGrouping]="false" [(ngModel)]="newUser.zipCode" />
+                </div>
+            </div>
+
+            <div class="field">
+                <label for="remarks">Remarks</label>
+                <textarea id="remarks" name="remarks" pInputTextarea [(ngModel)]="newUser.remarks" required rows="3"
+                    cols="20">
+                </textarea>
+            </div>
+
+        </ng-template>
+
+        <ng-template pTemplate="footer">
+            <p-button label="Cancel" icon="pi pi-times" [text]="true" (onClick)="closeNewUserDialog()" />
+            <p-button label="Save" icon="pi pi-check" [disabled]="userForm.invalid" (onClick)="saveUser(userForm)" />
+        </ng-template>
+
+    </p-dialog>
+</form>

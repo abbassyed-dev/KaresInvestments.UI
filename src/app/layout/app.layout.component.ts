@@ -153,11 +153,11 @@ export class AppLayoutComponent implements OnDestroy {
     }
 
     closeChangePasswordDialogHandler(evt: boolean) {
-        this.toastr.success("Please login with new password", "Password Changed Successfully");
+        // this.toastr.success("Please login with new password", "Password Changed Successfully");
         // ! is for hiding the dialog as it returns True from child component
         this.showChangePasswordDialog = !evt;
-        this.authStateService.logout();
-        this.router.navigate(['/login']);
+        // this.authStateService.logout();
+        // this.router.navigate(['/kares/login']);
     }
 
     closeUserProfileDialogHandler(evt: boolean) {

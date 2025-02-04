@@ -28,4 +28,8 @@ export class UserTransactionsService {
     getUserPortfolios(userId: string) {
         return this.http.get(`${environment.apiBaseUrl}/api/UserPortfolio/${userId}`);
     }
+
+    getAllTransactionsByUser(userId: string, selectedPortfolio: number) {
+        return this.http.get(`${environment.apiBaseUrl}/api/UserTransaction/${userId}/${selectedPortfolio}`);
+    }
 }

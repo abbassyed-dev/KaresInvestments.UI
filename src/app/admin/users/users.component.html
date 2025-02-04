@@ -39,14 +39,22 @@
                 <tr>
                     <td>{{user.firstName}}</td>
                     <td>{{user.lastName}}</td>
-                    <td>{{user.dateOfBirth | date: 'dd/MM/yyyy'}}</td>
+                    <td>{{user.dateOfBirth | date: 'MM/dd/yyyy'}}</td>
                     <td>{{user.email}}</td>
                     <td>{{user.phoneNo}}</td>
                     <td>{{user.city}}</td>
                     <td>{{user.country}}</td>
                     <td>{{user.userName}}</td>
-                    <td><p-button icon="pi pi-user-edit" class="mr-2" [rounded]="true" [outlined]="true"
-                            severity="success" (onClick)="editUser(user)" /></td>
+                    <td>
+                        <p-button icon="pi pi-user-edit" class="mr-2" [rounded]="true" [outlined]="true"
+                            severity="success" (onClick)="editUser(user)" />
+                        <p-button icon="pi pi-list-check" class="mr-2" [rounded]="true" [outlined]="true"
+                            *ngIf="fetchAdmins==='N'" pTooltip="View Transactions" severity="success"
+                            (onClick)="viewTransactions(user)" />
+                        <button pButton pRipple type="button" icon="pi pi-trash" (click)="deleteUser(user)"
+                            pTooltip="Delete" class="p-button-rounded p-button-text p-button-danger">
+                        </button>
+                    </td>
                 </tr>
             </ng-template>
         </p-table>
@@ -80,7 +88,7 @@
                     <label for="dateOfBirth">Date Of Birth</label>
                     <p-calendar id="dateOfBirth" name="dateOfBirth" [(ngModel)]="user.dateOfBirth" [showIcon]="true"
                         [showOnFocus]="true" inputId="buttondisplay" #dateOfBirth="ngModel" required
-                        dateFormat="dd-mm-yy" [showTime]="false" [dataType]="'date'" />
+                        dateFormat="mm/dd/yy" [showTime]="false" [dataType]="'date'" />
                     <div *ngIf="dateOfBirth.invalid && dateOfBirth.touched" class="text-danger">
                         <small>Date Of Birth is required.</small>
                     </div>

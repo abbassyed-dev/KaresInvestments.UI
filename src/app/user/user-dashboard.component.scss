@@ -1,0 +1,11 @@
+.form-row {
+    display: flex;
+    // justify-content: flex-end;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.form-label {
+    font-weight: bold;
+    text-align: right;
+}

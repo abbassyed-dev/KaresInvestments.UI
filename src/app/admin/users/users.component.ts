@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { UsersService } from "./users.service";
 import { User } from "../../models/user.model";
 import { AuthStateService } from "../../shared/services/auth-state.service";
@@ -17,6 +17,8 @@ export class UsersComponent implements OnInit {
     userDialog = false;
     submitted = false;
     userNameDisabled = false;
+
+    @Output() userContextFromUserTab = new EventEmitter<User>();
 
     @Input() fetchAdmins = 'N';
 
@@ -63,7 +65,7 @@ export class UsersComponent implements OnInit {
             })
         } else {
             this.user.isAdmin = this.fetchAdmins === "Y";
-            this.user.userName = this.user.email.split("@")[0];
+            this.user.userName = this.user.email;
             this.user.zipCode = this.user.zipCode.toString();
             this.user.createdBy = this.authStateService.getLoggedInUserEmailId() || "Admin";
             console.log("********Inserting User***********", this.user);
@@ -74,6 +76,22 @@ export class UsersComponent implements OnInit {
         }
         this.userDialog = false;
         this.user = {} as User;
+    }
+
+    viewTransactions(user: User) {
+        this.userContextFromUserTab.emit(user);
+    }
+
+    deleteUser(user: User) {
+        if (user.userId) {
+            this.dataService.deleteUser(user.userId).subscribe((res: any) => {
+                this.getAllUsers();
+                this.toastr.success("User Details deleted Successfully");
+            },
+                (err) => {
+                    console.error('Error Deleting User', err);
+                });
+        }
     }
 
 }

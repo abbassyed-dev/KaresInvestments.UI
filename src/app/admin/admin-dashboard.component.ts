@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
 import { LayoutService } from '../layout/service/app.layout.service';
-import { Product } from '../api/product';
 import { ProductService } from '../service/product.service';
+import { User } from '../models/user.model';
 
 
 @Component({
@@ -11,24 +10,27 @@ import { ProductService } from '../service/product.service';
 })
 export class AdminDashboardComponent implements OnInit {
 
-    items!: MenuItem[];
-
-    products!: Product[];
-
-
-
     activeTabIndex = 0;
+    userContext: User = {} as User;
 
 
-    constructor(private productService: ProductService, public layoutService: LayoutService
-    ) {
+    constructor(private productService: ProductService, public layoutService: LayoutService) {
     }
 
     ngOnInit() {
+        console.log("Admin Dashboard");
+    }
 
-        this.items = [
-            { label: 'Add New', icon: 'pi pi-fw pi-plus' },
-            { label: 'Remove', icon: 'pi pi-fw pi-minus' }
-        ];
+    updateUserContext(user: User) {
+        if (user) {
+            this.userContext = user;
+            console.log(this.userContext.userId, this.userContext.firstName);
+            this.activeTabIndex = 3;
+        }
+    }
+
+    handleChange(e: any) {
+        console.log('Index is :', e.index);
+        this.userContext = {} as User;
     }
 }

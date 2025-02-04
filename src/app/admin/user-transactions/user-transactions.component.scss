@@ -6,3 +6,37 @@
 th {
     padding: 0.25rem 0.25rem;
 }
+
+.radio-button-group {
+    display: flex;
+    align-items: center;
+    /* Align label and radio buttons on the same line */
+    gap: 1rem;
+    /* Space between label and radio buttons */
+    padding-top: 1rem;
+}
+
+.group-label {
+    font-weight: bold;
+}
+
+.radio-button-list {
+    display: flex;
+    gap: 1rem;
+    /* Space between radio buttons */
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    /* Align label and input field on the same line */
+    gap: 1rem;
+    /* Space between label and input field */
+}
+
+.input-label {
+    font-weight: bold;
+    white-space: nowrap;
+    padding-left: 1rem;
+    /* Prevent the label from breaking onto multiple lines */
+}

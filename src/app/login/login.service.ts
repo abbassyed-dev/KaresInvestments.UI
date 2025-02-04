@@ -16,4 +16,13 @@ export class LoginService {
             password: request.password
         });
     }
+
+    // resetPassword(request: any): Observable<any> {
+    //     return this.http.post<any>(`${environment.apiBaseUrl}/api/auth/reset-password`, request);
+    // }
+    resetPassword(email: string) {
+        return this.http.post(`${environment.apiBaseUrl}/api/auth/reset-password`, JSON.stringify(email), {
+            headers: { 'Content-Type': 'application/json' },
+        });
+    }
 }

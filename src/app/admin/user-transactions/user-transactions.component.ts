@@ -23,6 +23,8 @@ export class UserTransactionsComponent implements OnInit {
     @Input() userFromContext: User = {} as User;
 
     userPortfolios: any[] = [];
+    filteredCategories: any[] = [];
+
     selectedPortfolio = 0; // Holds the selected value
 
     constructor(private authStateService: AuthStateService, private toastr: ToastrService,
@@ -46,13 +48,32 @@ export class UserTransactionsComponent implements OnInit {
         });
     }
 
+    filterCategories() {
+        if (!this.userTransaction.transactionTypeId) {
+            this.filteredCategories = [];
+            return;
+        }
+
+        this.filteredCategories = this.lookupData.transactionCategories.filter(
+            (cat: any) => cat.transactionTypeId === this.userTransaction.transactionTypeId
+        );
+
+        // Reset selected category if it's not in the filtered list
+        // if (!this.filteredCategories.some(cat => cat.transactionCatgId === this.userTransaction.transactionCategoryId)) {
+        //     this.userTransaction.transactionCategoryId = null;
+        // }
+    }
+
     setUserDetails(evt: any) {
         if (evt) {
             this.userTransaction.userId = evt.userId;
+            this.userFromContext.userId = evt.userId;
             this.userTransaction.email = evt.email;
             this.fetchUserPortfolios(this.userTransaction.userId, false);
+            this.getAllTransactionByUser();
         } else {
-            this.toastr.error("User not selected.");
+            this.getAllTransactions();
+            this.userFromContext = {} as User;
         }
     }
 
@@ -73,7 +94,7 @@ export class UserTransactionsComponent implements OnInit {
     }
 
     fetchUserTransactions(portfolioId: number) {
-        this.getAllTransactionByUser()
+        this.getAllTransactionByUser();
     }
 
     getAllTransactions() {
@@ -85,6 +106,9 @@ export class UserTransactionsComponent implements OnInit {
 
     addTransaction() {
         this.userTransaction = {} as UserTransaction;
+        if (this.userFromContext.userId) {
+            this.userTransaction.userId = this.userFromContext.userId;
+        }
         this.submitted = false;
         this.userTransactionDialog = true;
     }
@@ -116,7 +140,12 @@ export class UserTransactionsComponent implements OnInit {
             console.log("********Inserting User***********", this.userTransaction);
             this.userTransaction.createdBy = this.authStateService.getLoggedInUserEmailId() || "Admin";
             this.dataService.saveTransaction(this.userTransaction).subscribe((res: any) => {
-                this.getAllTransactions();
+                // this.getAllTransactions();
+                if (!this.userFromContext.userId) {
+                    this.getAllTransactions();
+                } else {
+                    this.getAllTransactionByUser();
+                }
             })
         }
         this.userTransactionDialog = false;
@@ -130,6 +159,23 @@ export class UserTransactionsComponent implements OnInit {
                 console.log(res);
                 this.userTransactions = res;
             });
+        }
+    }
+
+    deleteTransaction(transaction: UserTransaction) {
+        if (transaction.userTransactionId) {
+            this.dataService.deleteTransaction(transaction.userTransactionId).subscribe((res: any) => {
+                if (!this.userFromContext.userId) {
+                    this.getAllTransactions();
+                } else {
+                    this.getAllTransactionByUser();
+                }
+                this.toastr.success("User Details deleted Successfully");
+            },
+                (err) => {
+                    console.error('Error Deleting User', err);
+                    this.toastr.error("Not able to Delete. Try Again");
+                });
         }
     }
 }

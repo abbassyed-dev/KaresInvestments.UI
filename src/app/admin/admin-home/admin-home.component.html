@@ -27,7 +27,7 @@
                     <i class="pi pi-dollar text-orange-500 text-xl"></i>
                 </div>
             </div>
-            <span class="text-green-500 font-medium">0% +</span>
+            <span class="text-green-500 font-medium">{{dashboardStats?.totalInvestedAmountThisMonth}} +</span>
             <span class="text-500">since this month</span>
         </div>
     </div>
@@ -71,8 +71,34 @@
         </highcharts-chart>
     </div>
     <div class="col-4">
-        <highcharts-chart [Highcharts]="Highcharts" [options]="pieChartOptions"
+        <!-- <highcharts-chart [Highcharts]="Highcharts" [options]="pieChartOptions"
             style="width: 100%; height: 400px; display: block;" [(update)]="updatePieChartFlag">
-        </highcharts-chart>
+        </highcharts-chart> -->
+
+        <p-card header="Investment Summary" styleClass="p-shadow-4">
+            <ng-template pTemplate="content">
+                <div class="form-row">
+                    <label class="form-label">Total Investment:</label>
+                    <span>{{ userStats.totalInvestment || 0 | currency }}</span>
+                </div>
+                <div class="form-row">
+                    <label class="form-label">No of Dividends Paid:</label>
+                    <span>{{ userStats.numberOfDividendsPaid || 0}}</span>
+                </div>
+                <div class="form-row">
+                    <label class="form-label">Dividends total:</label>
+                    <span>{{ userStats.totalDividendsPaid || 0 | currency }}</span>
+                </div>
+                <div class="form-row">
+                    <label class="form-label">Return on Investment:</label>
+                    <span>{{ userStats.returnOnInvestment }}%</span>
+                </div>
+                <div class="form-row">
+                    <label class="form-label">Return of Capital:</label>
+                    <span>{{ userStats.returnOfCapital }}%</span>
+                </div>
+
+            </ng-template>
+        </p-card>
     </div>
 </div>

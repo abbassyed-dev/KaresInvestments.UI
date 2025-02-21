@@ -2,6 +2,7 @@
     <input type="text" id="selectedUser" [(ngModel)]="selectedUser.userName" readonly placeholder="Select a user"
         (click)="openUserDialog()" />
     <button pButton type="button" icon="pi pi-search" (click)="openUserDialog()"></button>
+    <button pButton type="button" icon="pi pi-times" (click)="clear()"></button>
 </div>
 
 <!-- User Selection Dialog -->

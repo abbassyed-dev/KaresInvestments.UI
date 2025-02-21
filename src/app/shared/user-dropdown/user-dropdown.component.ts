@@ -65,6 +65,12 @@ export class UserDropdownComponent implements OnInit {
         );
     }
 
+    clear() {
+        this.selectedUser = {};
+        console.log(this.selectedUser);
+        this.emitSelectedUser.emit(null);
+    }
+
     onUserSelected(event: any) {
         if (this.selectedUserObj) {
             this.selectedUser = {

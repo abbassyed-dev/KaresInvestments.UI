@@ -5,6 +5,7 @@ export class LoginResponseDto {
   userName: string;
   isAdmin: boolean;
   token: string;
+  refreshToken: string;
   userId: string;
   defaultPasswordChanged: boolean;
 }

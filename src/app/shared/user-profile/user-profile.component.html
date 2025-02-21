@@ -3,7 +3,7 @@
         <div class="field col">
             <label for="firstName">First Name</label>
             <input type="text" pInputText id="firstName" name="firstName" [(ngModel)]="userProfile.firstName"
-                #fName="ngModel" required />
+                #fName="ngModel" required [disabled]="!isAdmin" />
             <div *ngIf="fName.invalid && fName.touched" class="text-danger">
                 <small>First Name is required.</small>
             </div>
@@ -11,7 +11,7 @@
         <div class="field col">
             <label for="lastName">Last Name</label>
             <input type="text" pInputText id="lastName" name="lastName" [(ngModel)]="userProfile.lastName"
-                #lName="ngModel" required />
+                #lName="ngModel" required [disabled]="!isAdmin" />
             <div *ngIf="lName.invalid && lName.touched" class="text-danger">
                 <small>Last Name is required.</small>
             </div>
@@ -22,7 +22,7 @@
             <label for="dateOfBirth">Date Of Birth</label>
             <p-calendar id="dateOfBirth" name="dateOfBirth" [(ngModel)]="userProfile.dateOfBirth" [showIcon]="true"
                 [showOnFocus]="true" inputId="buttondisplay" #dateOfBirth="ngModel" required dateFormat="dd/mm/yy"
-                [showTime]="false" />
+                [showTime]="false" [disabled]="!isAdmin" />
             <div *ngIf="dateOfBirth.invalid && dateOfBirth.touched" class="text-danger">
                 <small>Date Of Birth is required.</small>
             </div>

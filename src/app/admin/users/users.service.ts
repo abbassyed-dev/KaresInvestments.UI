@@ -49,4 +49,14 @@ export class UsersService {
     deleteUser(id: string) {
         return this.http.delete(`${environment.apiBaseUrl}/api/User/${id}`);
     }
+
+    getLookup() {
+        return this.http.get<any>(`${environment.apiBaseUrl}/api/UserPortfolio/Lookup`);
+    }
+
+    checkEmailExists(email: string) {
+        debugger;
+        return this.http.get<boolean>(`${environment.apiBaseUrl}/api/User/check-email?email=${email}`);
+    }
+
 }

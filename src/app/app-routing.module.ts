@@ -6,12 +6,14 @@ import { LandingComponent } from './landing/landing.component';
 import { HomeComponent } from './home/home.component';
 import { authGuard } from './guards/auth-guard';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { SampleComponent } from './sample-landing/sample.component';
 
 
 @NgModule({
   imports: [
     RouterModule.forRoot([
       { path: '', redirectTo: 'kares', pathMatch: 'full' },
+      { path: 'sample', component: SampleComponent },
       {
         path: 'kares', component: LandingComponent,
         children: [

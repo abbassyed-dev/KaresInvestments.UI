@@ -14,11 +14,13 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApiInterceptor } from './shared/interceptor/api-interceptor';
 import { AppComponent } from './app.component';
 import { DatePipe } from '@angular/common';
+import { SampleComponent } from './sample-landing/sample.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AboutUsComponent,
+    SampleComponent
   ],
   imports: [
     BrowserModule,

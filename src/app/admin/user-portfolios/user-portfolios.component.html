@@ -63,7 +63,8 @@
                     appendTo="body">
                 </p-dropdown>
             </div>
-            <div class="field" style="display: flex; align-items: center; gap: 10px;">
+            <div class="field" style="display: flex; align-items: center; gap: 10px;"
+                *ngIf="userPortfolio.userPortfolioId">
                 <label for="isActive" style="margin-right: 10px;">Status</label>
                 <p-inputSwitch id="isActive" name="isActive" [(ngModel)]="userPortfolio.isActive" />
             </div>

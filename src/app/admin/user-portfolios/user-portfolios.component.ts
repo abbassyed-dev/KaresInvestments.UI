@@ -68,6 +68,7 @@ export class UserPortfoliosComponent implements OnInit {
             })
         } else {
             console.log("********Inserting User***********", this.userPortfolio);
+            this.userPortfolio.isActive = true;
             this.userPortfolio.createdBy = this.authStateService.getLoggedInUserEmailId() || "Admin";
             this.dataService.saveUserPortfolio(this.userPortfolio).subscribe((res: any) => {
                 this.getAllUserPortfolios();

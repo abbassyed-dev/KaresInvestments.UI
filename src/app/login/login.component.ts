@@ -42,6 +42,8 @@ export class LoginComponent {
                     this.cookieService.set('Authorization', `Bearer ${response.token}`,
                         undefined, '/', undefined, true, 'Strict');
                     console.log(response);
+                    // Store Refresh Token in Local Storage
+                    localStorage.setItem('refreshToken', response.refreshToken);
                     this.authStateService.setUser(response);
                     if (response.isAdmin) {
                         this.router.navigate(['/dashboard/admin']);

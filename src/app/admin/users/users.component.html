@@ -41,7 +41,7 @@
                     <td>{{user.lastName}}</td>
                     <td>{{user.dateOfBirth | date: 'MM/dd/yyyy'}}</td>
                     <td>{{user.email}}</td>
-                    <td>{{user.phoneNo}}</td>
+                    <td>{{user.phoneNo | phoneFormat}}</td>
                     <td>{{user.city}}</td>
                     <td>{{user.country}}</td>
                     <td>{{user.userName}}</td>
@@ -67,7 +67,7 @@
 
             <div class="formgrid grid mb-2">
                 <div class="field col">
-                    <label for="firstName">First Name</label>
+                    <label for="firstName">First Name<span class="text-danger">&nbsp;*</span></label>
                     <input type="text" pInputText id="firstName" name="firstName" [(ngModel)]="user.firstName"
                         #fName="ngModel" required />
                     <div *ngIf="fName.invalid && fName.touched" class="text-danger">
@@ -75,7 +75,7 @@
                     </div>
                 </div>
                 <div class="field col">
-                    <label for="lastName">Last Name</label>
+                    <label for="lastName">Last Name<span class="text-danger">&nbsp;*</span></label>
                     <input type="text" pInputText id="lastName" name="lastName" [(ngModel)]="user.lastName"
                         #lName="ngModel" required />
                     <div *ngIf="lName.invalid && lName.touched" class="text-danger">
@@ -85,18 +85,20 @@
             </div>
             <div class="formgrid grid mb-2">
                 <div class="field col">
-                    <label for="dateOfBirth">Date Of Birth</label>
+                    <label for="dateOfBirth">Date Of Birth<span class="text-danger">&nbsp;*</span></label>
                     <p-calendar id="dateOfBirth" name="dateOfBirth" [(ngModel)]="user.dateOfBirth" [showIcon]="true"
-                        [showOnFocus]="true" inputId="buttondisplay" #dateOfBirth="ngModel" required
-                        dateFormat="mm/dd/yy" [showTime]="false" [dataType]="'date'" />
-                    <div *ngIf="dateOfBirth.invalid && dateOfBirth.touched" class="text-danger">
+                        [showOnFocus]="true" inputId="buttondisplay" #dateOfBirth="ngModel" dateFormat="mm/dd/yy"
+                        [showTime]="false" [dataType]="'date'" />
+                    <!-- <div *ngIf="dateOfBirth.invalid && dateOfBirth.touched" class="text-danger">
                         <small>Date Of Birth is required.</small>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="field col">
-                    <label for="phoneNo">Mobile #</label>
-                    <input type="text" pInputText id="phoneNo" name="phoneNo" [(ngModel)]="user.phoneNo" required
-                        #phoneNo="ngModel" pattern="^\d{10}$" />
+                    <label for="phoneNo">Mobile # <span class="text-danger">&nbsp;*</span></label>
+                    <!-- <input type="text" pInputText id="phoneNo" name="phoneNo" [(ngModel)]="user.phoneNo" required
+                        #phoneNo="ngModel" pattern="^\d{10}$" /> -->
+                    <p-inputMask id="phoneNo" mask="(999) 999-9999" name="phoneNo" [(ngModel)]="user.phoneNo"
+                        placeholder="(999) 999-9999" #phoneNo="ngModel" [unmask]="true" />
                     <div *ngIf="phoneNo.invalid && phoneNo.touched" class="text-danger">
                         <small>Mobile # is required and must be 10-digit number.</small>
                     </div>
@@ -104,17 +106,23 @@
             </div>
             <div class="formgrid grid mb-2">
                 <div class="field col">
-                    <label for="email">Email</label>
+                    <label for="email">Email <span class="text-danger">&nbsp;*</span></label>
                     <input type="text" email pInputText id="email" name="email" [(ngModel)]="user.email"
-                        #email="ngModel" required />
+                        (ngModelChange)="onEmailChange($event)" #email="ngModel" required />
                     <div *ngIf="email.invalid && email.touched" class="text-danger">
                         <small>Email is required & must be valid</small>
                     </div>
+                    <div *ngIf="emailExists" class="text-danger">
+                        <small>Email already exists</small>
+                    </div>
                 </div>
-                <!-- <div class="field col">
-                    <label for="userName">Username</label>
-                    <input type="text" pInputText name="userName" [disabled]="true" [(ngModel)]="user.email" />
-                </div> -->
+                <div class="field col">
+                    <label for="portfolio">Default Portfolio <span class="text-danger">&nbsp;*</span></label>
+                    <p-dropdown [options]="lookupData.portfolios" name="portfolioId" [(ngModel)]="user.portfolioId"
+                        optionLabel="portfolioName" optionValue="portfolioId" placeholder="Select Portfolio"
+                        appendTo="body" required>
+                    </p-dropdown>
+                </div>
             </div>
             <div class="formgrid grid mb-2">
                 <div class="field col">
@@ -152,8 +160,7 @@
 
             <div class="field">
                 <label for="remarks">Remarks</label>
-                <textarea id="remarks" name="remarks" pInputTextarea [(ngModel)]="user.remarks" required rows="3"
-                    cols="20">
+                <textarea id="remarks" name="remarks" pInputTextarea [(ngModel)]="user.remarks" rows="3" cols="20">
                 </textarea>
             </div>
 
@@ -161,7 +168,8 @@
 
         <ng-template pTemplate="footer">
             <p-button label="Cancel" icon="pi pi-times" [text]="true" (onClick)="hideDialog()" />
-            <p-button label="Save" icon="pi pi-check" [disabled]="userForm.invalid" (onClick)="saveUser(userForm)" />
+            <p-button label="Save" icon="pi pi-check" [disabled]="userForm.invalid || emailExists"
+                (onClick)="saveUser(userForm)" />
         </ng-template>
 
     </p-dialog>

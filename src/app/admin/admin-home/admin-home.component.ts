@@ -5,6 +5,7 @@ import { DashboardStats } from '../../models/dashboard-stats.model';
 import * as Highcharts from 'highcharts';
 import { GraphData } from '../../models/graph-data.model';
 import { mergeMap, tap } from 'rxjs';
+import { UserStats } from '../../models/user-stats.model';
 
 @Component({
     selector: 'app-admin-home',
@@ -14,13 +15,14 @@ import { mergeMap, tap } from 'rxjs';
 export class AdminHomeComponent implements OnInit {
     Highcharts = Highcharts;
     updateColumnChartFlag = false;
-    updatePieChartFlag = false;
+    // updatePieChartFlag = false;
     chartOptions: any;
-    pieChartOptions: any;
+    // pieChartOptions: any;
     dashboardStats: DashboardStats | null = null;
     errorMessage: string | null = null;
     transactionsGraphData: GraphData[] = [];
     usersGraphData: GraphData[] = [];
+    userStats = {} as UserStats;
 
 
     constructor(private authStateService: AuthStateService, private dataService: AdminHomeService
@@ -39,7 +41,7 @@ export class AdminHomeComponent implements OnInit {
                 type: 'column'
             },
             title: {
-                text: 'Users & Transactions Trend'
+                text: 'Transactions Trend'
             },
             xAxis: {
                 categories: ['as', 'bc', 'de']
@@ -57,12 +59,10 @@ export class AdminHomeComponent implements OnInit {
                 // }
             ],
             series: [
-                {
-                    name: 'Users',
-                    type: 'column',
-                    // data: [1, 2, 3],
-                    // yAxis: 0
-                },
+                // {
+                //     name: 'Users',
+                //     type: 'column',
+                // },
                 {
                     name: 'Transactions',
                     type: 'column',
@@ -76,87 +76,35 @@ export class AdminHomeComponent implements OnInit {
         };
 
         // Define Highcharts options
-        this.pieChartOptions = {
-            chart: {
-                type: 'pie'
-            },
-            title: {
-                text: 'Investment Distribution by Portfolio'
-            },
-            tooltip: {
-                pointFormat: '<b>{point.name}</b>: {point.y} ({point.percentage:.1f}%)'
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: false,
-                        format: '{point.name}: {point.y}'
-                    }
-                }
-            },
-            series: [
-                {
-                    type: 'pie',
-                    name: 'Investments',
-                    data: []
-                }
-            ]
-        };
+        // this.pieChartOptions = {
+        //     chart: {
+        //         type: 'pie'
+        //     },
+        //     title: {
+        //         text: 'Investment Distribution by Portfolio'
+        //     },
+        //     tooltip: {
+        //         pointFormat: '<b>{point.name}</b>: {point.y} ({point.percentage:.1f}%)'
+        //     },
+        //     plotOptions: {
+        //         pie: {
+        //             allowPointSelect: true,
+        //             cursor: 'pointer',
+        //             dataLabels: {
+        //                 enabled: false,
+        //                 format: '{point.name}: {point.y}'
+        //             }
+        //         }
+        //     },
+        //     series: [
+        //         {
+        //             type: 'pie',
+        //             name: 'Investments',
+        //             data: []
+        //         }
+        //     ]
+        // };
     }
-
-    // getAdminDashboardData() {
-    //     this.dataService.getAdminDashboardStats().subscribe({
-    //         next: (data) => {
-    //             this.dashboardStats = data;
-    //             this.errorMessage = null;
-    //         },
-    //         error: (err) => {
-    //             console.error('Error fetching user statistics', err);
-    //             this.errorMessage = 'Failed to load dashboard statistics';
-    //         },
-    //     });
-    // }
-
-    // getAdminDashboardGraphData(): void {
-    //     this.dataService.getAdminDashboardGraphData().subscribe({
-    //         next: (data: any) => {
-    //             this.transactionsGraphData = data.transactionsGraphData; // Data for transactions
-    //             this.usersGraphData = data.usersGraphData; // Data for users
-    //             const categories = this.transactionsGraphData.map(item => item.xAxis);
-    //             const usersData = this.usersGraphData.map(item => item.yAxisValue);
-    //             const transactionsData = this.transactionsGraphData.map(item => item.yAxisValue);
-    //             // Update chart options
-    //             this.chartOptions.xAxis.categories = categories;
-    //             this.chartOptions.series[0].data = usersData;
-    //             this.chartOptions.series[1].data = transactionsData;
-    //             this.updateFlag = true;
-    //         },
-    //         error: (error) => {
-    //             console.error('Error fetching data:', error);
-    //         },
-    //     });
-    // }
-
-    // getAdminDashboardPieChartData(): void {
-    //     this.dataService.getAdminDashboardPieChartData().subscribe({
-    //         next: (data: any) => {
-    //             console.log(data);
-    //             const chartData = data.map((item: any) => ({
-    //                 name: item.portfolioName,
-    //                 y: item.amount
-    //             }));
-    //             console.log('chartData', chartData);
-    //             // Update chart options
-    //             this.pieChartOptions.series[0].data = chartData;
-    //             this.updateFlag = true;
-    //         },
-    //         error: (error) => {
-    //             console.error('Error fetching data:', error);
-    //         },
-    //     });
-    // }
 
     loadDashboardDataSequentially(): void {
         this.dataService.getAdminDashboardStats()
@@ -165,8 +113,11 @@ export class AdminHomeComponent implements OnInit {
                 mergeMap(() => this.dataService.getAdminDashboardGraphData().pipe(
                     tap((data) => this.handleGraphData(data))
                 )),
-                mergeMap(() => this.dataService.getAdminDashboardPieChartData().pipe(
-                    tap((data) => this.handlePieChartData(data))
+                // mergeMap(() => this.dataService.getAdminDashboardPieChartData().pipe(
+                //     tap((data) => this.handlePieChartData(data))
+                // ))
+                mergeMap(() => this.dataService.getOverAllInvestmentStats(null).pipe(
+                    tap((data) => this.showOverAllInvestmentStats(data))
                 ))
             )
             .subscribe({
@@ -185,21 +136,26 @@ export class AdminHomeComponent implements OnInit {
 
     handleGraphData(data: any) {
         const categories = data.transactionsGraphData.map((item: any) => item.xAxis);
-        const usersData = data.usersGraphData.map((item: any) => item.yAxisValue);
+        // const usersData = data.usersGraphData.map((item: any) => item.yAxisValue);
         const transactionsData = data.transactionsGraphData.map((item: any) => item.yAxisValue);
 
         this.chartOptions.xAxis.categories = categories;
-        this.chartOptions.series[0].data = usersData;
-        this.chartOptions.series[1].data = transactionsData;
+        // this.chartOptions.series[0].data = usersData;
+        this.chartOptions.series[0].data = transactionsData;
         this.updateColumnChartFlag = true;
     }
 
-    handlePieChartData(data: any) {
-        const chartData = data.map((item: any) => ({
-            name: item.portfolioName,
-            y: item.amount,
-        }));
-        this.pieChartOptions.series[0].data = chartData;
-        this.updatePieChartFlag = true;
+    // handlePieChartData(data: any) {
+    //     const chartData = data.map((item: any) => ({
+    //         name: item.portfolioName,
+    //         y: item.amount,
+    //     }));
+    //     this.pieChartOptions.series[0].data = chartData;
+    //     this.updatePieChartFlag = true;
+    // }
+
+    showOverAllInvestmentStats(data: any) {
+        if (data)
+            this.userStats = data;
     }
 }

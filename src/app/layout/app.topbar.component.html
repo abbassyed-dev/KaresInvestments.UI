@@ -1,7 +1,5 @@
 <div class="layout-topbar">
     <a class="layout-topbar-logo">
-        <!-- <img src="assets/layout/images/{{layoutService.config().colorScheme === 'light' ? 'logo-dark' : 'logo-white'}}.svg" alt="logo"> -->
-        <!-- <img src="assets/layout/images/kares-logo2.png" alt="Kares logo" style="width: 150px; height: 50px;"> -->
         <img src="assets/layout/images/kares-logo2.png" alt="Kares Logo" height="50" class="mr-0 lg:mr-2">
         <span>Kares Investments</span>
     </a>
@@ -30,7 +28,7 @@
             <i class="pi pi-sign-out"></i>
             <span>Logout</span>
         </button> -->
-        <p-menu #menu [popup]="true" [model]="items"></p-menu>
+        <p-menu #menu [popup]="true" [model]="items" appendTo="body"></p-menu>
         <!-- <button class="p-link layout-topbar-button" [routerLink]="'/documentation'">
             <i class="pi pi-cog"></i>
             <span>Settings</span>

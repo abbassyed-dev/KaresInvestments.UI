@@ -19,6 +19,9 @@ import { UserTransactionsComponent } from './user-transactions/user-transactions
 import { AdminHomeService } from './admin-home/admin-home.service';
 import * as Highcharts from 'highcharts';
 import { HighchartsChartModule } from 'highcharts-angular';
+import { ConfigurationComponent } from './configuration/configuration.component';
+import { ConfigurationService } from './configuration/configuration.service';
+import { PhoneFormatPipe } from '../shared/phone-format.pipe';
 
 // Apply a custom theme globally using `Highcharts.setOptions()`
 Highcharts.setOptions({
@@ -74,7 +77,9 @@ Highcharts.setOptions({
         UserDropdownComponent,
         UserPortfoliosComponent,
         AdminHomeComponent,
-        UserTransactionsComponent
+        UserTransactionsComponent,
+        ConfigurationComponent,
+        PhoneFormatPipe
     ],
     providers: [
         AdminDashboardService,
@@ -85,6 +90,7 @@ Highcharts.setOptions({
         UserTransactionsService,
         AdminDashboardService,
         AdminHomeService,
+        ConfigurationService
     ]
 })
 export class AdminDashboardModule { }

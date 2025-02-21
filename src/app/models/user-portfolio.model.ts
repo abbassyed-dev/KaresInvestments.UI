@@ -3,6 +3,7 @@ export class UserPortfolio {
     portfolioId: number;
     userId: string;
     isActive: boolean;
+    defaultPortfolio: boolean;
     portfolioName: string;
     userName: string;
     email: string;

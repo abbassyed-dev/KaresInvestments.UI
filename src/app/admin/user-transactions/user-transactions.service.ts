@@ -32,4 +32,8 @@ export class UserTransactionsService {
     getAllTransactionsByUser(userId: string, selectedPortfolio: number) {
         return this.http.get(`${environment.apiBaseUrl}/api/UserTransaction/${userId}/${selectedPortfolio}`);
     }
+
+    deleteTransaction(id: string) {
+        return this.http.delete(`${environment.apiBaseUrl}/api/UserTransaction/${id}`);
+    }
 }

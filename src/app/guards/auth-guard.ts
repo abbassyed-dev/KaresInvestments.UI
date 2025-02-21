@@ -18,7 +18,7 @@ export const authGuard: CanActivateFn = (route, state) => {
         token = token.replace('Bearer ', '');
         const decodedToken: any = jwtDecode(token);
         if (!decodedToken || isTokenExpired(decodedToken.exp)) {
-            router.createUrlTree(['/login']);
+            router.createUrlTree(['/kares/login']);
             return false;
         } else {
             if (user.isAdmin && state.url !== '/dashboard/admin') {
@@ -32,7 +32,7 @@ export const authGuard: CanActivateFn = (route, state) => {
         return true;
     } else {
         authStateService.logout();
-        router.createUrlTree(['/login']);
+        router.createUrlTree(['/kares/login']);
         return false;
     }
 

@@ -4,6 +4,7 @@ import { AuthStateService } from '../shared/services/auth-state.service';
 import { ToastrService } from 'ngx-toastr';
 import { UserDashboardService } from './user-dashboard.service';
 import Highcharts from 'highcharts';
+import { UserStats } from '../models/user-stats.model';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -19,6 +20,7 @@ export class UserDashboardComponent implements OnInit {
   userTransactions: UserTransaction[];
   userName = '';
   userId: string | undefined = '';
+  userStats = {} as UserStats;
 
   constructor(private authStateService: AuthStateService, private toastr: ToastrService,
     private dataService: UserDashboardService) {
@@ -57,11 +59,31 @@ export class UserDashboardComponent implements OnInit {
     this.userName = `${this.authStateService.getLoggedInUserProperty('lastName')} ${this.authStateService.getLoggedInUserProperty('firstName')}`;
     this.userId = this.authStateService.getLoggedInUserProperty('userId');
     if (this.userId) {
+      this.getUserTransactions();
+      this.getUserStats();
+    }
+  }
+
+  getUserStats() {
+    if (this.userId) {
+      this.dataService.getUserDashboardStats(this.userId).subscribe({
+        next: (data: UserStats) => {
+          this.userStats = data;
+          console.log('Return of Capital Data:', data);
+        },
+        error: (error: any) => {
+          console.error('Error fetching Return of Capital:', error);
+        }
+      });
+    }
+  }
+
+  getUserTransactions() {
+    if (this.userId) {
       this.dataService.getUserTransactions(this.userId).subscribe((res: any) => {
         this.userTransactions = res;
       });
     }
-
   }
 
 }

@@ -1,3 +1,18 @@
 .p-025 {
     padding: 0.25rem;
 }
+
+.form-row {
+    display: flex;
+    // justify-content: flex-end;
+    gap: 10px;
+}
+
+.form-label {
+    font-weight: bold;
+    text-align: right;
+}
+
+:host ::ng-deep .p-card .p-card-content {
+    padding: 0rem;
+}

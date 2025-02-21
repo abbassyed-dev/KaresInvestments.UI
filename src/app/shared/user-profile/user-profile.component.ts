@@ -18,7 +18,7 @@ export class UserProfileComponent implements OnInit {
     userFromState: LoginResponseDto | undefined = this.authStateService.getUser();
 
     userProfile: User;
-
+    isAdmin = false;
     constructor(private authStateService: AuthStateService, private userService: UsersService,
         private toastr: ToastrService
     ) { }
@@ -27,6 +27,7 @@ export class UserProfileComponent implements OnInit {
         this.userService.getUserById(this.userFromState?.userId!).subscribe({
             next: (response: any) => {
                 this.userProfile = response;
+                this.isAdmin = this.userProfile.isAdmin;
                 this.userProfile.dateOfBirth = new Date(response.dateOfBirth);
             }
         });

@@ -29,6 +29,7 @@ import { InputIconModule } from 'primeng/inputicon';
 import { TooltipModule } from 'primeng/tooltip';
 import { PanelModule } from 'primeng/panel';
 import { CardModule } from 'primeng/card';
+import { InputMaskModule } from 'primeng/inputmask';
 
 const PrimeNgModules = [
     CalendarModule,
@@ -61,7 +62,8 @@ const PrimeNgModules = [
     PasswordModule,
     DividerModule,
     DialogModule,
-    TabViewModule
+    TabViewModule,
+    InputMaskModule
 ];
 
 @NgModule({

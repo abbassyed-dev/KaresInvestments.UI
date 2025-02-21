@@ -3,6 +3,7 @@ import { UsersService } from "./users.service";
 import { User } from "../../models/user.model";
 import { AuthStateService } from "../../shared/services/auth-state.service";
 import { ToastrService } from "ngx-toastr";
+import { debounceTime, distinctUntilChanged, Subject, switchMap } from "rxjs";
 
 
 @Component({
@@ -18,13 +19,25 @@ export class UsersComponent implements OnInit {
     submitted = false;
     userNameDisabled = false;
 
+    lookupData: any;
+    emailExists = false;
+    private emailCheckSubject = new Subject<string>();
+
     @Output() userContextFromUserTab = new EventEmitter<User>();
 
     @Input() fetchAdmins = 'N';
 
     constructor(private dataService: UsersService, private toastr: ToastrService,
-        private authStateService: AuthStateService) { }
+        private authStateService: AuthStateService) {
+        this.emailCheckSubject.pipe(
+            debounceTime(500), // Waits 500ms after last input
+            switchMap(email => this.dataService.checkEmailExists(email)) // Calls the API
+        ).subscribe(exists => {
+            this.emailExists = exists;
+        });
+    }
     ngOnInit(): void {
+        this.getLovs();
         this.getAllUsers();
     }
 
@@ -66,7 +79,7 @@ export class UsersComponent implements OnInit {
         } else {
             this.user.isAdmin = this.fetchAdmins === "Y";
             this.user.userName = this.user.email;
-            this.user.zipCode = this.user.zipCode.toString();
+            this.user.zipCode = this.user.zipCode?.toString();
             this.user.createdBy = this.authStateService.getLoggedInUserEmailId() || "Admin";
             console.log("********Inserting User***********", this.user);
             this.dataService.saveUser(this.user).subscribe((res: any) => {
@@ -92,6 +105,18 @@ export class UsersComponent implements OnInit {
                     console.error('Error Deleting User', err);
                 });
         }
+    }
+
+    getLovs() {
+        this.dataService.getLookup().subscribe((res: any) => {
+            console.log(res);
+            this.lookupData = res;
+        });
+    }
+
+    onEmailChange(event: string) {
+        debugger;
+        this.emailCheckSubject.next(event); // Push new email for validation
     }
 
 }

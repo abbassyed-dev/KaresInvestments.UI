@@ -4,8 +4,6 @@ import { filter, Subscription } from 'rxjs';
 import { LayoutService } from "./service/app.layout.service";
 import { AppSidebarComponent } from "./app.sidebar.component";
 import { AppTopBarComponent } from './app.topbar.component';
-import { MessageService } from 'primeng/api';
-import { User } from '../models/user.model';
 import { AuthStateService } from '../shared/services/auth-state.service';
 import { ToastrService } from 'ngx-toastr';
 import { LoginResponseDto } from '../models/login-response.model';

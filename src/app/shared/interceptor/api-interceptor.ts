@@ -89,30 +89,6 @@ export class ApiInterceptor implements HttpInterceptor {
         return isLoginRequest || isUserInterestRequest;
     }
 
-    // private handleError(error: HttpErrorResponse) {
-    //     let errorMessage = 'An unexpected error occurred.';
-
-    //     if (error.status === 0) {
-    //         // Network or server connection error
-    //         errorMessage = 'API Server is Down/Not running. Please try again later.';
-    //         this.toastr.error(errorMessage, 'Unable to Connect');
-    //     } else if (error.error && error.error.message) {
-    //         // Extract message from structured error response
-    //         errorMessage = error.error.message || 'An error occurred';
-    //         // this.toastr.error(errorMessage, 'Error');
-    //     } else {
-    //         // Generic error handling for other types of HTTP errors
-    //         this.toastr.error(error.error || 'An error occurred', 'Error');
-    //     }
-
-    //     // Return a structured error object
-    //     return throwError(() => ({
-    //         message: errorMessage,
-    //         status: error.status,
-    //         statusText: error.statusText,
-    //         code: error.error?.code || 'UNKNOWN_ERROR'
-    //     }));
-    // }
 
     private handleError(error: HttpErrorResponse) {
         let errorMessage = 'An unexpected error occurred.';
@@ -126,12 +102,12 @@ export class ApiInterceptor implements HttpInterceptor {
                 // Token has expired, so logout the user
                 this.toastr.error("Redirecting to Login", "Session Expired");
                 this.authStateService.logout();
-                this.router.navigate(['/login']); // Redirect to login page
+                this.router.navigate(['/kares/login']); // Redirect to login page
             } else {
                 // Handle other 401 cases (e.g., invalid token, missing token)
                 errorMessage = 'Unauthorized access. Please log in again.';
                 this.authStateService.logout();
-                this.router.navigate(['/login']); // Redirect to login page
+                this.router.navigate(['/kares/login']); // Redirect to login page
             }
         } else if (error.error && error.error.message) {
             // Extract message from structured error response
@@ -150,20 +126,6 @@ export class ApiInterceptor implements HttpInterceptor {
             code: error.error?.code || 'UNKNOWN_ERROR'
         }));
     }
-
-    // Helper method to check if the JWT token is expired
-    // private isTokenExpired(): boolean {
-    //     const token = this.cookieService.get('Authorization');
-    //     if (!token) return true; // No token, treat as expired.
-
-    //     const payload = this.parseJwt(token);
-    //     const exp = payload?.exp;
-    //     if (exp) {
-    //         const expirationDate = new Date(exp * 1000); // exp is in seconds
-    //         return expirationDate < new Date();
-    //     }
-    //     return true;
-    // }
 
     // Helper method to check if the JWT token is expired (with a 10-minute buffer)
     private isTokenExpired(): boolean {

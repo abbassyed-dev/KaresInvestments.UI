@@ -19,15 +19,30 @@ jobs:
         with:
           submodules: true
           lfs: false
-      - name: Build And Deploy
+
+      # Set environment variables for production
+      - name: Set environment variables for production
+        run: |
+          echo "REACT_APP_API_URL=https://karesapi.azurewebsites.net" >> $GITHUB_ENV
+        # Replace `<your-api-name>` with the actual name of your deployed Azure API
+
+      # Build Angular app with production environment
+      - name: Install Dependencies
+        run: |
+          npm ci
+
+      - name: Build Angular app for production
+        run: |
+          npm run build --prod
+
+      - name: Build and Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_JOLLY_OCEAN_04CCD061E }}
-          repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
+          repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for GitHub integrations (e.g., PR comments)
           action: "upload"
           ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
-          # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
           app_location: "./" # App source code path
           api_location: "" # Api source code path - optional
           output_location: "dist/kares-investments.ui" # Built app content directory - optional

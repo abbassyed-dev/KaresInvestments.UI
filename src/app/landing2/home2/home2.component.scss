@@ -1,0 +1,65 @@
+.home-container {
+    //background: url('assets/banner.jpg') no-repeat center center/cover;
+    //min-height: 100vh;
+    color: white;
+}
+
+.hero-section {
+    padding: 20px 20px;
+}
+
+.about-section {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 60px;
+}
+
+.features-section .card {
+    // transition: transform 0.3s ease-in-out;
+}
+
+.features-section .card:hover {
+    // transform: scale(1.05);
+}
+
+// .animate-card {
+//     transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+// }
+
+// .animate-card:hover {
+//     transform: scale(1.1);
+//     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+// }
+
+@keyframes bounce {
+    0% {
+        transform: translateY(0);
+    }
+
+    30% {
+        transform: translateY(-10px);
+    }
+
+    50% {
+        transform: translateY(5px);
+    }
+
+    70% {
+        transform: translateY(-5px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.bounce-card {
+    animation: bounce 1s ease-out;
+}
+
+.bounce-card {
+    transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+}
+
+.bounce-card:hover {
+    transform: scale(1.1);
+}

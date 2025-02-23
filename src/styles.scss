@@ -13,3 +13,35 @@
 @import "assets/layout/styles/layout/layout.scss";
 
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.container-fluid {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.content-wrapper {
+    padding-top: 80px;
+    /* Adjust for fixed navbar */
+    flex-grow: 1;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.pt-6-rem {
+    padding-top: 6rem;
+}

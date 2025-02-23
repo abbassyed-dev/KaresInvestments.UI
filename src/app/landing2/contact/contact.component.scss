@@ -1,0 +1,26 @@
+.container {
+    max-width: 1200px;
+}
+
+.contact-form .form-control {
+    border-radius: 8px;
+}
+
+.contact-form button {
+    border-radius: 25px;
+    padding: 10px 25px;
+}
+
+.contact-form textarea {
+    resize: none;
+}
+
+img {
+    max-width: 150px;
+}
+
+@media (max-width: 767px) {
+    .img-fluid {
+        max-width: 100px;
+    }
+}

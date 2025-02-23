@@ -6,7 +6,8 @@ import { LoginService } from '../login/login.service';
 
 @Component({
     selector: 'app-forgot-password',
-    templateUrl: './forgot-password.component.html'
+    templateUrl: './forgot-password.component.html',
+    styleUrls: ['./forgot-password.component.scss']
 })
 export class ForgotPasswordComponent {
 
@@ -22,7 +23,7 @@ export class ForgotPasswordComponent {
                     next: (response: any) => {
                         console.log(response);
                         this.toastr.success("Please check your email", "Password Reset Success");
-                        this.router.navigate(['/kares/login']);
+                        this.router.navigate(['/login']);
                     },
                     error: (err: HttpErrorResponse) => {
                         if (err?.message) {

@@ -18,6 +18,17 @@ import { LoginResponseDto } from '../models/login-response.model';
             margin-right: 1rem;
             color: var(--primary-color) !important;
         }
+
+        .bg-gradient-rounded {
+  border-radius: 56px;
+  background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%);
+}
+
+.card-container {
+  border-radius: 53px;
+  background: var(--surface-card);
+}
+
     `]
 })
 export class LoginComponent {

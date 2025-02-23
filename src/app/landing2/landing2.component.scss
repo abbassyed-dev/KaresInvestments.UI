@@ -1,0 +1,35 @@
+.logo {
+    height: 40px;
+    margin-right: 10px;
+}
+
+.content-container {
+    padding-top: 80px;
+    /* To prevent content from hiding under fixed navbar */
+    flex-grow: 1;
+}
+
+.navbar-nav .nav-item {
+    margin-left: 15px;
+}
+
+.navbar {
+    padding: 15px 20px;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    gap: 10px;
+}
+
+.navbar-nav .btn {
+    margin-left: 15px;
+}
+
+footer {
+    color: white;
+    padding: 15px;
+}

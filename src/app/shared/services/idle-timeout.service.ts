@@ -35,7 +35,7 @@ export class IdleTimeoutService {
                 this.ngZone.run(() => {
                     this.authState.logout();
                     this.toastr.error("Redirecting to Login", "You were Inactive.");
-                    this.router.navigate(['/kares/login']);
+                    this.router.navigate(['/login']);
                 });
             });
         });

@@ -102,12 +102,12 @@ export class ApiInterceptor implements HttpInterceptor {
                 // Token has expired, so logout the user
                 this.toastr.error("Redirecting to Login", "Session Expired");
                 this.authStateService.logout();
-                this.router.navigate(['/kares/login']); // Redirect to login page
+                this.router.navigate(['/login']); // Redirect to login page
             } else {
                 // Handle other 401 cases (e.g., invalid token, missing token)
                 errorMessage = 'Unauthorized access. Please log in again.';
                 this.authStateService.logout();
-                this.router.navigate(['/kares/login']); // Redirect to login page
+                this.router.navigate(['/login']); // Redirect to login page
             }
         } else if (error.error && error.error.message) {
             // Extract message from structured error response

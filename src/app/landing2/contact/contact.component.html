@@ -1,0 +1,93 @@
+<!-- <div class="container pt-6-rem">
+    <div class="row">
+        <div class="col-md-6 d-flex flex-column align-items-start">
+            <img alt="Representative" class="img-fluid rounded-circle w-50 mb-3" src="path-to-representative-image.jpg">
+            <h3>John Doe</h3>
+            <p>Senior Financial Advisor</p>
+            <p>Email: johndoe-kairesinvestments.com</p>
+            <p>Phone: +123 456 7890</p>
+        </div>
+
+
+        <div class="col-md-6 text-start">
+            <h2 class="display-5">Contact Us</h2>
+            <p class="lead">Have questions? We’d love to hear from you. Reach out to us today.</p>
+            <form class="contact-form">
+                <div class="mb-3">
+                    <input type="text" class="form-control" placeholder="First Name" required>
+                </div>
+                <div class="mb-3">
+                    <input type="text" class="form-control" placeholder="Last Name" required>
+                </div>
+                <div class="mb-3">
+                    <input type="email" class="form-control" placeholder="Your Email" required>
+                </div>
+                <div class="mb-3">
+                    <input type="email" class="form-control" placeholder="Mobile No" required>
+                </div>
+                <div class="mb-3">
+                    <textarea class="form-control" rows="4" placeholder="Your Message" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+        </div>
+    </div>
+</div> -->
+
+<div class="container pt-6-rem">
+    <div class="row">
+        <!-- Representative Details Section -->
+        <div class="col-md-6 d-flex flex-column align-items-start">
+            <img alt="Representative" class="img-fluid rounded-circle w-50 mb-3" src="path-to-representative-image.jpg">
+            <h3>John Doe</h3>
+            <p>Senior Financial Advisor</p>
+            <p>Email: johndoe-karesinvestments.com</p>
+            <p>Phone: +123 456 7890</p>
+        </div>
+
+        <!-- Contact Form Section -->
+        <div class="col-md-6 text-start">
+            <h2 class="display-5">Contact Us</h2>
+            <p class="lead">Have questions? We’d love to hear from you. Reach out to us today.</p>
+
+            <form (ngSubmit)="onSubmit()" #contactForm="ngForm">
+                <div class="mb-3">
+                    <input type="text" name="firstName" [(ngModel)]="model.firstName" #firstNameCtrl="ngModel"
+                        class="form-control" placeholder="First Name" required>
+                    <div *ngIf="firstNameCtrl.touched && firstNameCtrl.invalid" class="text-danger">
+                        First Name is required.
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <input type="text" name="lastName" [(ngModel)]="model.lastName" #lastNameCtrl="ngModel"
+                        class="form-control" placeholder="Last Name" required>
+                    <div *ngIf="lastNameCtrl.touched && lastNameCtrl.invalid" class="text-danger">
+                        Last Name is required.
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <input type="email" name="email" [(ngModel)]="model.email" #emailCtrl="ngModel" class="form-control"
+                        placeholder="Your Email" required email>
+                    <div *ngIf="emailCtrl.touched && emailCtrl.invalid" class="text-danger">
+                        A valid email is required.
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <input type="text" name="mobile" [(ngModel)]="model.mobileNum" #mobileCtrl="ngModel"
+                        class="form-control" placeholder="Mobile No" required>
+                    <div *ngIf="mobileCtrl.touched && mobileCtrl.invalid" class="text-danger">
+                        Mobile Number is required.
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <textarea name="message" [(ngModel)]="model.remarks" #messageCtrl="ngModel" class="form-control"
+                        rows="4" placeholder="Your Message" required></textarea>
+                    <div *ngIf="messageCtrl.touched && messageCtrl.invalid" class="text-danger">
+                        Message is required.
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" [disabled]="contactForm.invalid">Send Message</button>
+            </form>
+        </div>
+    </div>
+</div>

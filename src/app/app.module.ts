@@ -15,12 +15,21 @@ import { ApiInterceptor } from './shared/interceptor/api-interceptor';
 import { AppComponent } from './app.component';
 import { DatePipe } from '@angular/common';
 import { SampleComponent } from './sample-landing/sample.component';
+import { Landing2Component } from './landing2/landing2.component';
+import { Home2Component } from './landing2/home2/home2.component';
+import { About2Component } from './landing2/about2/about2.component';
+import { ContactComponent } from './landing2/contact/contact.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     AboutUsComponent,
-    SampleComponent
+    SampleComponent,
+    Landing2Component,
+    Home2Component,
+    About2Component,
+    ContactComponent
   ],
   imports: [
     BrowserModule,
@@ -28,6 +37,7 @@ import { SampleComponent } from './sample-landing/sample.component';
     AppLayoutModule,
     LandingModule,
     BrowserAnimationsModule,
+    FormsModule,
     ToastrModule.forRoot({
       timeOut: 10000,
       positionClass: 'toast-bottom-center'

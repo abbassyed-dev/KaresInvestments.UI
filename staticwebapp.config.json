@@ -2,6 +2,18 @@
     "routes": [
         {
             "route": "/login",
+            "serve": "/login.html"
+        },
+        {
+            "route": "/{*any}.html",
+            "serve": "/index.html"
+        },
+        {
+            "route": "/{*any}.js",
+            "serve": "/index.html"
+        },
+        {
+            "route": "/{*any}.css",
             "serve": "/index.html"
         },
         {

@@ -22,6 +22,7 @@ import { HighchartsChartModule } from 'highcharts-angular';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { ConfigurationService } from './configuration/configuration.service';
 import { PhoneFormatPipe } from '../shared/phone-format.pipe';
+import { SharedModule } from '../shared/shared.module';
 
 // Apply a custom theme globally using `Highcharts.setOptions()`
 Highcharts.setOptions({
@@ -68,7 +69,8 @@ Highcharts.setOptions({
         FormsModule,
         PrimeNgModule,
         AdminDashboardsRoutingModule,
-        HighchartsChartModule
+        HighchartsChartModule,
+        SharedModule
     ],
     declarations: [
         AdminDashboardComponent,
@@ -79,7 +81,7 @@ Highcharts.setOptions({
         AdminHomeComponent,
         UserTransactionsComponent,
         ConfigurationComponent,
-        PhoneFormatPipe
+        // PhoneFormatPipe
     ],
     providers: [
         AdminDashboardService,

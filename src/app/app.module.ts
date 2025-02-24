@@ -20,6 +20,9 @@ import { Home2Component } from './landing2/home2/home2.component';
 import { About2Component } from './landing2/about2/about2.component';
 import { ContactComponent } from './landing2/contact/contact.component';
 import { FormsModule } from '@angular/forms';
+import { PrimeNgModule } from './shared/prime-ng.module';
+import { SharedModule } from './shared/shared.module';
+
 
 @NgModule({
   declarations: [
@@ -38,6 +41,8 @@ import { FormsModule } from '@angular/forms';
     LandingModule,
     BrowserAnimationsModule,
     FormsModule,
+    PrimeNgModule,
+    SharedModule,
     ToastrModule.forRoot({
       timeOut: 10000,
       positionClass: 'toast-bottom-center'

@@ -38,6 +38,7 @@ import { ContactComponent } from './landing2/contact/contact.component';
           { path: 'about', component: About2Component },
           { path: 'contact', component: ContactComponent },
           { path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginModule) },
+          { path: 'register', loadChildren: () => import('./register/register.module').then(m => m.RegisterModule) },
           { path: 'forgotpassword', component: ForgotPasswordComponent }
         ],
       },

@@ -1,3 +1,13 @@
 .form-control {
     background: #20262e;
 }
+
+.bg-gradient-rounded {
+    border-radius: 56px;
+    background: linear-gradient(180deg, var(--primary-color) 20%, rgba(33, 150, 243, 0) 100%);
+}
+
+.card-container {
+    border-radius: 53px;
+    background: var(--surface-card);
+}

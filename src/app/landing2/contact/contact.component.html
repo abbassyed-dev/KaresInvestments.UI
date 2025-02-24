@@ -38,11 +38,18 @@
     <div class="row">
         <!-- Representative Details Section -->
         <div class="col-md-6 d-flex flex-column align-items-start">
-            <img alt="Representative" class="img-fluid rounded-circle w-50 mb-3" src="path-to-representative-image.jpg">
-            <h3>John Doe</h3>
+            <img alt="Representative" class="img-fluid rounded-circle w-50 mb-3"
+                src="assets/layout/images/kares-logo2.png">
+            <h3>Khurram Mohammed</h3>
             <p>Senior Financial Advisor</p>
-            <p>Email: johndoe-karesinvestments.com</p>
-            <p>Phone: +123 456 7890</p>
+            <div class="flex align-items-center gap-2 mb-2">
+                <i class="pi pi-envelope"></i>
+                <p>: johndoe&#64;karesinvestments.com</p>
+            </div>
+            <div class="flex align-items-center gap-2">
+                <i class="pi pi-phone"></i>
+                <p>: {{ phoneNo | phoneFormat}}</p>
+            </div>
         </div>
 
         <!-- Contact Form Section -->
@@ -50,7 +57,7 @@
             <h2 class="display-5">Contact Us</h2>
             <p class="lead">Have questions? We’d love to hear from you. Reach out to us today.</p>
 
-            <form (ngSubmit)="onSubmit()" #contactForm="ngForm">
+            <form (ngSubmit)="onSubmit(contactForm)" #contactForm="ngForm">
                 <div class="mb-3">
                     <input type="text" name="firstName" [(ngModel)]="model.firstName" #firstNameCtrl="ngModel"
                         class="form-control" placeholder="First Name" required>
@@ -91,3 +98,19 @@
         </div>
     </div>
 </div>
+
+<p-dialog header="Confirmation" [(visible)]="registrationConfirmation" [modal]="true" [closable]="false"
+    [style]="{ width: '25rem' }">
+    <ng-template pTemplate="header">
+        <div class="inline-flex align-items-center justify-content-center gap-2">
+            <span class="font-bold white-space-nowrap">
+                Thank you
+            </span>
+        </div>
+    </ng-template>
+    <span class="p-text-secondary block mb-5">Kares Team will contact you soon.</span>
+
+    <ng-template pTemplate="footer">
+        <p-button label="Ok" severity="secondary" (onClick)="regDialogClose()" />
+    </ng-template>
+</p-dialog>

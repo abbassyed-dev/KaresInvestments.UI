@@ -30,7 +30,7 @@
 
 <div class="container-fluid d-flex flex-column min-vh-100">
     <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
         <a class="navbar-brand" href="#">
             <img src="assets/layout/images/kares-logo2.png" alt="KARES Investments Logo" class="logo" />
             KARES Investments
@@ -43,22 +43,32 @@
 
         <!-- Collapsible Navbar Items -->
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav" style="margin-right: auto;">
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/">Home</a>
+                    <a class="nav-link" routerLink="/" routerLinkActive="active"
+                        [routerLinkActiveOptions]="{ exact: true }">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/about">About Us</a>
+                    <a class="nav-link" routerLink="/about" routerLinkActive="active">About Us</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/contact">Contact</a>
+                    <a class="nav-link" routerLink="/contact" routerLinkActive="active">Contact</a>
                 </li>
+            </ul>
+            <ul class="navbar-nav ms-auto" style="margin-left: auto;">
                 <li class="nav-item">
-                    <a routerLink="/login" class="btn btn-outline-light">Login</a>
+                    <a routerLink="/login" class="btn btn-outline-light">Already a member? Sign-In</a>
                 </li>
             </ul>
         </div>
     </nav>
+
+    <!-- Banner Section with Router Outlet Inside -->
+    <!-- <div class="banner d-flex flex-column text-center text-white">
+        <div class="router-container flex-grow-1 d-flex align-items-center justify-content-center">
+            <router-outlet></router-outlet>
+        </div>
+    </div> -->
 
     <!-- Main Content -->
     <div class="flex-grow-1">

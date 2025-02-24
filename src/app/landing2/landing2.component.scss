@@ -14,7 +14,7 @@
 }
 
 .navbar {
-    padding: 15px 20px;
+    padding: 5px 20px;
 }
 
 .navbar-brand {
@@ -32,4 +32,58 @@
 footer {
     color: white;
     padding: 15px;
+}
+
+// .banner {
+//     background: url('../../assets/layout/images/banner3.jpg') no-repeat center center;
+//     background-size: cover;
+//     height: 100vh;
+//     /* Full page height */
+//     position: relative;
+//     display: flex;
+//     flex-direction: column;
+// }
+
+// .banner-overlay {
+//     background: rgba(0, 0, 0, 0.6);
+//     padding: 20px;
+//     border-radius: 10px;
+//     text-align: center;
+// }
+
+// .router-container {
+//     flex-grow: 1;
+//     width: 100%;
+//     padding: 20px;
+//     background: rgba(0, 0, 0, 0.4);
+//     /* Optional darker effect */
+// }
+
+.navbar-custom {
+    background-color: #20262e;
+    //border-bottom: 3px solid var(--primary-color);
+}
+
+
+.navbar-nav .nav-item .nav-link.active {
+    background-color: #007bff;
+    /* Or any color you prefer */
+    color: #fff;
+    /* White text for contrast */
+    border-radius: 5px;
+    /* Optional: rounded corners */
+    padding: 8px 16px;
+    /* Adjust padding for better appearance */
+}
+
+.navbar-nav .nav-item .nav-link {
+    color: #ddd;
+    /* Default text color */
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+    color: #fff;
+    /* Hover effect for better visibility */
+    background-color: rgba(255, 255, 255, 0.1);
+    /* Subtle hover effect */
 }

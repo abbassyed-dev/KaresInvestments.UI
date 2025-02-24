@@ -10,6 +10,6 @@ export class Home2Component {
         { icon: 'pi pi-money-bill', title: 'Personalized Service' },
         { icon: 'pi pi-chart-line', title: 'Commitment to Excellence' },
         { icon: 'pi-globe', title: 'Client-Centric Approach' },
-        { icon: 'pi-lock', title: 'No Hidden Fees' }
+        { icon: 'pi-lock', title: 'Innovative Solutions' }
     ];
 }

@@ -3,7 +3,8 @@ import { UsersService } from "./users.service";
 import { User } from "../../models/user.model";
 import { AuthStateService } from "../../shared/services/auth-state.service";
 import { ToastrService } from "ngx-toastr";
-import { debounceTime, distinctUntilChanged, Subject, switchMap } from "rxjs";
+import { debounceTime, Subject, switchMap } from "rxjs";
+import { ConfirmationService } from "primeng/api";
 
 
 @Component({
@@ -28,7 +29,7 @@ export class UsersComponent implements OnInit {
     @Input() fetchAdmins = 'N';
 
     constructor(private dataService: UsersService, private toastr: ToastrService,
-        private authStateService: AuthStateService) {
+        private authStateService: AuthStateService, private confirmationService: ConfirmationService) {
         this.emailCheckSubject.pipe(
             debounceTime(500), // Waits 500ms after last input
             switchMap(email => this.dataService.checkEmailExists(email)) // Calls the API
@@ -115,8 +116,20 @@ export class UsersComponent implements OnInit {
     }
 
     onEmailChange(event: string) {
-        debugger;
         this.emailCheckSubject.next(event); // Push new email for validation
+    }
+
+    showConfirmation(user: User) {
+        this.confirmationService.confirm({
+            message: "Are you sure you want to delete this User ?",
+            header: 'Delete Confirmation',
+            icon: 'pi pi-exclamation-triangle',
+            acceptButtonStyleClass: "p-button-danger",
+            rejectButtonStyleClass: "p-button-text p-button-text",
+            accept: () => {
+                this.deleteUser(user);
+            }
+        });
     }
 
 }

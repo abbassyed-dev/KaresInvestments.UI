@@ -18,7 +18,7 @@ export class AdminHomeComponent implements OnInit {
     // updatePieChartFlag = false;
     chartOptions: any;
     // pieChartOptions: any;
-    dashboardStats: DashboardStats | null = null;
+    dashboardStats: DashboardStats = {} as DashboardStats;
     errorMessage: string | null = null;
     transactionsGraphData: GraphData[] = [];
     usersGraphData: GraphData[] = [];

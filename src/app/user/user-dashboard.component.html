@@ -11,7 +11,7 @@
             <ng-template pTemplate="content">
                 <div class="form-row">
                     <label class="form-label">Total Investment:</label>
-                    <span>{{ userStats.totalInvestment || 0 | currency }}</span>
+                    <span>{{ userStats.totalInvestment || 0 | currencyFormat }}</span>
                 </div>
                 <div class="form-row">
                     <label class="form-label">No of Dividends Paid:</label>
@@ -19,7 +19,7 @@
                 </div>
                 <div class="form-row">
                     <label class="form-label">Dividends total:</label>
-                    <span>{{ userStats.totalDividendsPaid || 0 | currency }}</span>
+                    <span>{{ userStats.totalDividendsPaid || 0 | currencyFormat }}</span>
                 </div>
                 <div class="form-row">
                     <label class="form-label">Return on Investment:</label>
@@ -75,7 +75,7 @@
                         <td>{{transaction.portfolioName}}</td>
                         <td>{{transaction.transactionType}}</td>
                         <td>{{transaction.transactionCategory}}</td>
-                        <td>{{transaction.amount}}</td>
+                        <td>{{transaction.amount | currencyFormat}}</td>
                         <td>{{transaction.transactionDate | date: 'MM/dd/yyyy'}}</td>
                         <td>{{transaction.paymentMode}}</td>
                     </tr>

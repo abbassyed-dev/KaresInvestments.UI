@@ -38,7 +38,7 @@
                         class="p-button-rounded p-button-text p-button-success">
                     </button>
                     <button *ngIf="!editing" pButton pRipple type="button" icon="pi pi-trash"
-                        (click)="deleteUserInterest(userInterest)" pTooltip="Delete"
+                        (click)="showConfirmation(userInterest)" pTooltip="Delete"
                         class="p-button-rounded p-button-text p-button-danger">
                     </button>
                     <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check"
@@ -161,3 +161,5 @@
 
     </p-dialog>
 </form>
+
+<p-confirmDialog></p-confirmDialog>

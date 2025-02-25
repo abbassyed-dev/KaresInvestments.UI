@@ -61,7 +61,7 @@
                 <tr>
                     <td>{{transaction.userName}}</td>
                     <td>{{transaction.email}}</td>
-                    <td>{{transaction.amount}}</td>
+                    <td>{{transaction.amount | currencyFormat}}</td>
                     <td>{{transaction.portfolioName}}</td>
                     <td>{{transaction.transactionDate | date: 'MM/dd/yyyy'}}</td>
                     <td>{{transaction.transactionType}}</td>
@@ -69,9 +69,8 @@
                     <td>{{transaction.paymentMode}}</td>
                     <td><p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" severity="success"
                             (onClick)="editTransaction(transaction)" />
-                        <button pButton pRipple type="button" icon="pi pi-trash"
-                            (click)="deleteTransaction(transaction)" pTooltip="Delete"
-                            class="p-button-rounded p-button-text p-button-danger">
+                        <button pButton pRipple type="button" icon="pi pi-trash" (click)="showConfirmation(transaction)"
+                            pTooltip="Delete" class="p-button-rounded p-button-text p-button-danger">
                         </button>
                     </td>
                 </tr>
@@ -82,7 +81,7 @@
 
 <form #transactionForm="ngForm" (ngSubmit)="saveTransaction(transactionForm)">
     <p-dialog [(visible)]="userTransactionDialog" [style]="{ width: '40vw' }" header="Add/Edit User Transaction"
-        [modal]="true" styleClass="p-fluid">
+        [modal]="true" styleClass="p-fluid" [focusOnShow]="false">
         <ng-template pTemplate="content">
             <div class="formgrid grid mb-2">
                 <div class="field col">
@@ -93,11 +92,11 @@
                         *ngIf="isEditMode" disabled />
                 </div>
                 <div class="field col">
-                    <label for="userPortfolioId">User Portfolios</label>
-                    <p-dropdown [options]="lookupData.userPortfolios" name="userPortfolioId"
-                        [(ngModel)]="userTransaction.portfolioId" optionLabel="portfolioName" optionValue="portfolioId"
-                        placeholder="Select Portfolio" appendTo="body">
-                    </p-dropdown>
+                    <label for="transactionDate">Transaction Date<span class="text-danger">&nbsp;*</span></label>
+                    <p-calendar id="transactionDate" name="transactionDate"
+                        [(ngModel)]="userTransaction.transactionDate" [showIcon]="true" [showOnFocus]="true"
+                        inputId="buttondisplay" #dateOfBirth="ngModel" dateFormat="mm/dd/yy" [showTime]="false"
+                        [dataType]="'date'" />
                 </div>
             </div>
             <div class="formgrid grid mb-2">
@@ -115,6 +114,18 @@
                         [(ngModel)]="userTransaction.transactionCategoryId" optionLabel="transactionCatgName"
                         optionValue="transactionCatgId" placeholder="Select Category" appendTo="body">
                     </p-dropdown>
+                </div>
+            </div>
+            <div class="formgrid grid mb-2">
+                <div class="field col">
+                    <label for="userPortfolioId">User Portfolios</label>
+                    <p-dropdown [options]="lookupData.userPortfolios" name="userPortfolioId"
+                        [(ngModel)]="userTransaction.portfolioId" optionLabel="portfolioName" optionValue="portfolioId"
+                        placeholder="Select Portfolio" appendTo="body">
+                    </p-dropdown>
+                </div>
+                <div class="field col">
+
                 </div>
             </div>
             <div class="formgrid grid mb-2">
@@ -149,3 +160,5 @@
 
     </p-dialog>
 </form>
+
+<p-confirmDialog></p-confirmDialog>

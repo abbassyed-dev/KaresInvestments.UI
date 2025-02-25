@@ -21,7 +21,6 @@ import * as Highcharts from 'highcharts';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { ConfigurationService } from './configuration/configuration.service';
-import { PhoneFormatPipe } from '../shared/phone-format.pipe';
 import { SharedModule } from '../shared/shared.module';
 
 // Apply a custom theme globally using `Highcharts.setOptions()`

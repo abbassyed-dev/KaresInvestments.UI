@@ -4,6 +4,7 @@ import { UserInterest } from "../../models/user-interest.model";
 import { ToastrService } from "ngx-toastr";
 import { User } from "../../models/user.model";
 import { AuthStateService } from "../../shared/services/auth-state.service";
+import { ConfirmationService } from "primeng/api";
 
 @Component({
     selector: 'app-user-interests',
@@ -23,7 +24,7 @@ export class UserInterestsComponent implements OnInit {
     userDialog = false;
 
     constructor(private dataService: UserInterestService, private toastr: ToastrService,
-        private authStateService: AuthStateService
+        private authStateService: AuthStateService, private confirmationService: ConfirmationService
     ) {
 
     }
@@ -97,5 +98,16 @@ export class UserInterestsComponent implements OnInit {
         this.userDialog = false;
     }
 
-
+    showConfirmation(userInterest: UserInterest) {
+        this.confirmationService.confirm({
+            message: "Are you sure you want to delete this Transaction ?",
+            header: 'Delete Confirmation',
+            icon: 'pi pi-exclamation-triangle',
+            acceptButtonStyleClass: "p-button-danger",
+            rejectButtonStyleClass: "p-button-text p-button-text",
+            accept: () => {
+                this.deleteUserInterest(userInterest);
+            }
+        });
+    }
 }

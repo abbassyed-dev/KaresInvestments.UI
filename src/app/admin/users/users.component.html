@@ -51,7 +51,7 @@
                         <p-button icon="pi pi-list-check" class="mr-2" [rounded]="true" [outlined]="true"
                             *ngIf="fetchAdmins==='N'" pTooltip="View Transactions" severity="success"
                             (onClick)="viewTransactions(user)" />
-                        <button pButton pRipple type="button" icon="pi pi-trash" (click)="deleteUser(user)"
+                        <button pButton pRipple type="button" icon="pi pi-trash" (click)="showConfirmation(user)"
                             pTooltip="Delete" class="p-button-rounded p-button-text p-button-danger">
                         </button>
                     </td>
@@ -174,3 +174,5 @@
 
     </p-dialog>
 </form>
+
+<p-confirmDialog></p-confirmDialog>

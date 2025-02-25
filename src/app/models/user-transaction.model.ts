@@ -5,7 +5,7 @@ export class UserTransaction {
     portfolioName: string;
     userName: string;
     email: string;
-    transactionDate?: Date;
+    transactionDate: Date;
     transactionType?: string;
     transactionCategory?: string;
     paymentMode?: string;

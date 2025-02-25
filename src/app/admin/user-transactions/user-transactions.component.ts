@@ -1,10 +1,10 @@
-import { Component, ElementRef, ViewChild, OnInit, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AuthStateService } from '../../shared/services/auth-state.service';
 import { UserTransactionsService } from './user-transactions.service';
 import { UserTransaction } from '../../models/user-transaction.model';
 import { ToastrService } from 'ngx-toastr';
 import { User } from '../../models/user.model';
-
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
     selector: 'app-user-transactions',
@@ -28,7 +28,8 @@ export class UserTransactionsComponent implements OnInit {
     selectedPortfolio = 0; // Holds the selected value
 
     constructor(private authStateService: AuthStateService, private toastr: ToastrService,
-        private dataService: UserTransactionsService, private cdr: ChangeDetectorRef) { }
+        private confirmationService: ConfirmationService,
+        private dataService: UserTransactionsService) { }
 
 
     ngOnInit(): void {
@@ -121,6 +122,7 @@ export class UserTransactionsComponent implements OnInit {
 
     editTransaction(userTransaction: UserTransaction) {
         this.userTransaction = { ...userTransaction };
+        this.userTransaction.transactionDate = new Date(userTransaction.transactionDate);
         if (this.userTransaction.userId) {
             this.fetchUserPortfolios(this.userTransaction.userId, true);
         }
@@ -177,5 +179,18 @@ export class UserTransactionsComponent implements OnInit {
                     this.toastr.error("Not able to Delete. Try Again");
                 });
         }
+    }
+
+    showConfirmation(userTransaction: UserTransaction) {
+        this.confirmationService.confirm({
+            message: "Are you sure you want to delete this Transaction ?",
+            header: 'Delete Confirmation',
+            icon: 'pi pi-exclamation-triangle',
+            acceptButtonStyleClass: "p-button-danger",
+            rejectButtonStyleClass: "p-button-text p-button-text",
+            accept: () => {
+                this.deleteTransaction(userTransaction);
+            }
+        });
     }
 }

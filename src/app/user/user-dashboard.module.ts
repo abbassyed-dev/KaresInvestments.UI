@@ -9,6 +9,7 @@ import { UserDashboardService } from './user-dashboard.service';
 
 import * as Highcharts from 'highcharts';
 import { HighchartsChartModule } from 'highcharts-angular';
+import { SharedModule } from '../shared/shared.module';
 
 // Apply a custom theme globally using `Highcharts.setOptions()`
 Highcharts.setOptions({
@@ -55,7 +56,8 @@ Highcharts.setOptions({
         FormsModule,
         PrimeNgModule,
         UserDashboardsRoutingModule,
-        HighchartsChartModule
+        HighchartsChartModule,
+        SharedModule
     ],
     declarations: [UserDashboardComponent],
     providers: [UserDashboardService, DatePipe,]

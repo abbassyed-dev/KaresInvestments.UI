@@ -15,6 +15,7 @@ export class ContactComponent {
     model: UserInterest;
     registrationConfirmation = false;
     phoneNo = '1234567890';
+    email = 'Khurram@KaresInvestments.com'
     constructor(private dataService: ContactService, private toastr: ToastrService, private router: Router) {
 
     }

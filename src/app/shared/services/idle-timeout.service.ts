@@ -1,7 +1,7 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { fromEvent, merge, timer, Subscription } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { debounceTime, switchMap } from 'rxjs/operators';
 import { AuthStateService } from './auth-state.service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -30,11 +30,12 @@ export class IdleTimeoutService {
             }
 
             this.activitySubscription = activityEvents.pipe(
+                debounceTime(500),
                 switchMap(() => timer(this.idleTimeout))
             ).subscribe(() => {
                 this.ngZone.run(() => {
                     this.authState.logout();
-                    this.toastr.error("Redirecting to Login", "You were Inactive.");
+                    this.toastr.error("Redirecting to Home", "You were Inactive.");
                     this.router.navigate(['/']);
                 });
             });

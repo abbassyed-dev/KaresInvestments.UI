@@ -35,16 +35,11 @@ export class IdleTimeoutService {
                 this.ngZone.run(() => {
                     this.authState.logout();
                     this.toastr.error("Redirecting to Login", "You were Inactive.");
-                    this.router.navigate(['/login']);
+                    this.router.navigate(['/']);
                 });
             });
         });
     }
-
-    // private logoutUser(): void {
-    //     console.log('User is idle. Logging out...');
-    //     this.router.navigate(['/kares/login']); // Redirect to login page
-    // }
 
     stopWatching(): void {
         if (this.activitySubscription) {

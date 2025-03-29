@@ -1,124 +1,105 @@
-// import { Injectable } from '@angular/core';
-// import {
-//     HttpRequest,
-//     HttpHandler,
-//     HttpEvent,
-//     HttpInterceptor,
-// } from '@angular/common/http';
-// import { Observable, throwError } from 'rxjs';
-// import { catchError, finalize } from 'rxjs/operators';
-// import { SpinnerService } from '../services/spinner.service';
-// import { ToastrService } from 'ngx-toastr';
-
-
-// @Injectable()
-// export class ApiInterceptor implements HttpInterceptor {
-//     constructor(private spinnerService: SpinnerService, private toastr: ToastrService) { }
-
-//     intercept(
-//         request: HttpRequest<any>,
-//         next: HttpHandler
-//     ): Observable<HttpEvent<any>> {
-//         this.spinnerService.show();
-//         return next.handle(request).pipe(
-//             catchError((error) => {
-//                 if (error.status === 0) {
-//                     this.toastr.error("API Server is Down/Not running. Please try again later.", "Unable to Connect");
-//                 }
-//                 return throwError(() => new Error(error));
-//             }),
-//             finalize(() => {
-//                 setTimeout(() => {
-//                     this.spinnerService.hide();
-//                 }, 1000);
-//             }),
-//         );
-//     }
-// }
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError, finalize } from 'rxjs/operators';
+import { Observable, throwError, BehaviorSubject } from 'rxjs';
+import { catchError, switchMap, filter, take, finalize } from 'rxjs/operators';
 import { SpinnerService } from '../services/spinner.service';
 import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthStateService } from '../services/auth-state.service';
 import { Router } from '@angular/router';
+import { LoginService } from '../../login/login.service';
 
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
-    constructor(private spinnerService: SpinnerService, private toastr: ToastrService,
-        private cookieService: CookieService, private router: Router, private authStateService: AuthStateService
+    private isRefreshing = false;
+    private refreshTokenSubject: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
+
+    constructor(
+        private spinnerService: SpinnerService,
+        private toastr: ToastrService,
+        private cookieService: CookieService,
+        private router: Router,
+        private authStateService: AuthStateService,
+        private loginService: LoginService
     ) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        this.spinnerService.show(); // Show the spinner when the request starts
+        this.spinnerService.show();
 
-        // Check if the request should be whitelisted
         if (this.shouldInterceptRequest(request)) {
-            return next.handle(request).pipe(
-                catchError((error: HttpErrorResponse) => this.handleError(error)),
-                finalize(() => {
-                    // Hide the spinner after the whitelisted request completes (success or failure)
-                    this.spinnerService.hide();
-                })
-            );
+            return next.handle(request).pipe(finalize(() => this.spinnerService.hide()));
         }
 
-        request = request.clone({
-            setHeaders: {
-                'Authorization': this.cookieService.get('Authorization')
-            }
-        });
+        request = this.addAuthToken(request);
 
         return next.handle(request).pipe(
-            catchError((error: HttpErrorResponse) => this.handleError(error)),
-            finalize(() => {
-                // Hide the spinner after the request completes (success or failure)
-                this.spinnerService.hide();
-            })
+            catchError((error: HttpErrorResponse) => {
+                if (error.status === 401) {
+                    return this.handle401Error(request, next);
+                }
+                return this.handleError(error);
+            }),
+            finalize(() => this.spinnerService.hide())
         );
     }
 
-    private shouldInterceptRequest(request: HttpRequest<any>): boolean {
-        // Check if the URL is either /login or /api/UserInterest (POST method)
-        const isLoginRequest = request.urlWithParams.indexOf('/login') > -1;
-        const isUserInterestRequest = request.urlWithParams.indexOf('/api/UserInterest') > -1 && request.method === 'POST';
-
-        // If either of these two conditions is true, we do not add the token
-        return isLoginRequest || isUserInterestRequest;
+    private addAuthToken(request: HttpRequest<any>): HttpRequest<any> {
+        const token = this.cookieService.get('Authorization');
+        return request.clone({
+            setHeaders: { Authorization: token }
+        });
     }
 
+    private handle401Error(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        if (!this.isRefreshing) {
+            this.isRefreshing = true;
+            this.refreshTokenSubject.next(null);
+
+            return this.loginService.refreshToken().pipe(
+                switchMap((newToken: string) => {
+                    this.isRefreshing = false;
+                    this.refreshTokenSubject.next(newToken);
+                    this.cookieService.set('Authorization', newToken);
+                    return next.handle(this.addAuthToken(request));
+                }),
+                catchError((err) => {
+                    this.isRefreshing = false;
+                    this.authStateService.logout();
+                    this.router.navigate(['/login']);
+                    this.toastr.error('Session expired. Please log in again.', 'Session Expired');
+                    return throwError(() => err);
+                })
+            );
+        } else {
+            return this.refreshTokenSubject.pipe(
+                filter(token => token !== null),
+                take(1),
+                switchMap(token => next.handle(this.addAuthToken(request)))
+            );
+        }
+    }
+
+    private shouldInterceptRequest(request: HttpRequest<any>): boolean {
+        const isLoginRequest = request.url.includes('/login');
+        const isUserInterestRequest = request.url.includes('/api/UserInterest') && request.method === 'POST';
+        return isLoginRequest || isUserInterestRequest;
+    }
 
     private handleError(error: HttpErrorResponse) {
         let errorMessage = 'An unexpected error occurred.';
         if (error.status === 0) {
-            // Network or server connection error
             errorMessage = 'API Server is Down/Not running. Please try again later.';
             this.toastr.error(errorMessage, 'Unable to Connect');
         } else if (error.status === 401) {
-            // Handle token expiration or unauthorized errors
-            if (this.isTokenExpired()) {
-                // Token has expired, so logout the user
-                this.toastr.error("Redirecting to Login", "Session Expired");
-                this.authStateService.logout();
-                this.router.navigate(['/login']); // Redirect to login page
-            } else {
-                // Handle other 401 cases (e.g., invalid token, missing token)
-                errorMessage = 'Unauthorized access. Please log in again.';
-                this.authStateService.logout();
-                this.router.navigate(['/login']); // Redirect to login page
-            }
+            errorMessage = 'Unauthorized access. Please log in again.';
+            this.authStateService.logout();
+            this.router.navigate(['/login']);
         } else if (error.error && error.error.message) {
-            // Extract message from structured error response
-            errorMessage = error.error.message || 'An error occurred';
-            // this.toastr.error(errorMessage, 'Error');
+            errorMessage = error.error.message;
         } else {
-            // Generic error handling for other types of HTTP errors
             this.toastr.error(error.error || 'An error occurred', 'Error');
         }
 
-        // Return a structured error object
         return throwError(() => ({
             message: errorMessage,
             status: error.status,
@@ -126,32 +107,4 @@ export class ApiInterceptor implements HttpInterceptor {
             code: error.error?.code || 'UNKNOWN_ERROR'
         }));
     }
-
-    // Helper method to check if the JWT token is expired (with a 10-minute buffer)
-    private isTokenExpired(): boolean {
-        const token: string | null = this.cookieService.get('Authorization');
-        if (!token) return true; // No token, treat as expired.
-
-        const payload: any = this.parseJwt(token);
-        const exp: number | undefined = payload?.exp;
-
-        if (exp) {
-            const expirationDate: number = exp * 1000; // Convert exp (seconds) to milliseconds
-            const bufferTime: number = 10 * 60 * 1000; // 10 minutes in milliseconds
-            return expirationDate - bufferTime < Date.now();
-        }
-
-        return true; // If exp is not present, treat as expired.
-    }
-
-    // Helper method to decode a JWT token
-    private parseJwt(token: string): any {
-        const parts = token.split('.');
-        if (parts.length !== 3) return null;
-
-        const decoded = atob(parts[1]);
-        return JSON.parse(decoded);
-    }
-
 }
-

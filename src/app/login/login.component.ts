@@ -52,9 +52,10 @@ export class LoginComponent {
                     // Set Auth Cookie
                     this.cookieService.set('Authorization', `Bearer ${response.token}`,
                         undefined, '/', undefined, true, 'Strict');
+                    this.cookieService.set('RefreshToken', response.refreshToken);
                     console.log(response);
                     // Store Refresh Token in Local Storage
-                    localStorage.setItem('refreshToken', response.refreshToken);
+                    // localStorage.setItem('refreshToken', response.refreshToken);
                     this.authStateService.setUser(response);
                     if (response.isAdmin) {
                         this.router.navigate(['/dashboard/admin']);

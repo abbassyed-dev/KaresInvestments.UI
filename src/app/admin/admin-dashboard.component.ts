@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { LayoutService } from '../layout/service/app.layout.service';
-import { ProductService } from '../service/product.service';
 import { User } from '../models/user.model';
 
 
@@ -14,7 +13,7 @@ export class AdminDashboardComponent implements OnInit {
     userContext: User = {} as User;
 
 
-    constructor(private productService: ProductService, public layoutService: LayoutService) {
+    constructor(public layoutService: LayoutService) {
     }
 
     ngOnInit() {

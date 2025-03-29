@@ -30,9 +30,13 @@ p {
     }
 }
 
+
 .banner {
-    background: url('../../../assets/layout/images/banner7.jpeg') no-repeat center center;
-    background-size: cover;
+    background: url('../../../assets/layout/images/banner7.jpeg') repeat center center;
+    background-size: contain;
+    /* Ensure the whole image is visible without cropping */
+    background-color: #f5f5f5;
+    /* Optional: Fallback background to fill empty space */
     height: 450px;
     display: flex;
     align-items: center;

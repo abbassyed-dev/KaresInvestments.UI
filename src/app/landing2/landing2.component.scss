@@ -1,89 +1,526 @@
-.logo {
-    height: 40px;
-    margin-right: 10px;
+// Variables for consistent styling
+:root {
+  --navbar-height: 80px;
+  --primary-color-rgb: 41, 98, 255;
+  --secondary-color-rgb: 255, 136, 77;
 }
 
-.content-container {
-    padding-top: 80px;
-    /* To prevent content from hiding under fixed navbar */
-    flex-grow: 1;
-}
+// Premium Navigation Bar
+.navbar-premium {
+  height: var(--navbar-height);
+  background: linear-gradient(
+    135deg,
+    var(--primary-dark) 0%,
+    var(--primary-color) 100%
+  );
+  padding: 1rem 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: all 0.3s ease;
 
-.navbar-nav .nav-item {
-    margin-left: 15px;
-}
+  // Navbar shrink effect on scroll
+  &.navbar-scrolled {
+    height: 70px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+  }
 
-.navbar {
-    padding: 5px 20px;
-}
-
-.navbar-brand {
+  .navbar-brand {
     display: flex;
     align-items: center;
-    font-size: 1.5rem;
-    font-weight: bold;
-    gap: 10px;
-}
+    padding: 0;
 
-.navbar-nav .btn {
-    margin-left: 15px;
-}
+    .navbar-logo {
+      height: 40px;
+      margin-right: 12px;
+      transition: all 0.3s ease;
+    }
 
-footer {
-    color: white;
-    padding: 15px;
-}
+    .brand-text {
+      color: white;
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      background: linear-gradient(to right, #ffffff, #e0e0ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  }
 
-// .banner {
-//     background: url('../../assets/layout/images/banner3.jpg') no-repeat center center;
-//     background-size: cover;
-//     height: 100vh;
-//     /* Full page height */
-//     position: relative;
-//     display: flex;
-//     flex-direction: column;
-// }
-
-// .banner-overlay {
-//     background: rgba(0, 0, 0, 0.6);
-//     padding: 20px;
-//     border-radius: 10px;
-//     text-align: center;
-// }
-
-// .router-container {
-//     flex-grow: 1;
-//     width: 100%;
-//     padding: 20px;
-//     background: rgba(0, 0, 0, 0.4);
-//     /* Optional darker effect */
-// }
-
-.navbar-custom {
-    background-color: #20262e;
-    //border-bottom: 3px solid var(--primary-color);
-}
-
-
-.navbar-nav .nav-item .nav-link.active {
-    background-color: #007bff;
-    /* Or any color you prefer */
-    color: #fff;
-    /* White text for contrast */
-    border-radius: 5px;
-    /* Optional: rounded corners */
-    padding: 8px 16px;
-    /* Adjust padding for better appearance */
-}
-
-.navbar-nav .nav-item .nav-link {
-    color: #ddd;
-    /* Default text color */
-}
-
-.navbar-nav .nav-item .nav-link:hover {
-    color: #fff;
-    /* Hover effect for better visibility */
+  .navbar-toggler {
+    color: var(--text-color);
+    border: none;
+    padding: 0.5rem;
+    border-radius: 8px;
     background-color: rgba(255, 255, 255, 0.1);
-    /* Subtle hover effect */
+    backdrop-filter: blur(5px);
+
+    &:focus {
+      box-shadow: none;
+      outline: none;
+    }
+
+    i {
+      font-size: 1.5rem;
+    }
+  }
+
+  .navbar-collapse {
+    transition: all 0.3s ease;
+  }
+
+  .navbar-nav {
+    margin-left: 1.5rem;
+
+    .nav-item {
+      position: relative;
+      margin: 0 0.25rem;
+
+      .nav-link {
+        color: rgba(255, 255, 255, 0.85);
+        font-weight: 500;
+        padding: 0.75rem 1rem;
+        position: relative;
+        transition: all 0.3s ease;
+
+        // Animated underline effect
+        span {
+          position: relative;
+
+          &::after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: linear-gradient(
+              90deg,
+              var(--secondary-color),
+              var(--secondary-dark)
+            );
+            transition: width 0.3s ease;
+            border-radius: 2px;
+          }
+        }
+
+        &:hover,
+        &.active {
+          color: white;
+
+          span::after {
+            width: 100%;
+          }
+        }
+      }
+
+      // Dropdown menu styling
+      .dropdown-menu {
+        margin-top: 0.5rem;
+        border: none;
+        border-radius: 12px;
+        background: white;
+        padding: 0.75rem 0;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        min-width: 220px;
+
+        .dropdown-item {
+          padding: 0.6rem 1.5rem;
+          font-weight: 500;
+          color: var(--text-color);
+          transition: all 0.2s ease;
+
+          &:hover,
+          &:focus {
+            background-color: rgba(var(--primary-color-rgb), 0.07);
+            color: var(--primary-color);
+          }
+        }
+
+        .dropdown-divider {
+          margin: 0.5rem 0;
+          opacity: 0.15;
+        }
+      }
+    }
+  }
+
+  // Auth buttons container
+  .navbar-auth-buttons {
+    display: flex;
+    align-items: center;
+
+    .signin-btn {
+      border: 2px solid rgba(255, 255, 255, 0.7);
+      color: white;
+      border-radius: 8px;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-color: white;
+      }
+    }
+
+    .register-btn {
+      border-radius: 8px;
+      background: linear-gradient(
+        90deg,
+        var(--secondary-color),
+        var(--secondary-dark)
+      );
+      border: none;
+      box-shadow: 0 4px 10px rgba(var(--secondary-color-rgb), 0.3);
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(var(--secondary-color-rgb), 0.4);
+      }
+    }
+  }
+}
+
+// Premium Footer
+.footer-premium {
+  background-color: #f8f9fa;
+
+  // Main footer section
+  .footer-main {
+    background: linear-gradient(
+      135deg,
+      var(--surface-overlay) 0%,
+      var(--surface-section) 100%
+    );
+    padding: 5rem 0 3rem;
+    box-shadow: 0 -5px 30px rgba(0, 0, 0, 0.05);
+    position: relative;
+
+    // Subtle background pattern
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      opacity: 1;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+    }
+
+    // Footer brand section
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1.25rem;
+
+      .footer-logo {
+        height: 45px;
+        margin-right: 1rem;
+      }
+
+      h4 {
+        font-weight: 700;
+        margin: 0;
+        color: var(--text-color);
+      }
+    }
+
+    .footer-description {
+      font-size: 1rem;
+      color: var(--text-color-secondary);
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+      max-width: 350px;
+    }
+
+    // Social icons
+    .footer-social {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+
+      .social-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background-color: #f8f9fa;
+        color: var(--text-color-secondary);
+        transition: all 0.3s ease;
+
+        i {
+          font-size: 1rem;
+        }
+
+        &:hover {
+          background: linear-gradient(
+            135deg,
+            var(--primary-color) 0%,
+            var(--primary-dark) 100%
+          );
+          color: white;
+          transform: translateY(-3px);
+          box-shadow: 0 5px 15px rgba(var(--primary-color-rgb), 0.3);
+        }
+      }
+    }
+
+    // Footer headings
+    .footer-heading {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text-color);
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      position: relative;
+
+      &::after {
+        content: "";
+        position: absolute;
+        width: 40px;
+        height: 3px;
+        bottom: 0;
+        left: 0;
+        background: linear-gradient(
+          90deg,
+          var(--primary-color) 0%,
+          var(--primary-dark) 100%
+        );
+        border-radius: 3px;
+      }
+    }
+
+    // Footer links
+    .footer-links {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        margin-bottom: 0.75rem;
+
+        a {
+          color: var(--text-color-secondary);
+          text-decoration: none;
+          transition: all 0.2s ease;
+          display: inline-block;
+          position: relative;
+
+          &::before {
+            content: "→";
+            position: absolute;
+            left: -20px;
+            opacity: 0;
+            transition: all 0.2s ease;
+          }
+
+          &:hover {
+            color: var(--primary-color);
+            transform: translateX(20px);
+
+            &::before {
+              opacity: 1;
+              left: -15px;
+            }
+          }
+        }
+      }
+    }
+
+    // Newsletter section
+    .footer-newsletter-text {
+      font-size: 0.95rem;
+      color: var(--text-color-secondary);
+      margin-bottom: 1rem;
+    }
+
+    .footer-newsletter {
+      .p-inputgroup {
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        border-radius: 8px;
+        overflow: hidden;
+
+        .p-inputtext {
+          border-radius: 8px 0 0 8px;
+          border: none;
+          padding: 0.75rem 1rem;
+          font-size: 0.95rem;
+          flex: 1;
+        }
+
+        .p-button {
+          border-radius: 0 8px 8px 0;
+          background: linear-gradient(
+            90deg,
+            var(--primary-color) 0%,
+            var(--primary-dark) 100%
+          );
+          border: none;
+        }
+      }
+    }
+
+    // Certification badges
+    .footer-certifications {
+      display: flex;
+      gap: 1rem;
+
+      .certification-badge {
+        height: 40px;
+        opacity: 0.8;
+        transition: all 0.3s ease;
+
+        &:hover {
+          opacity: 1;
+          transform: scale(1.05);
+        }
+      }
+    }
+  }
+
+  // Footer bottom section
+  .footer-bottom {
+    background-color: var(--surface-overlay);
+    padding: 1.5rem 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+
+    p {
+      margin: 0;
+      color: var(--text-color-secondary);
+      font-size: 0.9rem;
+    }
+
+    .footer-bottom-links {
+      display: flex;
+      align-items: center;
+
+      a {
+        color: var(--text-color-secondary);
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: color 0.2s ease;
+
+        &:hover {
+          color: var(--primary-color);
+        }
+      }
+
+      .footer-divider {
+        color: rgba(0, 0, 0, 0.15);
+        margin: 0 0.75rem;
+      }
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 992px) {
+  .navbar-premium {
+    height: auto;
+    padding: 1rem 0;
+
+    .navbar-brand {
+      .navbar-logo {
+        height: 36px;
+      }
+
+      .brand-text {
+        font-size: 1.3rem;
+      }
+    }
+
+    .navbar-nav {
+      margin-left: 0;
+      padding: 1rem 0;
+
+      .nav-item {
+        margin: 0;
+
+        .nav-link {
+          padding: 0.75rem 0;
+        }
+      }
+    }
+
+    .navbar-auth-buttons {
+      flex-wrap: wrap;
+      width: 100%;
+      padding-top: 0.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      margin-top: 0.5rem;
+
+      .signin-btn,
+      .register-btn {
+        width: 100%;
+        margin: 0.5rem 0;
+      }
+
+      .register-btn {
+        margin-left: 0 !important;
+      }
+    }
+  }
+
+  .footer-premium {
+    .footer-main {
+      padding: 3rem 0 2rem;
+    }
+
+    .footer-brand {
+      margin-bottom: 1rem;
+    }
+
+    .footer-heading {
+      margin-top: 2rem;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar-premium {
+    .navbar-brand {
+      .brand-text {
+        font-size: 1.2rem;
+      }
+    }
+  }
+
+  .footer-premium {
+    .footer-bottom {
+      text-align: center;
+
+      p {
+        margin-bottom: 1rem;
+      }
+
+      .footer-bottom-links {
+        justify-content: center;
+      }
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .navbar-premium {
+    .navbar-brand {
+      .navbar-logo {
+        height: 32px;
+      }
+
+      .brand-text {
+        font-size: 1.1rem;
+      }
+    }
+  }
 }

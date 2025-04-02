@@ -1,17 +1,38 @@
 import { NgModule } from '@angular/core';
 import { PhoneFormatPipe } from './phone-format.pipe';
 import { CurrencyFormatPipe } from './currency-format.pipe';
-import { LucideAngularModule, Users, Handshake, Trophy, Rocket } from 'lucide-angular';
+import {
+  LucideAngularModule,
+  Users,
+  Handshake,
+  Trophy,
+  Rocket,
+  Shield,
+  TrendingUp,
+  Award,
+  UserCheck,
+  HeartHandshake,
+  Lightbulb,
+} from 'lucide-angular';
 
-const SharedComponents = [
-    PhoneFormatPipe,
-    CurrencyFormatPipe
-];
+const SharedComponents = [PhoneFormatPipe, CurrencyFormatPipe];
 
 @NgModule({
-    imports: [LucideAngularModule.pick({ Users, Handshake, Trophy, Rocket })],
-    declarations: [SharedComponents],
-    exports: [SharedComponents, LucideAngularModule]
+  imports: [
+    LucideAngularModule.pick({
+      Users,
+      Handshake,
+      Trophy,
+      Rocket,
+      Shield,
+      TrendingUp,
+      Award,
+      UserCheck,
+      HeartHandshake,
+      Lightbulb,
+    }),
+  ],
+  declarations: [SharedComponents],
+  exports: [SharedComponents, LucideAngularModule],
 })
-
-export class SharedModule { }
+export class SharedModule {}

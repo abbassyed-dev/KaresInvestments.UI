@@ -1,0 +1,115 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700;800&display=swap");
+
+:root {
+  // Default light theme variables
+  --primary-color: #3b82f6;
+  --primary-dark: #1d4ed8;
+  --primary-light: #93c5fd;
+  --secondary-color: #d4a650;
+  --secondary-dark: #b78c38;
+  --secondary-light: #f3d19e;
+
+  --surface-ground: #f8f9fa;
+  --surface-section: #ffffff;
+  --surface-card: #ffffff;
+  --surface-overlay: #ffffff;
+  --surface-border: #e9ecef;
+  --surface-hover: #f1f5f9;
+
+  --text-color: #1e293b;
+  --text-color-secondary: #64748b;
+  --text-muted: #94a3b8;
+
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --shadow-sm: 0 1px 2px var(--shadow-color);
+  --shadow-md: 0 4px 6px var(--shadow-color);
+  --shadow-lg: 0 10px 15px var(--shadow-color);
+
+  --font-family: "Nunito", sans-serif;
+}
+
+.light-theme {
+  // Light theme is the default
+  color-scheme: light;
+}
+
+.dark-theme {
+  color-scheme: dark;
+
+  --primary-color: #3b82f6;
+  --primary-dark: #1d4ed8;
+  --primary-light: #93c5fd;
+  --secondary-color: #d4a650;
+  --secondary-dark: #b78c38;
+  --secondary-light: #f3d19e;
+
+  --surface-ground: #121212;
+  --surface-section: #1e1e1e;
+  --surface-card: #242424;
+  --surface-overlay: #2a2a2a;
+  --surface-border: #383838;
+  --surface-hover: #333333;
+
+  --text-color: #f8f9fa;
+  --text-color-secondary: #cdd5e0;
+  --text-muted: #94a3b8;
+
+  --shadow-color: rgba(0, 0, 0, 0.3);
+}
+
+// Apply theme variables to elements
+body {
+  background-color: var(--surface-ground);
+  color: var(--text-color);
+  font-family: var(--font-family);
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.3s ease;
+}
+
+.card {
+  background-color: var(--surface-card);
+  color: var(--text-color);
+  border-color: var(--surface-border);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: var(--shadow-md);
+  }
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+
+  &:hover,
+  &:focus {
+    background-color: var(--primary-dark);
+    border-color: var(--primary-dark);
+  }
+}
+
+.btn-secondary {
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
+
+  &:hover,
+  &:focus {
+    background-color: var(--secondary-dark);
+    border-color: var(--secondary-dark);
+  }
+}
+
+.btn-outline-light {
+  color: var(--text-color);
+  border-color: var(--surface-border);
+
+  &:hover,
+  &:focus {
+    background-color: var(--surface-hover);
+    color: var(--text-color);
+  }
+}
+
+// Add more theme-specific styles as needed

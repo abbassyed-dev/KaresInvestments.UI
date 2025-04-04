@@ -78,7 +78,9 @@ body {
     box-shadow: var(--shadow-md);
   }
 }
-
+.p-button {
+  border-radius: 8px !important; /* Adjust the value as needed */
+}
 .btn-primary {
   background-color: var(--primary-color);
   border-color: var(--primary-color);

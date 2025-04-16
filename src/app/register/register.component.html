@@ -4,12 +4,12 @@
       <div class="register-card">
         <h2 class="card-title">Let's Connect</h2>
         <p class="instruction-text">
-          Have questions? We'd love to hear from you. Reach out to us today.
+          Please fill out the form below to get in touch with us.
         </p>
 
         <form
-          #contactForm="ngForm"
-          (ngSubmit)="onSubmit(contactForm)"
+          #registerForm="ngForm"
+          (ngSubmit)="onSubmit(registerForm)"
           class="register-form"
         >
           <div class="form-group">
@@ -68,6 +68,31 @@
           </div>
 
           <div class="form-group">
+            <label for="mobileNum" class="form-label">Mobile Number</label>
+            <div class="input-container">
+              <i class="pi pi-mobile input-icon"></i>
+              <input
+                id="mobileNum"
+                name="mobileNum"
+                [(ngModel)]="model.mobileNum"
+                required
+                #mob="ngModel"
+                type="text"
+                placeholder="Enter your 10-digit mobile number"
+                pInputText
+                class="form-input"
+                pattern="^\d{10}$"
+              />
+            </div>
+            <div *ngIf="mob.invalid && mob.touched" class="validation-message">
+              <small
+                >Mobile number is required and must be a valid 10-digit
+                number.</small
+              >
+            </div>
+          </div>
+
+          <div class="form-group">
             <label for="email" class="form-label">Email</label>
             <div class="input-container">
               <i class="pi pi-envelope input-icon"></i>
@@ -95,62 +120,35 @@
           </div>
 
           <div class="form-group">
-            <label for="mobileNum" class="form-label">Mobile Number</label>
-            <div class="input-container">
-              <i class="pi pi-mobile input-icon"></i>
-              <input
-                id="mobileNum"
-                name="mobileNum"
-                [(ngModel)]="model.mobileNum"
-                required
-                #mob="ngModel"
-                type="text"
-                placeholder="Enter your 10-digit mobile number"
-                pInputText
-                class="form-input"
-                pattern="^\d{10}$"
-              />
-            </div>
-            <div *ngIf="mob.invalid && mob.touched" class="validation-message">
-              <small
-                >Mobile number is required and must be a valid 10-digit
-                number.</small
-              >
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="remarks" class="form-label">Message</label>
+            <label for="remarks" class="form-label">Comments</label>
             <div class="input-container textarea-container">
               <i class="pi pi-comment input-icon textarea-icon"></i>
               <textarea
                 id="remarks"
                 name="remarks"
                 [(ngModel)]="model.remarks"
-                required
                 #remarks="ngModel"
-                placeholder="What would you like to know?"
+                placeholder="Share your comments or questions with us"
                 pInputTextarea
                 class="form-textarea"
-                rows="3"
+                rows="4"
               ></textarea>
-            </div>
-            <div
-              *ngIf="remarks.invalid && remarks.touched"
-              class="validation-message"
-            >
-              <small>Please provide a message.</small>
             </div>
           </div>
 
           <button
             pButton
             type="submit"
-            label="Send Message"
+            label="Submit"
             class="submit-button"
-            [disabled]="contactForm.invalid"
+            [disabled]="registerForm.invalid"
           ></button>
         </form>
+
+        <div class="login-section">
+          <span>Already have an account?</span>
+          <a class="login-link" [routerLink]="['/login']">Sign In</a>
+        </div>
       </div>
     </div>
   </div>

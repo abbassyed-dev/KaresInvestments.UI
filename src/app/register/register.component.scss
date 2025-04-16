@@ -4,8 +4,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 2rem;
   margin-top: 60px;
-
   .register-wrapper {
     width: 100%;
     max-width: 1200px;
@@ -44,6 +44,28 @@
     width: 100%;
   }
 
+  .logo-section {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    justify-content: center;
+
+    .logo-placeholder {
+      width: 40px;
+      height: 40px;
+      background-color: var(--primary-color);
+      border-radius: 8px;
+      margin-right: 12px;
+    }
+
+    .company-name {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--text-color);
+      margin: 0;
+    }
+  }
+
   .card-title {
     font-size: 1.75rem;
     font-weight: 700;
@@ -63,7 +85,7 @@
   .register-form {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 1rem;
   }
 
   .form-group {
@@ -122,6 +144,7 @@
 
     .form-textarea {
       resize: vertical;
+      min-height: 100px;
       background-color: #ffffff;
     }
   }
@@ -147,7 +170,6 @@
     box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
     transition: all 0.3s ease;
     margin-top: 0.5rem;
-    color: #ffffff;
 
     &:hover:not(:disabled) {
       box-shadow: 0 6px 16px rgba(33, 150, 243, 0.4);
@@ -160,68 +182,20 @@
     }
   }
 
-  .contact-info-section {
-    margin-top: 2rem;
-    border-top: 1px solid var(--surface-border, #ced4da);
-    padding-top: 1.5rem;
+  .login-section {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.95rem;
+    color: var(--text-color-secondary);
 
-    .contact-info-title {
-      font-size: 1.2rem;
+    .login-link {
+      color: var(--primary-color);
       font-weight: 600;
-      color: var(--text-color-secondary);
-      margin-bottom: 1rem;
-      text-align: center;
-    }
+      margin-left: 0.5rem;
+      text-decoration: none;
 
-    .representative-info {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1rem;
-
-      @media screen and (min-width: 576px) {
-        flex-direction: row;
-        align-items: flex-start;
-      }
-    }
-
-    .representative-image {
-      flex-shrink: 0;
-      .rep-img {
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 2px solid var(--primary-color);
-      }
-    }
-
-    .representative-details {
-      .rep-name {
-        font-size: 1.1rem;
-        font-weight: 600;
-        color: var(--text-color);
-        margin: 0 0 0.25rem 0;
-      }
-
-      .rep-title {
-        font-size: 0.9rem;
-        color: var(--text-color-secondary);
-        margin: 0 0 0.75rem 0;
-        font-weight: 500;
-      }
-
-      .contact-item {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        margin-bottom: 0.5rem;
-        font-size: 0.9rem;
-        color: var(--text-color-secondary);
-
-        i {
-          color: var(--primary-color);
-        }
+      &:hover {
+        text-decoration: underline;
       }
     }
   }

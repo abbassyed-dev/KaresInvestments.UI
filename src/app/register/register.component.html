@@ -1,140 +1,182 @@
-<!-- <div class="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
-    <div class="flex flex-column align-items-center justify-content-center">
-        <div
-            style="border-radius:56px; padding:0.3rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%);">
-            <div class="w-full surface-card py-8 px-5 sm:px-8" style="border-radius:53px">
-                <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
+<div class="register-container">
+  <div class="register-wrapper">
+    <div class="register-card-wrapper">
+      <div class="register-card">
+        <h2 class="card-title">Let's Connect</h2>
+        <p class="instruction-text">
+          Have questions? We'd love to hear from you. Reach out to us today.
+        </p>
 
-                    <div class="form-group mb-5">
-                        <label for="firstName" class="block text-900 text-xl font-medium mb-2">First Name</label>
-                        <input id="firstName" name="firstName" [(ngModel)]="model.firstName" required minlength="2"
-                            #fName="ngModel" type="text" placeholder="First Name" pInputText class="w-full md:w-30rem"
-                            style="padding:1rem">
-                        <div *ngIf="fName.invalid && fName.touched" class="text-danger">
-                            <small>First Name is required and must be at least 2 characters.</small>
-                        </div>
-                    </div>
-
-                    <div class="form-group mb-5">
-                        <label for="lastName" class="block text-900 text-xl font-medium mb-2">Last Name</label>
-                        <input id="lastName" name="lastName" [(ngModel)]="model.lastName" required minlength="2"
-                            #lName="ngModel" type="text" placeholder="Last Name" pInputText class="w-full md:w-30rem"
-                            style="padding:1rem">
-                        <div *ngIf="lName.invalid && lName.touched" class="text-danger">
-                            <small>Last Name is required and must be at least 2 characters.</small>
-                        </div>
-                    </div>
-
-                    <div class="form-group mb-5">
-                        <label for="mobileNum" class="block text-900 text-xl font-medium mb-2">Mobile #</label>
-                        <input id="mobileNum" name="mobileNum" [(ngModel)]="model.mobileNum" required #mob="ngModel"
-                            type="text" placeholder="Mobile #" pInputText class="w-full md:w-30rem" pattern="^\d{10}$"
-                            style="padding:1rem">
-                        <div *ngIf="mob.invalid && mob.touched" class="text-danger">
-                            <small>Mobile number is required and must be a valid 10-digit number.</small>
-                        </div>
-                    </div>
-
-                    <div class="form-group mb-5">
-                        <label for="email" class="block text-900 text-xl font-medium mb-2">Email</label>
-                        <input id="email" name="email" [(ngModel)]="model.email" required #emailId="ngModel" type="text"
-                            email placeholder="Email" pInputText class="w-full md:w-30rem" style="padding:1rem">
-                        <div *ngIf="emailId.invalid && emailId.touched" class="text-danger">
-                            <small>Email is required and must be a valid email address.</small>
-                        </div>
-                    </div>
-
-                    <div class="form-group mb-5">
-                        <label for="remarks" class="block text-900 text-xl font-medium mb-2">Comments</label>
-                        <textarea id="remarks" name="remarks" [(ngModel)]="model.remarks" #remarks="ngModel" type="text"
-                            placeholder="User Remarks" pInputText class="w-full md:w-30rem"
-                            style="padding:1rem"></textarea>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid"
-                        style="padding:1rem;">Register</button>
-                </form>
+        <form
+          #contactForm="ngForm"
+          (ngSubmit)="onSubmit(contactForm)"
+          class="register-form"
+        >
+          <div class="form-group">
+            <label for="firstName" class="form-label">First Name</label>
+            <div class="input-container">
+              <i class="pi pi-user input-icon"></i>
+              <input
+                id="firstName"
+                name="firstName"
+                [(ngModel)]="model.firstName"
+                required
+                minlength="2"
+                #fName="ngModel"
+                type="text"
+                placeholder="Enter your first name"
+                pInputText
+                class="form-input"
+              />
             </div>
-        </div>
-    </div>
-</div> -->
-
-<div class="flex align-items-center justify-content-center pt-6-rem">
-    <div class="flex flex-column align-items-center justify-content-center">
-
-        <div class="bg-gradient-rounded p-3">
-            <div class="card-container py-6 px-4">
-                <h2 class="text-3xl font-bold text-center mb-4">Let's Connect</h2>
-                <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
-
-                    <div class="mb-2">
-                        <label for="firstName" class="block text-900 text-l font-medium mb-2">First Name</label>
-                        <input id="firstName" name="firstName" [(ngModel)]="model.firstName" required minlength="2"
-                            #fName="ngModel" type="text" placeholder="First Name" pInputText class="w-full md:w-30rem"
-                            style="padding:0.5rem">
-                        <div *ngIf="fName.invalid && fName.touched" class="text-danger">
-                            <small>First Name is required and must be at least 2 characters.</small>
-                        </div>
-                    </div>
-
-                    <div class="mb-2">
-                        <label for="lastName" class="block text-900 text-l font-medium mb-2">Last Name</label>
-                        <input id="lastName" name="lastName" [(ngModel)]="model.lastName" required minlength="2"
-                            #lName="ngModel" type="text" placeholder="Last Name" pInputText class="w-full md:w-30rem"
-                            style="padding:0.5rem">
-                        <div *ngIf="lName.invalid && lName.touched" class="text-danger">
-                            <small>Last Name is required and must be at least 2 characters.</small>
-                        </div>
-                    </div>
-
-                    <div class="mb-2">
-                        <label for="mobileNum" class="block text-900 text-l font-medium mb-2">Mobile #</label>
-                        <input id="mobileNum" name="mobileNum" [(ngModel)]="model.mobileNum" required #mob="ngModel"
-                            type="text" placeholder="Mobile #" pInputText class="w-full md:w-30rem" pattern="^\d{10}$"
-                            style="padding:0.5rem">
-                        <div *ngIf="mob.invalid && mob.touched" class="text-danger">
-                            <small>Mobile number is required and must be a valid 10-digit number.</small>
-                        </div>
-                    </div>
-
-                    <div class="mb-2">
-                        <label for="email" class="block text-900 text-l font-medium mb-2">Email</label>
-                        <input id="email" name="email" [(ngModel)]="model.email" required #emailId="ngModel" type="text"
-                            email placeholder="Email" pInputText class="w-full md:w-30rem" style="padding:0.5rem">
-                        <div *ngIf="emailId.invalid && emailId.touched" class="text-danger">
-                            <small>Email is required and must be a valid email address.</small>
-                        </div>
-                    </div>
-
-                    <div class="mb-2">
-                        <label for="remarks" class="block text-900 text-l font-medium mb-2">Comments</label>
-                        <textarea id="remarks" name="remarks" [(ngModel)]="model.remarks" #remarks="ngModel" type="text"
-                            placeholder="Comments" pInputText class="w-full md:w-30rem"
-                            style="padding:0.5rem"></textarea>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid"
-                        style="padding:1rem;">Send</button>
-                </form>
-
+            <div
+              *ngIf="fName.invalid && fName.touched"
+              class="validation-message"
+            >
+              <small
+                >First Name is required and must be at least 2
+                characters.</small
+              >
             </div>
-        </div>
+          </div>
 
+          <div class="form-group">
+            <label for="lastName" class="form-label">Last Name</label>
+            <div class="input-container">
+              <i class="pi pi-user input-icon"></i>
+              <input
+                id="lastName"
+                name="lastName"
+                [(ngModel)]="model.lastName"
+                required
+                minlength="2"
+                #lName="ngModel"
+                type="text"
+                placeholder="Enter your last name"
+                pInputText
+                class="form-input"
+              />
+            </div>
+            <div
+              *ngIf="lName.invalid && lName.touched"
+              class="validation-message"
+            >
+              <small
+                >Last Name is required and must be at least 2 characters.</small
+              >
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email" class="form-label">Email</label>
+            <div class="input-container">
+              <i class="pi pi-envelope input-icon"></i>
+              <input
+                id="email"
+                name="email"
+                [(ngModel)]="model.email"
+                required
+                #emailId="ngModel"
+                type="text"
+                email
+                placeholder="Enter your email address"
+                pInputText
+                class="form-input"
+              />
+            </div>
+            <div
+              *ngIf="emailId.invalid && emailId.touched"
+              class="validation-message"
+            >
+              <small
+                >Email is required and must be a valid email address.</small
+              >
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="mobileNum" class="form-label">Mobile Number</label>
+            <div class="input-container">
+              <i class="pi pi-mobile input-icon"></i>
+              <input
+                id="mobileNum"
+                name="mobileNum"
+                [(ngModel)]="model.mobileNum"
+                required
+                #mob="ngModel"
+                type="text"
+                placeholder="Enter your 10-digit mobile number"
+                pInputText
+                class="form-input"
+                pattern="^\d{10}$"
+              />
+            </div>
+            <div *ngIf="mob.invalid && mob.touched" class="validation-message">
+              <small
+                >Mobile number is required and must be a valid 10-digit
+                number.</small
+              >
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="remarks" class="form-label">Message</label>
+            <div class="input-container textarea-container">
+              <i class="pi pi-comment input-icon textarea-icon"></i>
+              <textarea
+                id="remarks"
+                name="remarks"
+                [(ngModel)]="model.remarks"
+                required
+                #remarks="ngModel"
+                placeholder="What would you like to know?"
+                pInputTextarea
+                class="form-textarea"
+                rows="3"
+              ></textarea>
+            </div>
+            <div
+              *ngIf="remarks.invalid && remarks.touched"
+              class="validation-message"
+            >
+              <small>Please provide a message.</small>
+            </div>
+          </div>
+
+          <button
+            pButton
+            type="submit"
+            label="Send Message"
+            class="submit-button"
+            [disabled]="contactForm.invalid"
+          ></button>
+        </form>
+      </div>
     </div>
+  </div>
 </div>
 
-<p-dialog header="Confirmation" [(visible)]="registrationConfirmation" [modal]="true" [closable]="false"
-    [style]="{ width: '25rem' }">
-    <ng-template pTemplate="header">
-        <div class="inline-flex align-items-center justify-content-center gap-2">
-            <span class="font-bold white-space-nowrap">
-                Thank you
-            </span>
-        </div>
-    </ng-template>
-    <span class="p-text-secondary block mb-5">Kares Team will contact you soon.</span>
+<p-dialog
+  header="Confirmation"
+  [(visible)]="registrationConfirmation"
+  [modal]="true"
+  [closable]="false"
+  [styleClass]="'confirmation-dialog'"
+>
+  <div class="confirmation-content">
+    <div class="confirmation-icon">
+      <i class="pi pi-check-circle"></i>
+    </div>
+    <h3 class="confirmation-title">Thank You!</h3>
+    <p class="confirmation-message">Our team will contact you soon.</p>
+  </div>
 
-    <ng-template pTemplate="footer">
-        <p-button label="Ok" severity="secondary" (onClick)="regDialogClose()" />
-    </ng-template>
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      label="OK"
+      class="dialog-button"
+      (click)="regDialogClose()"
+    ></button>
+  </ng-template>
 </p-dialog>

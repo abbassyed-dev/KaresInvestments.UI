@@ -21,6 +21,7 @@ import {
   Bell,
   Settings,
   Home,
+  Lock,
 } from 'lucide-angular';
 
 const SharedComponents = [PhoneFormatPipe, CurrencyFormatPipe];
@@ -46,6 +47,7 @@ const SharedComponents = [PhoneFormatPipe, CurrencyFormatPipe];
       Bell,
       Settings,
       Home,
+      Lock,
     }),
   ],
   declarations: [SharedComponents],

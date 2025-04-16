@@ -1,116 +1,235 @@
-<!-- <div class="container pt-6-rem">
-    <div class="row">
-        <div class="col-md-6 d-flex flex-column align-items-start">
-            <img alt="Representative" class="img-fluid rounded-circle w-50 mb-3" src="path-to-representative-image.jpg">
-            <h3>John Doe</h3>
-            <p>Senior Financial Advisor</p>
-            <p>Email: johndoe-kairesinvestments.com</p>
-            <p>Phone: +123 456 7890</p>
-        </div>
+<div class="contact-container">
+  <div class="contact-header">
+    <h1>Get in Touch</h1>
+    <p class="lead-text">
+      Have questions about your investment options? Our financial advisors are
+      here to help.
+    </p>
+  </div>
 
-
-        <div class="col-md-6 text-start">
-            <h2 class="display-5">Contact Us</h2>
-            <p class="lead">Have questions? We’d love to hear from you. Reach out to us today.</p>
-            <form class="contact-form">
-                <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="First Name" required>
-                </div>
-                <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Last Name" required>
-                </div>
-                <div class="mb-3">
-                    <input type="email" class="form-control" placeholder="Your Email" required>
-                </div>
-                <div class="mb-3">
-                    <input type="email" class="form-control" placeholder="Mobile No" required>
-                </div>
-                <div class="mb-3">
-                    <textarea class="form-control" rows="4" placeholder="Your Message" required></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary">Send Message</button>
-            </form>
+  <div class="contact-content">
+    <!-- Contact Information Column -->
+    <div class="contact-info">
+      <div class="info-item">
+        <div class="info-icon">
+          <i class="pi pi-envelope"></i>
         </div>
+        <div class="info-details">
+          <h3>Email Us</h3>
+          <p>support&#64;suhrt.com</p>
+        </div>
+      </div>
+
+      <div class="info-item">
+        <div class="info-icon">
+          <i class="pi pi-comments"></i>
+        </div>
+        <div class="info-details">
+          <h3>Live Chat</h3>
+          <p>Available during business hours</p>
+          <span class="status-badge">Coming Soon..</span>
+        </div>
+      </div>
+
+      <div class="info-item">
+        <div class="info-icon">
+          <i class="pi pi-clock"></i>
+        </div>
+        <div class="info-details">
+          <h3>Response Time</h3>
+          <p>24 - 48 hours</p>
+        </div>
+      </div>
+
+      <!-- Representative Section -->
+      <div class="representative">
+        <div class="representative-image">
+          <img
+            alt="Representative"
+            src="assets/layout/images/kares-logo2.png"
+          />
+        </div>
+        <h3 class="rep-name">Khurram Mohammed</h3>
+        <p class="rep-title">Senior Financial Advisor</p>
+      </div>
     </div>
-</div> -->
 
-<div class="container pt-6-rem">
-    <div class="row">
-        <!-- Representative Details Section -->
-        <div class="col-md-6 d-flex flex-column align-items-start">
-            <img alt="Representative" class="img-fluid rounded-circle w-50 mb-3"
-                src="assets/layout/images/kares-logo2.png">
-            <h3>Khurram Mohammed</h3>
-            <p>Senior Financial Advisor</p>
-            <div class="flex align-items-center gap-2 mb-2">
-                <i class="pi pi-envelope"></i>
-                <p>: {{email}}</p>
+    <!-- Form Column -->
+    <div class="contact-form-wrapper">
+      <div class="form-header">
+        <h2>Schedule a Consultation</h2>
+        <p>
+          Fill out the form below and one of our investment advisors will
+          contact you promptly.
+        </p>
+      </div>
+
+      <form
+        #contactForm="ngForm"
+        (ngSubmit)="onSubmit(contactForm)"
+        class="contact-form"
+      >
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName">Name</label>
+            <div class="input-container">
+              <i class="pi pi-user input-icon"></i>
+              <input
+                id="firstName"
+                name="firstName"
+                [(ngModel)]="model.firstName"
+                required
+                #firstNameCtrl="ngModel"
+                type="text"
+                placeholder="Your name"
+                class="form-input"
+              />
             </div>
-            <div class="flex align-items-center gap-2">
-                <i class="pi pi-phone"></i>
-                <p>: {{ phoneNo | phoneFormat}}</p>
+            <div
+              *ngIf="firstNameCtrl.touched && firstNameCtrl.invalid"
+              class="validation-message"
+            >
+              <small>Name is required.</small>
             </div>
+          </div>
         </div>
 
-        <!-- Contact Form Section -->
-        <div class="col-md-6 text-start">
-            <h2 class="display-5">Contact Us</h2>
-            <p class="lead">Have questions? We’d love to hear from you. Reach out to us today.</p>
-
-            <form (ngSubmit)="onSubmit(contactForm)" #contactForm="ngForm">
-                <div class="mb-3">
-                    <input type="text" name="firstName" [(ngModel)]="model.firstName" #firstNameCtrl="ngModel"
-                        class="form-control" placeholder="First Name" required>
-                    <div *ngIf="firstNameCtrl.touched && firstNameCtrl.invalid" class="text-danger">
-                        First Name is required.
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <input type="text" name="lastName" [(ngModel)]="model.lastName" #lastNameCtrl="ngModel"
-                        class="form-control" placeholder="Last Name" required>
-                    <div *ngIf="lastNameCtrl.touched && lastNameCtrl.invalid" class="text-danger">
-                        Last Name is required.
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <input type="email" name="email" [(ngModel)]="model.email" #emailCtrl="ngModel" class="form-control"
-                        placeholder="Your Email" required email>
-                    <div *ngIf="emailCtrl.touched && emailCtrl.invalid" class="text-danger">
-                        A valid email is required.
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <input type="text" name="mobile" [(ngModel)]="model.mobileNum" #mobileCtrl="ngModel"
-                        class="form-control" placeholder="Mobile No" required>
-                    <div *ngIf="mobileCtrl.touched && mobileCtrl.invalid" class="text-danger">
-                        Mobile Number is required.
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <textarea name="message" [(ngModel)]="model.remarks" #messageCtrl="ngModel" class="form-control"
-                        rows="4" placeholder="Your Message" required></textarea>
-                    <div *ngIf="messageCtrl.touched && messageCtrl.invalid" class="text-danger">
-                        Message is required.
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-primary" [disabled]="contactForm.invalid">Send Message</button>
-            </form>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <div class="input-container">
+            <i class="pi pi-envelope input-icon"></i>
+            <input
+              id="email"
+              name="email"
+              [(ngModel)]="model.email"
+              required
+              email
+              #emailCtrl="ngModel"
+              type="email"
+              placeholder="your@email.com"
+              class="form-input"
+            />
+          </div>
+          <div
+            *ngIf="emailCtrl.touched && emailCtrl.invalid"
+            class="validation-message"
+          >
+            <small>A valid email is required.</small>
+          </div>
         </div>
+
+        <div class="form-group">
+          <label for="mobileNum">Phone Number</label>
+          <div class="input-container">
+            <i class="pi pi-mobile input-icon"></i>
+            <input
+              id="mobileNum"
+              name="mobile"
+              [(ngModel)]="model.mobileNum"
+              required
+              #mobileCtrl="ngModel"
+              type="text"
+              placeholder="Your phone number"
+              class="form-input"
+            />
+          </div>
+          <div
+            *ngIf="mobileCtrl.touched && mobileCtrl.invalid"
+            class="validation-message"
+          >
+            <small>Phone number is required.</small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="investmentInterest">Investment Interest</label>
+          <div class="input-container">
+            <i class="pi pi-chart-line input-icon"></i>
+            <select
+              id="investmentInterest"
+              name="investmentInterest"
+              [(ngModel)]="model.investmentInterest"
+              required
+              #interestCtrl="ngModel"
+              class="form-input"
+            >
+              <option value="" disabled selected>
+                Select your investment interest
+              </option>
+              <option value="retirement">Retirement Planning</option>
+              <option value="wealth">Wealth Management</option>
+              <option value="estate">Estate Planning</option>
+              <option value="tax">Tax Planning</option>
+              <option value="other">Other Financial Services</option>
+            </select>
+          </div>
+          <div
+            *ngIf="interestCtrl.touched && interestCtrl.invalid"
+            class="validation-message"
+          >
+            <small>Please select an investment interest.</small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="remarks">Additional Information</label>
+          <div class="input-container textarea-container">
+            <i class="pi pi-comment input-icon textarea-icon"></i>
+            <textarea
+              id="remarks"
+              name="message"
+              [(ngModel)]="model.remarks"
+              required
+              #messageCtrl="ngModel"
+              placeholder="Please provide any specific questions or details about your investment goals..."
+              class="form-textarea"
+              rows="4"
+            ></textarea>
+          </div>
+          <div
+            *ngIf="messageCtrl.touched && messageCtrl.invalid"
+            class="validation-message"
+          >
+            <small>Additional information is required.</small>
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="submit-button"
+          [disabled]="contactForm.invalid"
+        >
+          <i class="pi pi-send button-icon"></i>
+          Submit Request
+        </button>
+      </form>
     </div>
+  </div>
 </div>
 
-<p-dialog header="Confirmation" [(visible)]="registrationConfirmation" [modal]="true" [closable]="false"
-    [style]="{ width: '25rem' }">
-    <ng-template pTemplate="header">
-        <div class="inline-flex align-items-center justify-content-center gap-2">
-            <span class="font-bold white-space-nowrap">
-                Thank you
-            </span>
-        </div>
-    </ng-template>
-    <span class="p-text-secondary block mb-5">Kares Team will contact you soon.</span>
+<p-dialog
+  header="Confirmation"
+  [(visible)]="registrationConfirmation"
+  [modal]="true"
+  [closable]="false"
+  [styleClass]="'confirmation-dialog'"
+>
+  <div class="confirmation-content">
+    <div class="confirmation-icon">
+      <i class="pi pi-check-circle"></i>
+    </div>
+    <h3 class="confirmation-title">Thank You!</h3>
+    <p class="confirmation-message">
+      A financial advisor from our team will contact you shortly.
+    </p>
+  </div>
 
-    <ng-template pTemplate="footer">
-        <p-button label="Ok" severity="secondary" (onClick)="regDialogClose()" />
-    </ng-template>
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      label="OK"
+      class="dialog-button"
+      (click)="regDialogClose()"
+    ></button>
+  </ng-template>
 </p-dialog>

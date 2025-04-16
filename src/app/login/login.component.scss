@@ -1,4 +1,4 @@
-.forgot-password-container {
+.login-container {
   min-height: 100vh;
   background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
   display: flex;
@@ -6,14 +6,14 @@
   justify-content: center;
   padding: 2rem;
 
-  .forgot-password-wrapper {
+  .login-wrapper {
     width: 100%;
     max-width: 1200px;
     display: flex;
     justify-content: center;
   }
 
-  .forgot-password-card-wrapper {
+  .login-card-wrapper {
     width: 100%;
     max-width: 480px;
     box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
@@ -36,7 +36,7 @@
     }
   }
 
-  .forgot-password-card {
+  .login-card {
     background: #ffffff;
     padding: 2.5rem;
     border-radius: 16px;
@@ -73,13 +73,12 @@
     text-align: center;
   }
 
-  .instruction-text {
+  .welcome-text {
     color: var(--text-color-secondary);
     font-size: 1rem;
     margin-bottom: 2rem;
     text-align: center;
     opacity: 0.8;
-    line-height: 1.5;
   }
 
   .form-group {
@@ -127,8 +126,59 @@
       }
     }
   }
+  ::ng-deep .password-input {
+    width: 100%;
 
-  .reset-button {
+    ::ng-deep .p-password-input {
+      width: 100%;
+      padding: 1rem 1rem 1rem 2.75rem;
+      border-radius: 8px;
+      background-color: #ffffff;
+      color: var(--text-color, #333333);
+
+      &::placeholder {
+        color: var(--text-color-secondary, #6c757d);
+        opacity: 0.6;
+      }
+    }
+
+    ::ng-deep .p-password-panel {
+      background-color: #ffffff;
+      border-color: var(--surface-border, #ced4da);
+    }
+  }
+  .login-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+
+    .remember-me {
+      display: flex;
+      align-items: center;
+
+      .checkbox-label {
+        margin-left: 0.5rem;
+        font-size: 0.9rem;
+        color: var(--text-color-secondary);
+      }
+    }
+
+    .forgot-link {
+      font-size: 0.9rem;
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+
+      &:hover {
+        color: var(--primary-color-dark, #0d47a1);
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .sign-in-button {
     width: 100%;
     padding: 1rem;
     font-size: 1rem;
@@ -142,7 +192,6 @@
     border: none;
     box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
     transition: all 0.3s ease;
-    margin-bottom: 1.5rem;
     color: #ffffff;
     &:hover {
       box-shadow: 0 6px 16px rgba(33, 150, 243, 0.4);
@@ -150,23 +199,17 @@
     }
   }
 
-  .back-to-login {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .sign-up-section {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 0.95rem;
+    color: var(--text-color-secondary);
 
-    .back-icon {
-      font-size: 0.8rem;
-      margin-right: 0.5rem;
+    .sign-up-link {
       color: var(--primary-color);
-    }
-
-    .back-link {
-      color: var(--primary-color);
-      font-weight: 500;
+      font-weight: 600;
+      margin-left: 0.5rem;
       text-decoration: none;
-      font-size: 0.95rem;
-      transition: all 0.2s;
 
       &:hover {
         text-decoration: underline;
@@ -177,10 +220,10 @@
 
 // Responsive adjustments
 @media screen and (max-width: 576px) {
-  .forgot-password-container {
+  .login-container {
     padding: 1rem;
 
-    .forgot-password-card {
+    .login-card {
       padding: 1.5rem;
     }
   }

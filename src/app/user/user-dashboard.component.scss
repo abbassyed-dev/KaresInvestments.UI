@@ -1,14 +1,902 @@
-.form-row {
-    display: flex;
-    // justify-content: flex-end;
+/* Dashboard Variables */
+:host {
+  --card-border-radius: 12px;
+  --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  --card-shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.1);
+  --header-icon-bg: rgba(41, 98, 255, 0.1);
+  --header-icon-color: var(--primary-color);
+  --progress-bar-height: 8px;
+  --progress-bar-radius: 10px;
+  --transition-speed: 0.25s;
+  --primary-color: #2962ff;
+  --secondary-color: #ff884d;
+  --positive-color: #4caf50;
+  --negative-color: #ef4444;
+  --dividend-color: #ff884d;
+  --text-color: #333;
+  --text-color-secondary: #666;
+  --surface-overlay: #fff;
+  --surface-section: #f5f7fa;
+  --border-color: #e0e0e0;
+}
+
+/* Dashboard Container */
+.dashboard-container {
+  padding: 24px;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+/* Dashboard Header */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding: 16px;
+  background-color: var(--surface-overlay);
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--card-shadow);
+}
+
+.dashboard-header h1 {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text-color);
+  margin: 0;
+}
+
+.dashboard-header .welcome-message {
+  font-size: 14px;
+  color: var(--text-color-secondary);
+}
+
+.dashboard-header .welcome-message strong {
+  color: var(--text-color);
+  font-weight: 600;
+}
+
+/* Grid Layout */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 24px;
+}
+
+/* Card Base Styling */
+.dashboard-card {
+  background-color: var(--surface-overlay);
+  border-radius: var(--card-border-radius);
+  overflow: hidden;
+  transition: all var(--transition-speed) ease-in-out;
+  border: 1px solid var(--border-color);
+  height: 100%;
+  box-shadow: var(--card-shadow);
+}
+
+.dashboard-card:hover {
+  box-shadow: var(--card-shadow-hover);
+  transform: translateY(-2px);
+}
+
+/* Card Header Styling */
+.card-header {
+  display: flex;
+  align-items: center;
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.header-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background-color: var(--header-icon-bg);
+  margin-right: 16px;
+}
+
+.header-icon lucide-icon {
+  color: var(--header-icon-color);
+}
+
+.card-header h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+/* Card Content Styling */
+.card-content {
+  padding: 24px;
+}
+
+/* Grid Positioning */
+.investment-summary {
+  grid-column: span 3;
+}
+
+.portfolio-distribution {
+  grid-column: span 3;
+}
+
+.performance-metrics {
+  grid-column: span 6;
+}
+
+.transactions-card {
+  grid-column: span 12;
+}
+
+/* Investment Summary Styling */
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.stat-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.stat-row:first-child {
+  padding-top: 0;
+}
+
+.stat-label {
+  color: var(--text-color-secondary);
+  font-size: 14px;
+}
+
+.stat-value {
+  color: var(--text-color);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* Chart Container */
+.chart-container {
+  height: 240px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Placeholder chart for when the real chart is not available */
+.placeholder-chart {
+  width: 100%;
+  height: 100%;
+  max-width: 240px;
+  max-height: 240px;
+}
+
+/* Performance Metrics Styling */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 20px;
+}
+
+.metric-box {
+  background-color: var(--surface-section);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  transition: transform var(--transition-speed);
+}
+
+.metric-box:hover {
+  transform: translateY(-3px);
+}
+
+.metric-title {
+  color: var(--text-color-secondary);
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.metric-value {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  line-height: 1;
+}
+
+.positive-value {
+  color: var(--positive-color);
+}
+
+.negative-value {
+  color: var(--negative-color);
+}
+
+.dividend-value {
+  color: var(--dividend-color);
+}
+
+.progress-bar {
+  height: var(--progress-bar-height);
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: var(--progress-bar-radius);
+  overflow: hidden;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: var(--progress-bar-radius);
+  transition: width 1s ease-in-out;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.progress-fill::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.4) 100%
+  );
+  border-radius: var(--progress-bar-radius);
+}
+
+.positive-fill {
+  background-color: var(--positive-color);
+}
+
+.negative-fill {
+  background-color: var(--negative-color);
+}
+
+.dividend-fill {
+  background-color: var(--dividend-color);
+}
+
+/* Table Styling */
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.table-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.search-container {
+  position: relative;
+}
+
+.search-container .search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-color-secondary);
+}
+
+.search-input {
+  padding: 10px 12px 10px 40px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background-color: #ffffff; /* Changed to white instead of black */
+  color: var(--text-color);
+  width: 280px;
+  font-size: 14px;
+  transition: all var(--transition-speed);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(41, 98, 255, 0.1);
+}
+
+.search-input::placeholder {
+  color: var(--text-color-secondary);
+  opacity: 0.7;
+}
+
+.transactions-table {
+  overflow-x: auto;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+table th {
+  background-color: var(--surface-section);
+  padding: 14px 20px !important;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-color-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+table th:first-child {
+  border-top-left-radius: 10px;
+}
+
+table th:last-child {
+  border-top-right-radius: 10px;
+}
+
+table td {
+  padding: 16px 20px;
+  font-size: 14px;
+  color: var(--text-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+table td.no-data {
+  text-align: center;
+  padding: 40px 0;
+  color: var(--text-color-secondary);
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 0;
+  color: var(--text-color-secondary);
+}
+
+.empty-state lucide-icon {
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.empty-state p {
+  font-size: 16px;
+  margin: 0;
+}
+
+.transaction-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.investment-badge {
+  background-color: rgba(41, 98, 255, 0.1);
+  color: var(--primary-color);
+}
+
+.dividend-badge {
+  background-color: rgba(255, 136, 77, 0.1);
+  color: var(--secondary-color);
+}
+
+.withdrawal-badge {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: var(--negative-color);
+}
+
+.default-badge {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: var(--text-color-secondary);
+}
+
+.amount-cell {
+  font-weight: 600;
+}
+
+.investment-amount {
+  color: var(--primary-color);
+}
+
+.positive-amount {
+  color: var(--positive-color);
+}
+
+.negative-amount {
+  color: var(--negative-color);
+}
+
+.payment-method {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-color-secondary);
+}
+
+.payment-method .payment-icon {
+  color: var(--text-color-secondary);
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 24px;
+}
+
+.pagination-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  margin: 0 3px;
+  border: 1px solid var(--border-color);
+  background-color: var(--surface-overlay);
+  color: var(--text-color-secondary);
+  cursor: pointer;
+  transition: all var(--transition-speed);
+}
+
+.pagination-btn:hover {
+  background-color: var(--surface-section);
+  color: var(--text-color);
+}
+
+.pagination-btn.current-page {
+  background-color: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+/* Dark Mode Adjustments */
+:host-context(.dark-theme) {
+  .dashboard-card {
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .search-input {
+    background-color: rgba(
+      255,
+      255,
+      255,
+      0.1
+    ); /* Lighter background in dark mode */
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .search-input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(41, 98, 255, 0.2);
+  }
+
+  .progress-bar {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  table th {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+
+  .metric-box {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+}
+
+/* Download button styles */
+:host ::ng-deep .p-dialog {
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--card-shadow-hover);
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
+
+:host ::ng-deep .p-dialog .p-dialog-header {
+  background-color: var(--surface-overlay);
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+:host ::ng-deep .p-dialog .p-dialog-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+:host ::ng-deep .p-dialog .p-dialog-header-icon {
+  color: var(--text-color-secondary);
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  transition: all var(--transition-speed);
+}
+
+:host ::ng-deep .p-dialog .p-dialog-header-icon:hover {
+  background-color: var(--surface-section);
+  color: var(--text-color);
+}
+
+:host ::ng-deep .p-dialog .p-dialog-content {
+  background-color: var(--surface-overlay);
+  padding: 24px;
+}
+
+:host ::ng-deep .p-dialog .p-dialog-footer {
+  background-color: var(--surface-overlay);
+  padding: 16px 24px;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+/* Form controls styling */
+.report-dialog-content .form-group {
+  margin-bottom: 20px;
+}
+
+.report-dialog-content .form-group label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: var(--text-color);
+}
+
+/* Calendar styling */
+:host ::ng-deep .p-calendar {
+  width: 100%;
+}
+
+:host ::ng-deep .p-calendar .p-inputtext {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 14px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-color);
+  background-color: var(--surface-overlay);
+  transition: border-color var(--transition-speed);
+}
+
+:host ::ng-deep .p-calendar .p-inputtext:hover,
+:host ::ng-deep .p-calendar .p-inputtext:focus {
+  border-color: var(--primary-color);
+}
+
+:host ::ng-deep .p-calendar .p-button {
+  background-color: var(--surface-section);
+  border-color: var(--border-color);
+  color: var(--text-color-secondary);
+}
+
+:host ::ng-deep .p-calendar .p-button:hover {
+  background-color: var(--surface-section);
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+/* Dropdown styling */
+:host ::ng-deep .p-dropdown {
+  width: 100%;
+  background: inherit;
+}
+
+:host ::ng-deep .p-dropdown .p-dropdown-label {
+  padding: 12px 16px;
+  font-size: 14px;
+  color: var(--text-color);
+}
+
+:host ::ng-deep .p-dropdown .p-dropdown-trigger {
+  color: var(--text-color-secondary);
+}
+
+:host ::ng-deep .p-dropdown:not(.p-disabled):hover {
+  border-color: var(--primary-color);
+}
+
+:host ::ng-deep .p-dropdown-panel {
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+  background: white;
+}
+
+:host ::ng-deep .p-dropdown-panel .p-dropdown-items {
+  padding: 8px 0;
+}
+
+:host ::ng-deep .p-dropdown-panel .p-dropdown-item {
+  padding: 12px 16px;
+  font-size: 14px;
+  color: var(--text-color);
+  transition: background-color var(--transition-speed);
+}
+
+:host ::ng-deep .p-dropdown-panel .p-dropdown-item:hover {
+  background-color: var(--surface-section);
+  color: var(--primary-color);
+}
+
+:host ::ng-deep .p-dropdown-panel .p-dropdown-item.p-highlight {
+  background-color: rgba(41, 98, 255, 0.1);
+  color: var(--primary-color);
+}
+
+/* Calendar popup styling */
+:host ::ng-deep .p-datepicker {
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--card-shadow);
+  padding: 16px;
+  border: 1px solid var(--border-color);
+}
+
+:host ::ng-deep .p-datepicker-header {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 8px;
+}
+
+:host ::ng-deep .p-datepicker .p-datepicker-title {
+  color: var(--text-color);
+}
+
+:host ::ng-deep .p-datepicker .p-datepicker-prev,
+:host ::ng-deep .p-datepicker .p-datepicker-next {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--card-border-radius);
+  color: var(--text-color-secondary);
+  transition: background-color var(--transition-speed);
+}
+
+:host ::ng-deep .p-datepicker .p-datepicker-prev:hover,
+:host ::ng-deep .p-datepicker .p-datepicker-next:hover {
+  background-color: var(--surface-section);
+  color: var(--text-color);
+}
+
+:host ::ng-deep .p-datepicker table {
+  font-size: 14px;
+  margin: 8px 0;
+}
+
+:host ::ng-deep .p-datepicker table th {
+  padding: 8px;
+  color: var(--text-color-secondary);
+  font-weight: 500;
+}
+
+:host ::ng-deep .p-datepicker table td {
+  padding: 4px;
+}
+
+:host ::ng-deep .p-datepicker table td > span {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  transition: all var(--transition-speed);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+:host ::ng-deep .p-datepicker table td > span:hover {
+  background-color: var(--surface-section);
+}
+
+:host ::ng-deep .p-datepicker table td.p-datepicker-today > span {
+  background-color: var(--surface-section);
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+:host ::ng-deep .p-datepicker table td.p-highlight > span {
+  background-color: var(--primary-color);
+  color: #ffffff;
+}
+
+/* Dialog buttons */
+:host ::ng-deep .p-dialog-footer .p-button {
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: all var(--transition-speed);
+}
+
+:host ::ng-deep .p-dialog-footer .p-button-text {
+  color: var(--text-color-secondary);
+  background-color: transparent;
+  border: 1px solid transparent;
+}
+
+:host ::ng-deep .p-dialog-footer .p-button-text:hover {
+  background-color: linear-gradient(
+    90deg,
+    var(--primary-color),
+    var(--primary-dark)
+  );
+  color: var(--text-color);
+}
+
+:host ::ng-deep .p-dialog-footer .p-button-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: #ffffff;
+}
+
+:host ::ng-deep .p-dialog-footer .p-button-primary:hover {
+  box-shadow: 0 6px 16px rgba(33, 150, 243, 0.4);
+  transform: translateY(-1px);
+}
+/* Header actions container */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Premium download button */
+.premium-download-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background-color: var(--surface-overlay);
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-speed);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.premium-download-btn:hover {
+  background-color: var(--primary-color);
+  color: white;
+  box-shadow: 0 4px 10px rgba(41, 98, 255, 0.2);
+}
+
+.premium-download-btn lucide-icon {
+  transition: transform var(--transition-speed);
+}
+
+.premium-download-btn:hover lucide-icon {
+  transform: translateY(2px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .header-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .premium-download-btn {
+    padding: 8px 12px;
+  }
+}
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .investment-summary {
+    grid-column: span 4;
+  }
+
+  .portfolio-distribution {
+    grid-column: span 4;
+  }
+
+  .performance-metrics {
+    grid-column: span 4;
+  }
+}
+
+@media (max-width: 992px) {
+  .investment-summary {
+    grid-column: span 6;
+  }
+
+  .portfolio-distribution {
+    grid-column: span 6;
+  }
+
+  .performance-metrics {
+    grid-column: span 12;
+  }
+
+  .metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-grid {
+    gap: 16px;
+  }
+
+  .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .dashboard-header .welcome-message {
+    margin-top: 8px;
+  }
+
+  .investment-summary {
+    grid-column: span 12;
+  }
+
+  .portfolio-distribution {
+    grid-column: span 12;
+  }
+
+  .metrics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .table-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .search-container {
+    width: 100%;
+    margin-top: 12px;
+  }
+
+  .search-input {
+    width: 100%;
+  }
+}
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .dashboard-header {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .header-actions {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .download-report-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .chart-legends {
+    flex-direction: column;
     gap: 10px;
-}
-
-.form-label {
-    font-weight: bold;
-    text-align: right;
-}
-
-:host ::ng-deep .p-card .p-card-content {
-    padding: 0rem;
+  }
 }

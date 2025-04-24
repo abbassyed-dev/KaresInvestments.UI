@@ -1,86 +1,324 @@
-<!-- <div class="container-fluid p-0">
-    <div class="row m-0">
-        <div class="col-12 text-center py-3 bg-dark text-white">
-            <h1>Welcome, {{userName}}!</h1>
-        </div>
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <h1>Dashboard</h1>
+    <div class="header-actions">
+      <div class="welcome-message">
+        <span
+          >Welcome back, <strong>{{ userName }}</strong></span
+        >
+      </div>
+      <button class="premium-download-btn" (click)="openReportDialog()">
+        <lucide-icon name="download" [size]="16"></lucide-icon>
+        <span>Monthly Report</span>
+      </button>
     </div>
-</div> -->
-<div class="grid">
-    <div class="col-3">
-        <p-card header="Investment Summary" styleClass="p-shadow-4">
-            <ng-template pTemplate="content">
-                <div class="form-row">
-                    <label class="form-label">Total Investment:</label>
-                    <span>{{ userStats.totalInvestment || 0 | currencyFormat }}</span>
-                </div>
-                <div class="form-row">
-                    <label class="form-label">No of Dividends Paid:</label>
-                    <span>{{ userStats.numberOfDividendsPaid || 0}}</span>
-                </div>
-                <div class="form-row">
-                    <label class="form-label">Dividends total:</label>
-                    <span>{{ userStats.totalDividendsPaid || 0 | currencyFormat }}</span>
-                </div>
-                <div class="form-row">
-                    <label class="form-label">Return on Investment:</label>
-                    <span>{{ userStats.returnOnInvestment }}%</span>
-                </div>
-                <div class="form-row">
-                    <label class="form-label">Return of Capital:</label>
-                    <span>{{ userStats.returnOfCapital }}%</span>
-                </div>
+  </div>
+  <!-- Dashboard Grid Layout -->
+  <div class="dashboard-grid">
+    <!-- Investment Summary Card -->
+    <div class="dashboard-card investment-summary">
+      <div class="card-header">
+        <div class="header-icon">
+          <lucide-icon name="bar-chart-2" [size]="20"></lucide-icon>
+        </div>
+        <h2>Investment Summary</h2>
+      </div>
+      <div class="card-content">
+        <div class="stat-row">
+          <span class="stat-label">Total Investment:</span>
+          <span class="stat-value">{{ "$100,000.00" }}</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">No of Dividends Paid:</span>
+          <span class="stat-value">{{ 0 }}</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Dividends total:</span>
+          <span class="stat-value">{{ "$0.00" }}</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Return on Investment:</span>
+          <span class="stat-value">{{ 0 }}%</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Return of Capital:</span>
+          <span class="stat-value">{{ 0 }}%</span>
+        </div>
+      </div>
+    </div>
 
-            </ng-template>
-        </p-card>
-    </div>
-    <div class="col-3">
-        <!-- <highcharts-chart [Highcharts]="Highcharts" [options]="pieChartOptions"
-            style="width: 100%; height: 220px; display: block;" [(update)]="updatePieChartFlag">
-        </highcharts-chart> -->
-    </div>
-    <div class="col-12">
-        <div class="card">
-            <p-table #userTransactionsGrid [value]="userTransactions" [paginator]="true" [rows]="10"
-                responsiveLayout="scroll" [globalFilterFields]="['amount', 'portfolioName']">
-                <ng-template pTemplate="caption">
-                    <div class="flex align-items-center justify-content-between">
-                        Your Transactions
-                        <p-iconField iconPosition="left" class="ml-auto">
-                            <p-inputIcon>
-                                <i class="pi pi-search"></i>
-                            </p-inputIcon>
-                            <input pInputText type="text" #searchInput
-                                (input)="userTransactionsGrid.filterGlobal(searchInput.value, 'contains')"
-                                placeholder="Search keyword" />
-                        </p-iconField>
-                    </div>
-                </ng-template>
-                <ng-template pTemplate="header">
-                    <tr>
-                        <!-- <th>User Name</th>
-                        <th>Email</th> -->
-                        <th>Portfolio</th>
-                        <th>Transaction Type</th>
-                        <th>Transaction Category</th>
-                        <th>Amount</th>
-                        <th>Transaction Date</th>
-                        <th>Payment Mode</th>
-                        <!-- <th>View</th> -->
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-transaction>
-                    <tr>
-                        <!-- <td>{{transaction.userName}}</td>
-                        <td>{{transaction.email}}</td> -->
-                        <td>{{transaction.portfolioName}}</td>
-                        <td>{{transaction.transactionType}}</td>
-                        <td>{{transaction.transactionCategory}}</td>
-                        <td>{{transaction.amount | currencyFormat}}</td>
-                        <td>{{transaction.transactionDate | date: 'MM/dd/yyyy'}}</td>
-                        <td>{{transaction.paymentMode}}</td>
-                    </tr>
-                </ng-template>
-            </p-table>
+    <!-- Portfolio Distribution Card -->
+    <div class="dashboard-card portfolio-distribution">
+      <div class="card-header">
+        <div class="header-icon">
+          <lucide-icon name="pie-chart" [size]="20"></lucide-icon>
         </div>
+        <h2>Portfolio Distribution</h2>
+      </div>
+      <div class="card-content">
+        <div class="chart-container">
+          <!-- Pie chart container -->
+          <p-chart
+            type="pie"
+            [data]="portfolioChartData"
+            [options]="chartOptions"
+          ></p-chart>
+        </div>
+        <!-- Chart legends -->
+        <!-- <div class="chart-legends">
+          <div class="legend-item" *ngFor="let item of portfolioData">
+            <span
+              class="legend-color"
+              [style.background-color]="item.color"
+            ></span>
+            <span class="legend-label">{{ item.name }}</span>
+            <span class="legend-value">{{ item.value | currency }}</span>
+          </div>
+        </div> -->
+      </div>
     </div>
+    <!-- Performance Metrics Card -->
+    <div class="dashboard-card performance-metrics">
+      <div class="card-header">
+        <div class="header-icon">
+          <lucide-icon name="trending-up" [size]="20"></lucide-icon>
+        </div>
+        <h2>Performance Metrics</h2>
+      </div>
+      <div class="card-content">
+        <div class="metrics-grid">
+          <div class="metric-box">
+            <div class="metric-title">Monthly Growth</div>
+            <div class="metric-value positive-value">
+              {{ performanceData.monthlyGrowth }}%
+            </div>
+            <div class="progress-bar">
+              <div
+                class="progress-fill positive-fill"
+                [style.width.%]="
+                  getProgressWidth(performanceData.monthlyGrowth * 10)
+                "
+              ></div>
+            </div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-title">Annual Return</div>
+            <div class="metric-value positive-value">
+              {{ performanceData.annualReturn }}%
+            </div>
+            <div class="progress-bar">
+              <div
+                class="progress-fill positive-fill"
+                [style.width.%]="
+                  getProgressWidth(performanceData.annualReturn * 5)
+                "
+              ></div>
+            </div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-title">Dividend Yield</div>
+            <div class="metric-value dividend-value">
+              {{ performanceData.dividendYield }}%
+            </div>
+            <div class="progress-bar">
+              <div
+                class="progress-fill dividend-fill"
+                [style.width.%]="
+                  getProgressWidth(performanceData.dividendYield * 10)
+                "
+              ></div>
+            </div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-title">Capital Growth</div>
+            <div class="metric-value positive-value">
+              {{ performanceData.capitalGrowth }}%
+            </div>
+            <div class="progress-bar">
+              <div
+                class="progress-fill positive-fill"
+                [style.width.%]="
+                  getProgressWidth(performanceData.capitalGrowth * 7)
+                "
+              ></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Transactions Card -->
+    <div class="dashboard-card transactions-card">
+      <div class="card-header">
+        <div class="header-icon">
+          <lucide-icon name="repeat" [size]="20"></lucide-icon>
+        </div>
+        <h2>Your Transactions</h2>
+      </div>
+      <div class="card-content">
+        <div class="table-header">
+          <div class="table-title">Transaction History</div>
+          <div class="search-container">
+            <lucide-icon
+              name="search"
+              [size]="16"
+              class="search-icon"
+            ></lucide-icon>
+            <input
+              type="text"
+              class="search-input"
+              placeholder="Search transactions..."
+            />
+          </div>
+        </div>
+
+        <div class="transactions-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Portfolio</th>
+                <th>Transaction Type</th>
+                <th>Category</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Payment Mode</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let transaction of userTransactions">
+                <td>{{ transaction.portfolioId }}</td>
+                <td>
+                  <span
+                    class="transaction-badge"
+                    [ngClass]="getTransactionTypeClass(transaction)"
+                  >
+                    {{ transaction.transactionType }}
+                  </span>
+                </td>
+                <td>Investment</td>
+                <td class="amount-cell" [ngClass]="getAmountClass(transaction)">
+                  {{ "1.2-2" }}
+                </td>
+                <td>{{ 00 }}</td>
+                <td>
+                  <span class="payment-method">
+                    <lucide-icon
+                      [name]="
+                        transaction.paymentMode === 'BANK TRANSFER'
+                          ? 'credit-card'
+                          : 'dollar-sign'
+                      "
+                      [size]="16"
+                      class="payment-icon"
+                    ></lucide-icon>
+                    {{ 00 }}
+                  </span>
+                </td>
+              </tr>
+              <tr *ngIf="userTransactions.length === 0">
+                <td colspan="6" class="no-data">
+                  <div class="empty-state">
+                    <lucide-icon name="inbox" [size]="32"></lucide-icon>
+                    <p>No transactions found</p>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="pagination" *ngIf="userTransactions.length > 0">
+          <button class="pagination-btn first-page" aria-label="First page">
+            <lucide-icon name="chevrons-left" [size]="16"></lucide-icon>
+          </button>
+          <button class="pagination-btn prev-page" aria-label="Previous page">
+            <lucide-icon name="chevron-left" [size]="16"></lucide-icon>
+          </button>
+          <button class="pagination-btn current-page">1</button>
+          <button class="pagination-btn next-page" aria-label="Next page">
+            <lucide-icon name="chevron-right" [size]="16"></lucide-icon>
+          </button>
+          <button class="pagination-btn last-page" aria-label="Last page">
+            <lucide-icon name="chevrons-right" [size]="16"></lucide-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+<!--  Monthly Report Dialog -->
+<p-dialog
+  header="Download Monthly Report"
+  [(visible)]="reportDialogVisible"
+  [style]="{ width: '450px', height: '600px' }"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [closeOnEscape]="true"
+  styleClass="report-dialog"
+>
+  <div class="report-dialog-content">
+    <div class="form-group">
+      <label for="reportMonth">Report Period</label>
+      <p-calendar
+        id="reportMonth"
+        [(ngModel)]="selectedMonth"
+        view="month"
+        dateFormat="MMMM yyyy"
+        [showIcon]="true"
+        [readonlyInput]="true"
+        placeholder="Select month and year"
+        [showButtonBar]="true"
+        [yearNavigator]="true"
+        [yearRange]="'2020:2030'"
+      >
+      </p-calendar>
+    </div>
+
+    <div class="form-group">
+      <label for="reportFormat">File Format</label>
+      <p-dropdown
+        id="reportFormat"
+        [(ngModel)]="selectedFormat"
+        [options]="reportFormats"
+        optionLabel="name"
+        placeholder="Select format"
+        [showClear]="true"
+      >
+      </p-dropdown>
+    </div>
+
+    <!-- Optional - Report Type Selection -->
+    <div class="form-group">
+      <label for="reportType">Report Type</label>
+      <p-dropdown
+        id="reportType"
+        [(ngModel)]="selectedReportType"
+        [options]="reportTypes"
+        optionLabel="name"
+        placeholder="Select report type"
+        [showClear]="true"
+      >
+      </p-dropdown>
+    </div>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      label="Cancel"
+      icon="pi pi-times"
+      class="p-button-text"
+      (click)="reportDialogVisible = false"
+    ></button>
+    <button
+      pButton
+      label="Download"
+      icon="pi pi-download"
+      class="p-button-primary"
+      [disabled]="!selectedFormat || !selectedMonth || !selectedReportType"
+      (click)="downloadReport()"
+    ></button>
+  </ng-template>
+</p-dialog>

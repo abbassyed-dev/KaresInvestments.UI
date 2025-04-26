@@ -1,12 +1,459 @@
-:host ::ng-deep .p-datatable .p-datatable-tbody>tr>td,
-th {
-    padding: 0.25rem 0.25rem;
+:host {
+  --card-border-radius: 12px;
+  --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  --card-shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.1);
+  --header-icon-bg: rgba(41, 98, 255, 0.1);
+  --header-icon-color: var(--primary-color);
+  --progress-bar-height: 8px;
+  --progress-bar-radius: 10px;
+  --transition-speed: 0.25s;
+  --primary-color: #2962ff;
+  --secondary-color: #ff884d;
+  --positive-color: #4caf50;
+  --negative-color: #ef4444;
+  --dividend-color: #ff884d;
+  --text-color: #333;
+  --text-color-secondary: #666;
+  --surface-overlay: #fff;
+  --surface-section: #f5f7fa;
+  --border-color: #e0e0e0;
 }
 
-:host ::ng-deep .p-button.p-button-icon-only.p-button-rounded {
+// Enhanced Table Card
+.card {
+  background-color: var(--surface-overlay);
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--card-shadow);
+  padding: 1.5rem;
+  transition: box-shadow var(--transition-speed);
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+
+  &:hover {
+    box-shadow: var(--card-shadow-hover);
+  }
+}
+
+// Table Caption Styles
+::ng-deep {
+  .p-datatable {
+    .p-datatable-header {
+      background-color: var(--surface-overlay);
+      border: none;
+      padding: 1rem 0 1.5rem;
+
+      .flex {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+
+    // Table Headers
+    .p-datatable-thead > tr > th {
+      background-color: var(--surface-section);
+      color: var(--text-color);
+      font-weight: 600;
+      padding: 1rem !important;
+      border-color: var(--border-color);
+      transition: background-color var(--transition-speed);
+
+      &:hover {
+        background-color: rgba(41, 98, 255, 0.05);
+      }
+    }
+
+    // Table Rows
+    .p-datatable-tbody > tr {
+      transition: background-color var(--transition-speed);
+      background-color: #fff;
+      > td {
+        padding: 0.75rem 1rem;
+        border-color: var(--border-color);
+        color: var(--text-color);
+        padding: 1rem !important;
+      }
+
+      &:hover {
+        background-color: rgba(41, 98, 255, 0.02);
+      }
+    }
+
+    // Pagination
+    .p-paginator {
+      padding: 1rem;
+      border: none;
+      background-color: var(--surface-overlay);
+
+      .p-paginator-element {
+        border-radius: 50%;
+        width: 2.5rem;
+        height: 2.5rem;
+        margin: 0 0.2rem;
+
+        &.p-highlight {
+          background-color: var(--primary-color);
+          color: white;
+        }
+      }
+    }
+
+    // Empty Message
+    .p-datatable-emptymessage {
+      padding: 2rem;
+      text-align: center;
+      color: var(--text-color-secondary);
+    }
+  }
+
+  // Add User Button
+  .p-button {
+    border-radius: 8px;
+    transition: background-color var(--transition-speed),
+      transform var(--transition-speed);
+
+    &.p-button-success {
+      //background-color: var(--positive-color);
+      border-color: var(--positive-color);
+
+      &:hover {
+        background-color: darken(#4caf50, 5%);
+        border-color: darken(#4caf50, 5%);
+        transform: translateY(-2px);
+      }
+    }
+
+    &.p-button-rounded {
+      width: 2.5rem;
+      height: 2.5rem;
+
+      &:hover {
+        transform: translateY(-2px);
+      }
+    }
+
+    &.p-button-danger {
+      &:hover {
+        background-color: rgba(239, 68, 68, 0.1);
+      }
+    }
+  }
+
+  // Search Input
+  //   .p-inputtext {
+  //     border-radius: 8px;
+  //     padding: 0.75rem 1rem;
+  //     transition: border-color var(--transition-speed),
+  //       box-shadow var(--transition-speed);
+
+  //     &:focus {
+  //       border-color: var(--primary-color);
+  //       box-shadow: 0 0 0 2px rgba(41, 98, 255, 0.2);
+  //     }
+  //   }
+
+  //   .p-input-icon-left {
+  //     > i {
+  //       left: 0.75rem;
+  //       color: var(--text-color-secondary);
+  //     }
+
+  //     > .p-inputtext {
+  //       padding-left: 2.5rem;
+  //     }
+  //   }
+
+  .search-container {
+    position: relative;
+  }
+
+  .search-container .search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-color-secondary);
+  }
+
+  .search-input {
+    padding: 10px 12px 10px 40px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background-color: #ffffff;
+    color: var(--text-color);
+    width: 280px;
+    font-size: 14px;
+    transition: all var(--transition-speed);
+  }
+
+  .search-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(41, 98, 255, 0.1);
+  }
+
+  .search-input::placeholder {
+    color: var(--text-color-secondary);
+    opacity: 0.7;
+  }
+}
+
+// Dialog Styles
+::ng-deep {
+  .p-dialog {
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--card-shadow-hover);
+    overflow: hidden;
+
+    .p-dialog-header {
+      background-color: var(--surface-overlay);
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+
+      .p-dialog-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--text-color);
+      }
+
+      .p-dialog-header-icon {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        transition: background-color var(--transition-speed);
+
+        &:hover {
+          background-color: var(--surface-section);
+        }
+      }
+    }
+
+    .p-dialog-content {
+      background-color: var(--surface-overlay);
+      padding: 1.5rem;
+    }
+
+    .p-dialog-footer {
+      background-color: var(--surface-overlay);
+      padding: 1rem 1.5rem;
+      border-top: 1px solid var(--border-color);
+    }
+  }
+
+  // Form Styles
+  .formgrid.grid {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -0.5rem;
+    margin-left: -0.5rem;
+
+    .field.col {
+      flex: 1 1 0%;
+      padding: 0 0.5rem;
+      margin-bottom: 1rem;
+
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        color: var(--text-color);
+
+        .text-danger {
+          color: var(--negative-color);
+        }
+      }
+    }
+  }
+
+  // Input validations
+  .text-danger {
+    color: var(--negative-color);
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+    display: block;
+  }
+
+  // Calendar
+  .p-calendar {
+    width: 100%;
+
+    .p-inputtext {
+      width: 100%;
+    }
+
+    .p-button {
+      background-color: var(--surface-section);
+      border-color: var(--border-color);
+      color: var(--text-color);
+
+      &:hover {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+        color: white;
+      }
+    }
+  }
+
+  // Dropdown
+  .p-dropdown {
+    width: 100%;
+    border-radius: 8px;
+
+    .p-dropdown-label {
+      padding: 0.75rem 1rem;
+    }
+
+    .p-dropdown-trigger {
+      width: 3rem;
+    }
+
+    &.p-focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 2px rgba(41, 98, 255, 0.2);
+    }
+  }
+
+  .p-dropdown-panel {
+    border-radius: 8px;
+    box-shadow: var(--card-shadow-hover);
+
+    .p-dropdown-items {
+      padding: 0.5rem 0;
+
+      .p-dropdown-item {
+        padding: 0.75rem 1rem;
+        color: var(--text-color);
+        transition: background-color var(--transition-speed);
+
+        &:hover {
+          background-color: rgba(41, 98, 255, 0.05);
+        }
+
+        &.p-highlight {
+          background-color: rgba(41, 98, 255, 0.1);
+          color: var(--primary-color);
+        }
+      }
+    }
+  }
+
+  // Input Number
+  .p-inputnumber {
+    width: 100%;
+
+    .p-inputtext {
+      width: 100%;
+    }
+  }
+
+  // Textarea
+  .p-inputtextarea {
+    width: 100%;
+    border-radius: 8px;
+
+    &:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 2px rgba(41, 98, 255, 0.2);
+    }
+  }
+
+  // Confirmation Dialog
+  .p-confirm-dialog {
+    .p-dialog-content {
+      display: flex;
+      align-items: center;
+      padding: 2rem 1.5rem;
+
+      .p-confirm-dialog-icon {
+        font-size: 2rem;
+        color: var(--negative-color);
+        margin-right: 1rem;
+      }
+
+      .p-confirm-dialog-message {
+        font-size: 1.1rem;
+        color: var(--text-color);
+      }
+    }
+  }
+
+  // Input Mask
+  .p-inputmask {
+    width: 100%;
+  }
+
+  // Tooltip
+  .p-tooltip {
+    .p-tooltip-text {
+      background-color: var(--text-color);
+      color: white;
+      padding: 0.5rem 0.75rem;
+      border-radius: 4px;
+      font-size: 0.875rem;
+    }
+
+    .p-tooltip-arrow {
+      border-top-color: var(--text-color);
+    }
+  }
+}
+
+// Button Animations
+.p-button {
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background-color: rgba(255, 255, 255, 0.2);
     border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.4s, height 0.4s;
+    z-index: 0;
+  }
+
+  &:active::after {
+    width: 200%;
+    height: 200%;
+  }
+
+  .p-button-label,
+  .p-button-icon {
+    position: relative;
+    z-index: 1;
+  }
 }
 
-.text-danger {
-    color: red;
+// Responsive adjustments
+@media (max-width: 992px) {
+  .formgrid.grid {
+    .field.col {
+      flex: 0 0 100%;
+    }
+  }
+}
+
+// Extra animations for hover effects
+.card,
+.p-dialog,
+.p-dropdown-panel {
+  transition: transform var(--transition-speed),
+    box-shadow var(--transition-speed);
+}
+
+.p-datatable-tbody > tr {
+  transition: transform var(--transition-speed),
+    background-color var(--transition-speed);
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+.field > label {
+  color: var(--text-color);
 }

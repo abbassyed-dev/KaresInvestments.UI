@@ -115,3 +115,9 @@ body {
 }
 
 // Add more theme-specific styles as needed
+.p-inputtext,
+.p-dropdown-panel,
+.p-dropdown {
+  background-color: #fff !important;
+  color: var(--text-color) !important;
+}

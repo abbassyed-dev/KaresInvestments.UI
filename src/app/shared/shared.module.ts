@@ -30,6 +30,7 @@ import {
   ChevronsLeft,
   ChevronsRight,
   Repeat,
+  Search,
 } from 'lucide-angular';
 
 const SharedComponents = [PhoneFormatPipe, CurrencyFormatPipe];
@@ -64,6 +65,7 @@ const SharedComponents = [PhoneFormatPipe, CurrencyFormatPipe];
       ChevronsLeft,
       ChevronsRight,
       Repeat,
+      Search,
     }),
   ],
   declarations: [SharedComponents],

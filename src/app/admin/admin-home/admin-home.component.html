@@ -1,107 +1,215 @@
-<div class="grid p-025">
-    <div class="col-12 lg:col-6 xl:col-3">
-        <div class="card mb-0">
-            <div class="flex justify-content-between mb-3">
-                <div>
-                    <span class="block text-500 font-medium mb-3">Users</span>
-                    <div class="text-900 font-medium text-xl">{{dashboardStats.activeUsers}}</div>
-                </div>
-                <div class="flex align-items-center justify-content-center bg-blue-100 border-round"
-                    [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
-                    <i class="pi pi-users text-blue-500 text-xl"></i>
-                </div>
-            </div>
-            <span class="text-green-500 font-medium">{{dashboardStats.usersJoinedThisMonth}} new </span>
-            <span class="text-500">since this month</span>
-        </div>
-    </div>
-    <div class="col-12 lg:col-6 xl:col-3">
-        <div class="card mb-0">
-            <div class="flex justify-content-between mb-3">
-                <div>
-                    <span class="block text-500 font-medium mb-3">Investment amount</span>
-                    <div class="text-900 font-medium text-xl"> {{dashboardStats.totalInvestedAmount | currencyFormat}}
-                    </div>
-                </div>
-                <div class="flex align-items-center justify-content-center bg-orange-100 border-round"
-                    [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
-                    <i class="pi pi-dollar text-orange-500 text-xl"></i>
-                </div>
-            </div>
-            <span class="text-green-500 font-medium">{{dashboardStats.totalInvestedAmountThisMonth | currencyFormat}}
-                +</span>
-            <span class="text-500">since this month</span>
-        </div>
-    </div>
-    <div class="col-12 lg:col-6 xl:col-3">
-        <div class="card mb-0">
-            <div class="flex justify-content-between mb-3">
-                <div>
-                    <span class="block text-500 font-medium mb-3">User Transactions</span>
-                    <div class="text-900 font-medium text-xl">{{dashboardStats.totalTransactions}}</div>
-                </div>
-                <div class="flex align-items-center justify-content-center bg-cyan-100 border-round"
-                    [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
-                    <i class="pi pi-list text-cyan-500 text-xl"></i>
-                </div>
-            </div>
-            <span class="text-green-500 font-medium">{{dashboardStats.transactionsThisMonth}} new</span>
-            <span class="text-500">since this month</span>
-        </div>
-    </div>
-    <div class="col-12 lg:col-6 xl:col-3">
-        <div class="card mb-0">
-            <div class="flex justify-content-between mb-3">
-                <div>
-                    <span class="block text-500 font-medium mb-3">User Interests</span>
-                    <div class="text-900 font-medium text-xl">{{dashboardStats.totalInterests}}</div>
-                </div>
-                <div class="flex align-items-center justify-content-center bg-purple-100 border-round"
-                    [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
-                    <i class="pi pi-comment text-purple-500 text-xl"></i>
-                </div>
-            </div>
-            <span class="text-green-500 font-medium">{{dashboardStats.pendingInterests}} </span>
-            <span class="text-500">pending</span>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-3">
-        <!-- <highcharts-chart [Highcharts]="Highcharts" [options]="pieChartOptions"
-            style="width: 100%; height: 400px; display: block;" [(update)]="updatePieChartFlag">
-        </highcharts-chart> -->
+<div class="dashboard-content">
+  <!-- Welcome Section -->
+  <div class="welcome-section">
+    <h1 class="welcome-title">Welcome to your Dashboard</h1>
+    <p class="welcome-subtitle">
+      Here's what's happening with your investments today
+    </p>
+  </div>
 
-        <p-card header="Investment Summary" styleClass="p-shadow-4">
-            <ng-template pTemplate="content">
-                <div class="form-row">
-                    <label class="form-label">Total Investment:</label>
-                    <span>{{ userStats.totalInvestment || 0 | currencyFormat}}</span>
-                </div>
-                <div class="form-row">
-                    <label class="form-label">No of Dividends Paid:</label>
-                    <span>{{ userStats.numberOfDividendsPaid || 0}}</span>
-                </div>
-                <div class="form-row">
-                    <label class="form-label">Dividends total:</label>
-                    <span>{{ userStats.totalDividendsPaid || 0 | currency }}</span>
-                </div>
-                <div class="form-row">
-                    <label class="form-label">Return on Investment:</label>
-                    <span>{{ userStats.returnOnInvestment }}%</span>
-                </div>
-                <div class="form-row">
-                    <label class="form-label">Return of Capital:</label>
-                    <span>{{ userStats.returnOfCapital }}%</span>
-                </div>
-
-            </ng-template>
-        </p-card>
+  <!-- Stats Cards -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-card-content">
+        <div class="stat-info">
+          <span class="stat-label">Users</span>
+          <div class="stat-value">
+            {{ dashboardStats.activeUsers | number }}
+          </div>
+          <div class="stat-trend positive">
+            <i class="pi pi-arrow-up"></i>
+            <span>{{ dashboardStats.usersJoinedThisMonth }} new</span>
+            <span class="trend-period">since this month</span>
+          </div>
+        </div>
+        <div class="stat-icon users-icon">
+          <i class="pi pi-users"></i>
+        </div>
+      </div>
+      <div
+        class="stat-progress"
+        [style.width.%]="
+          getProgressWidth(
+            dashboardStats.usersJoinedThisMonth,
+            dashboardStats.activeUsers
+          )
+        "
+      ></div>
     </div>
-    <div class="col-8">
-        <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions"
-            style="width: 100%; height: 400px; display: block;" [(update)]="updateColumnChartFlag">
+
+    <div class="stat-card">
+      <div class="stat-card-content">
+        <div class="stat-info">
+          <span class="stat-label">Investment Amount</span>
+          <div class="stat-value">
+            {{ dashboardStats.totalInvestedAmount | currencyFormat }}
+          </div>
+          <div class="stat-trend positive">
+            <i class="pi pi-arrow-up"></i>
+            <span>{{
+              dashboardStats.totalInvestedAmountThisMonth | currencyFormat
+            }}</span>
+            <span class="trend-period">since this month</span>
+          </div>
+        </div>
+        <div class="stat-icon investment-icon">
+          <i class="pi pi-dollar"></i>
+        </div>
+      </div>
+      <div
+        class="stat-progress"
+        [style.width.%]="
+          getProgressWidth(
+            dashboardStats.totalInvestedAmountThisMonth,
+            dashboardStats.totalInvestedAmount
+          )
+        "
+      ></div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-card-content">
+        <div class="stat-info">
+          <span class="stat-label">User Transactions</span>
+          <div class="stat-value">
+            {{ dashboardStats.totalTransactions | number }}
+          </div>
+          <div class="stat-trend positive">
+            <i class="pi pi-arrow-up"></i>
+            <span>{{ dashboardStats.transactionsThisMonth }} new</span>
+            <span class="trend-period">since this month</span>
+          </div>
+        </div>
+        <div class="stat-icon transactions-icon">
+          <i class="pi pi-list"></i>
+        </div>
+      </div>
+      <div
+        class="stat-progress"
+        [style.width.%]="
+          getProgressWidth(
+            dashboardStats.transactionsThisMonth,
+            dashboardStats.totalTransactions
+          )
+        "
+      ></div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-card-content">
+        <div class="stat-info">
+          <span class="stat-label">User Interests</span>
+          <div class="stat-value">
+            {{ dashboardStats.totalInterests | number }}
+          </div>
+          <div
+            class="stat-trend"
+            [ngClass]="
+              dashboardStats.pendingInterests > 0 ? 'neutral' : 'positive'
+            "
+          >
+            <i
+              class="pi pi-clock"
+              *ngIf="dashboardStats.pendingInterests > 0"
+            ></i>
+            <i
+              class="pi pi-check"
+              *ngIf="dashboardStats.pendingInterests === 0"
+            ></i>
+            <span>{{ dashboardStats.pendingInterests }}</span>
+            <span class="trend-period">pending</span>
+          </div>
+        </div>
+        <div class="stat-icon interests-icon">
+          <i class="pi pi-comment"></i>
+        </div>
+      </div>
+      <div
+        class="stat-progress"
+        [style.width.%]="
+          getProgressWidth(
+            dashboardStats.pendingInterests,
+            dashboardStats.totalInterests
+          )
+        "
+      ></div>
+    </div>
+  </div>
+
+  <!-- Charts Section -->
+  <div class="charts-section">
+    <div class="chart-card investment-summary">
+      <div class="chart-card-header">
+        <h2 class="chart-title">Investment Summary</h2>
+        <div class="chart-actions">
+          <button class="chart-action-btn">
+            <i class="pi pi-refresh"></i>
+          </button>
+        </div>
+      </div>
+      <div class="investment-stats">
+        <div class="stat-row">
+          <div class="stat-label">Total Investment</div>
+          <div class="stat-value highlight">
+            {{ userStats.totalInvestment || 0 | currencyFormat }}
+          </div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-label">No of Dividends Paid</div>
+          <div class="stat-value">
+            {{ userStats.numberOfDividendsPaid || 0 }}
+          </div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-label">Dividends Total</div>
+          <div class="stat-value dividend">
+            {{ userStats.totalDividendsPaid || 0 | currency }}
+          </div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-label">Return on Investment</div>
+          <div
+            class="stat-value"
+            [ngClass]="
+              userStats.returnOnInvestment > 0 ? 'positive' : 'negative'
+            "
+          >
+            {{ userStats.returnOnInvestment }}%
+          </div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-label">Return of Capital</div>
+          <div
+            class="stat-value"
+            [ngClass]="userStats.returnOfCapital > 0 ? 'positive' : 'negative'"
+          >
+            {{ userStats.returnOfCapital }}%
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-card transactions-chart">
+      <div class="chart-card-header">
+        <h2 class="chart-title">Transactions Trend</h2>
+        <div class="chart-actions">
+          <button class="chart-action-btn">
+            <i class="pi pi-calendar"></i>
+          </button>
+          <button class="chart-action-btn">
+            <i class="pi pi-download"></i>
+          </button>
+        </div>
+      </div>
+      <div class="chart-container">
+        <highcharts-chart
+          [Highcharts]="Highcharts"
+          [options]="chartOptions"
+          style="width: 100%; height: 300px; display: block"
+          [(update)]="updateColumnChartFlag"
+        >
         </highcharts-chart>
+      </div>
     </div>
-
+  </div>
 </div>

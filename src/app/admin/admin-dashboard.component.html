@@ -1,26 +1,36 @@
-<div class="col-12">
-    <p-tabView [(activeIndex)]="activeTabIndex" (onChange)="handleChange($event)">
-        <p-tabPanel header="Home">
-            <app-admin-home *ngIf="activeTabIndex===0"></app-admin-home>
-        </p-tabPanel>
-        <p-tabPanel header="Users">
-            <app-users [fetchAdmins]="'N'" *ngIf="activeTabIndex===1"
-                (userContextFromUserTab)="updateUserContext($event)"></app-users>
-        </p-tabPanel>
-        <p-tabPanel header="User Portfolios">
-            <app-user-portfolios *ngIf="activeTabIndex===2"></app-user-portfolios>
-        </p-tabPanel>
-        <p-tabPanel header="User Transactions">
-            <app-user-transactions [userFromContext]="userContext" *ngIf="activeTabIndex===3"></app-user-transactions>
-        </p-tabPanel>
-        <p-tabPanel header="User Interests">
-            <app-user-interests *ngIf="activeTabIndex===4"></app-user-interests>
-        </p-tabPanel>
-        <p-tabPanel header="App Admins">
-            <app-users [fetchAdmins]="'Y'" *ngIf="activeTabIndex===5"></app-users>
-        </p-tabPanel>
-        <!-- <p-tabPanel header="Configuration">
-            <app-configuration *ngIf="activeTabIndex===6"></app-configuration>
-        </p-tabPanel> -->
-    </p-tabView>
+<div class="dashboard-container">
+  <p-tabView
+    [(activeIndex)]="activeTabIndex"
+    (onChange)="handleChange($event)"
+    styleClass="premium-tabs"
+  >
+    <p-tabPanel header="Home">
+      <app-admin-home *ngIf="activeTabIndex === 0"></app-admin-home>
+    </p-tabPanel>
+    <p-tabPanel header="Users">
+      <app-users
+        [fetchAdmins]="'N'"
+        *ngIf="activeTabIndex === 1"
+        (userContextFromUserTab)="updateUserContext($event)"
+      ></app-users>
+    </p-tabPanel>
+    <p-tabPanel header="User Portfolios">
+      <app-user-portfolios *ngIf="activeTabIndex === 2"></app-user-portfolios>
+    </p-tabPanel>
+    <p-tabPanel header="User Transactions">
+      <app-user-transactions
+        [userFromContext]="userContext"
+        *ngIf="activeTabIndex === 3"
+      ></app-user-transactions>
+    </p-tabPanel>
+    <p-tabPanel header="User Interests">
+      <app-user-interests *ngIf="activeTabIndex === 4"></app-user-interests>
+    </p-tabPanel>
+    <p-tabPanel header="App Admins">
+      <app-users [fetchAdmins]="'Y'" *ngIf="activeTabIndex === 5"></app-users>
+    </p-tabPanel>
+    <!-- <p-tabPanel header="Configuration">
+      <app-configuration *ngIf="activeTabIndex===6"></app-configuration>
+    </p-tabPanel> -->
+  </p-tabView>
 </div>

@@ -721,7 +721,8 @@
 .features-section {
   padding: 6rem 0;
   position: relative;
-
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  color: white;
   .section-header {
     margin-bottom: 3rem;
 
@@ -729,12 +730,14 @@
       font-size: 2.5rem;
       font-weight: 700;
       margin-bottom: 1rem;
-      color: var(--text-color);
+      // color: var(--text-color);
+      color: white;
     }
 
     .section-subtitle {
       font-size: 1.2rem;
-      color: var(--text-color-secondary);
+      // color: var(--text-color-secondary);
+      color: white;
       max-width: 600px;
       margin: 0 auto;
     }
@@ -833,18 +836,21 @@
 .secure-section {
   padding: 6rem 0;
   position: relative;
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
 
   .secure-content {
     h2 {
       font-size: 2.5rem;
       font-weight: 700;
       margin-bottom: 1.5rem;
-      color: var(--text-color);
+      // color: var(--text-color);
+      color: white;
     }
 
     p {
       font-size: 1.2rem;
-      color: var(--text-color-secondary);
+      // color: var(--text-color-secondary);
+      color:white;
       margin-bottom: 2rem;
       max-width: 650px;
       margin-left: auto;
@@ -852,11 +858,7 @@
     }
 
     .p-button-lg {
-      background: linear-gradient(
-        90deg,
-        var(--secondary-color),
-        var(--secondary-dark)
-      );
+      background:linear-gradient(90deg, #f59e0b, #d97706);
       border: none;
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
       padding: 1rem 2.5rem;

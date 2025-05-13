@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/layout/app.toolbar.component.scss"],
+  "sourcesContent": [":host ::ng-deep ul {\r\n    padding-left: 0rem;\r\n}\r\n\r\n.welcome-label {\r\n    display: flex;\r\n    align-items: center;\r\n}\r\n\r\n.p-menu-list{\r\n    margin-bottom: 0px !important;\r\n    padding-left: 0rem !important;\r\n}"],
+  "mappings": ";AAAA,MAAA,UAAA;AACI,gBAAA;;AAGJ,CAAA;AACI,WAAA;AACA,eAAA;;AAGJ,CAAA;AACI,iBAAA;AACA,gBAAA;;",
+  "names": []
+}

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/layout/app.layout.component.scss"],
+  "sourcesContent": [".password-note {\r\n    color: cornflowerblue;\r\n    margin-bottom: 1.5rem;\r\n}"],
+  "mappings": ";AAAA,CAAA;AACI,SAAA;AACA,iBAAA;;",
+  "names": []
+}

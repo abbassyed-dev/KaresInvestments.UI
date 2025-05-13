@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/app.component.scss"],
+  "sourcesContent": ["// Theme toggle styling in navbar\r\n.navbar-custom {\r\n  transition: background-color 0.3s ease, color 0.3s ease;\r\n\r\n  &.navbar-dark {\r\n    background-color: var(--surface-overlay);\r\n  }\r\n\r\n  &.navbar-light {\r\n    background-color: var(--surface-card);\r\n  }\r\n}\r\n\r\n// Make sure the theme toggle button is properly aligned\r\napp-theme-toggle {\r\n  display: flex;\r\n  align-items: center;\r\n}\r\n\r\n// Adjust the theme toggle button for dark/light modes\r\n:host-context(.dark-theme) {\r\n  .navbar-custom {\r\n    .navbar-brand,\r\n    .nav-link {\r\n      color: var(--text-color);\r\n    }\r\n  }\r\n}\r\n\r\n:host-context(.light-theme) {\r\n  .navbar-custom {\r\n    .navbar-brand,\r\n    .nav-link {\r\n      color: var(--text-color);\r\n    }\r\n  }\r\n}\r\n"],
+  "mappings": ";AACA,CAAA;AACE,cAAA,iBAAA,KAAA,IAAA,EAAA,MAAA,KAAA;;AAEA,CAHF,aAGE,CAAA;AACE,oBAAA,IAAA;;AAGF,CAPF,aAOE,CAAA;AACE,oBAAA,IAAA;;AAKJ;AACE,WAAA;AACA,eAAA;;AAME,cAAA,CAAA,YAAA,CArBJ,cAqBI,CAAA;AAAA,cAAA,CAAA,YAAA,CArBJ,cAqBI,CAAA;AAEE,SAAA,IAAA;;AAOF,cAAA,CAAA,aAAA,CA9BJ,cA8BI,CATA;AASA,cAAA,CAAA,aAAA,CA9BJ,cA8BI,CATA;AAWE,SAAA,IAAA;;",
+  "names": []
+}

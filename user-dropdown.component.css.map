@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/shared/user-dropdown/user-dropdown.component.scss"],
+  "sourcesContent": [".custom-dropdown {\r\n  display: flex;\r\n  align-items: center;\r\n  border: 1px solid #ccc;\r\n  border-radius: 4px;\r\n  padding: 5px;\r\n  width: 250px;\r\n}\r\n\r\n.custom-dropdown input {\r\n  border: none;\r\n  outline: none;\r\n  flex: 1;\r\n  cursor: pointer;\r\n  background: none !important;\r\n}\r\n\r\n.custom-dropdown button {\r\n  background: none;\r\n  border: none;\r\n  cursor: pointer;\r\n  color: var(--primary-color);\r\n}\r\n\r\n.search-input {\r\n  width: 100%;\r\n  padding: 8px;\r\n  border: 1px solid #ccc;\r\n  border-radius: 4px;\r\n  background: none;\r\n}\r\n\r\n.user-dropdown .p-dialog {\r\n  width: 40vw !important;\r\n}\r\n#selectedUser::placeholder {\r\n  color: var(--text-color-secondary);\r\n  opacity: 0.7;\r\n}\r\n"],
+  "mappings": ";AAAA,CAAA;AACE,WAAA;AACA,eAAA;AACA,UAAA,IAAA,MAAA;AACA,iBAAA;AACA,WAAA;AACA,SAAA;;AAGF,CATA,gBASA;AACE,UAAA;AACA,WAAA;AACA,QAAA;AACA,UAAA;AACA,cAAA;;AAGF,CAjBA,gBAiBA;AACE,cAAA;AACA,UAAA;AACA,UAAA;AACA,SAAA,IAAA;;AAGF,CAAA;AACE,SAAA;AACA,WAAA;AACA,UAAA,IAAA,MAAA;AACA,iBAAA;AACA,cAAA;;AAGF,CAAA,cAAA,CAAA;AACE,SAAA;;AAEF,CAAA,YAAA;AACE,SAAA,IAAA;AACA,WAAA;;",
+  "names": []
+}

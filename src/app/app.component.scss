@@ -1,0 +1,37 @@
+// Theme toggle styling in navbar
+.navbar-custom {
+  transition: background-color 0.3s ease, color 0.3s ease;
+
+  &.navbar-dark {
+    background-color: var(--surface-overlay);
+  }
+
+  &.navbar-light {
+    background-color: var(--surface-card);
+  }
+}
+
+// Make sure the theme toggle button is properly aligned
+app-theme-toggle {
+  display: flex;
+  align-items: center;
+}
+
+// Adjust the theme toggle button for dark/light modes
+:host-context(.dark-theme) {
+  .navbar-custom {
+    .navbar-brand,
+    .nav-link {
+      color: var(--text-color);
+    }
+  }
+}
+
+:host-context(.light-theme) {
+  .navbar-custom {
+    .navbar-brand,
+    .nav-link {
+      color: var(--text-color);
+    }
+  }
+}

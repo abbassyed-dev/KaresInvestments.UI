@@ -8,154 +8,147 @@ import { mergeMap, tap } from 'rxjs';
 import { UserStats } from '../../models/user-stats.model';
 
 @Component({
-    selector: 'app-admin-home',
-    templateUrl: './admin-home.component.html',
-    styleUrl: './admin-home.component.scss'
+  selector: 'app-admin-home',
+  templateUrl: './admin-home.component.html',
+  styleUrls: ['./admin-home.component.scss'],
 })
 export class AdminHomeComponent implements OnInit {
-    Highcharts = Highcharts;
-    updateColumnChartFlag = false;
-    // updatePieChartFlag = false;
-    chartOptions: any;
-    // pieChartOptions: any;
-    dashboardStats: DashboardStats = {} as DashboardStats;
-    errorMessage: string | null = null;
-    transactionsGraphData: GraphData[] = [];
-    usersGraphData: GraphData[] = [];
-    userStats = {} as UserStats;
+  Highcharts = Highcharts;
+  updateColumnChartFlag = false;
+  chartOptions: any;
+  dashboardStats: DashboardStats = {} as DashboardStats;
+  errorMessage: string | null = null;
+  transactionsGraphData: GraphData[] = [];
+  usersGraphData: GraphData[] = [];
+  userStats = {} as UserStats;
 
+  constructor(
+    private authStateService: AuthStateService,
+    private dataService: AdminHomeService
+  ) {}
 
-    constructor(private authStateService: AuthStateService, private dataService: AdminHomeService
-    ) { }
+  userName = `${this.authStateService.getLoggedInUserProperty(
+    'lastName'
+  )} ${this.authStateService.getLoggedInUserProperty('firstName')}`;
 
-    userName = `${this.authStateService.getLoggedInUserProperty('lastName')} ${this.authStateService.getLoggedInUserProperty('firstName')}`;
+  ngOnInit() {
+    this.loadDashboardDataSequentially();
 
-    ngOnInit() {
-        this.loadDashboardDataSequentially();
-        // this.getAdminDashboardData();
-        // this.getAdminDashboardGraphData();
-        // this.getAdminDashboardPieChartData();
+    this.chartOptions = {
+      chart: {
+        type: 'column',
+        style: {
+          fontFamily: 'inherit',
+        },
+        spacing: [10, 10, 15, 10],
+      },
+      title: {
+        text: null,
+      },
+      xAxis: {
+        categories: ['Jan', 'Feb', 'Mar'],
+        lineColor: 'var(--border-color)',
+        tickColor: 'var(--border-color)',
+      },
+      yAxis: {
+        min: 0,
+        title: {
+          text: null,
+        },
+        gridLineColor: 'var(--border-color)',
+        gridLineDashStyle: 'Dash',
+      },
+      legend: {
+        enabled: false,
+      },
+      credits: {
+        enabled: false,
+      },
+      tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat:
+          '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+          '<td style="padding:0"><b>{point.y}</b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true,
+        backgroundColor: 'var(--surface-overlay)',
+        borderColor: 'var(--border-color)',
+        borderRadius: 8,
+        style: {
+          color: 'var(--text-color)',
+        },
+      },
+      plotOptions: {
+        column: {
+          pointPadding: 0.2,
+          borderWidth: 0,
+          borderRadius: 4,
+        },
+        series: {
+          color: 'var(--primary-color)',
+        },
+      },
+      series: [
+        {
+          name: 'Transactions',
+          type: 'column',
+          data: [5, 10, 15],
+        },
+      ],
+    };
+  }
 
-        this.chartOptions = {
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: 'Transactions Trend'
-            },
-            xAxis: {
-                categories: ['as', 'bc', 'de']
-            },
-            yAxis: [
-                {
-                    min: 0,
-                    title: { text: '' },
-                    // opposite: false
-                },
-                // {
-                //     title: { text: 'Transactions' },
-                //     opposite: true,
-                //     min: 0
-                // }
-            ],
-            series: [
-                // {
-                //     name: 'Users',
-                //     type: 'column',
-                // },
-                {
-                    name: 'Transactions',
-                    type: 'column',
-                    // data: [1, 2, 3],
-                    // yAxis: 1
-                }
-            ],
-            tooltip: {
-                shared: true
-            }
-        };
+  loadDashboardDataSequentially(): void {
+    this.dataService
+      .getAdminDashboardStats()
+      .pipe(
+        tap((data) => this.handleDashboardStats(data)),
+        mergeMap(() =>
+          this.dataService
+            .getAdminDashboardGraphData()
+            .pipe(tap((data) => this.handleGraphData(data)))
+        ),
+        mergeMap(() =>
+          this.dataService
+            .getOverAllInvestmentStats(null)
+            .pipe(tap((data) => this.showOverAllInvestmentStats(data)))
+        )
+      )
+      .subscribe({
+        next: () => console.log('All dashboard data loaded successfully'),
+        error: (error) => {
+          console.error('Error during dashboard data loading:', error);
+        },
+      });
+  }
 
-        // Define Highcharts options
-        // this.pieChartOptions = {
-        //     chart: {
-        //         type: 'pie'
-        //     },
-        //     title: {
-        //         text: 'Investment Distribution by Portfolio'
-        //     },
-        //     tooltip: {
-        //         pointFormat: '<b>{point.name}</b>: {point.y} ({point.percentage:.1f}%)'
-        //     },
-        //     plotOptions: {
-        //         pie: {
-        //             allowPointSelect: true,
-        //             cursor: 'pointer',
-        //             dataLabels: {
-        //                 enabled: false,
-        //                 format: '{point.name}: {point.y}'
-        //             }
-        //         }
-        //     },
-        //     series: [
-        //         {
-        //             type: 'pie',
-        //             name: 'Investments',
-        //             data: []
-        //         }
-        //     ]
-        // };
-    }
+  handleDashboardStats(data: any) {
+    this.dashboardStats = data;
+    this.errorMessage = null;
+  }
 
-    loadDashboardDataSequentially(): void {
-        this.dataService.getAdminDashboardStats()
-            .pipe(
-                tap((data) => this.handleDashboardStats(data)),
-                mergeMap(() => this.dataService.getAdminDashboardGraphData().pipe(
-                    tap((data) => this.handleGraphData(data))
-                )),
-                // mergeMap(() => this.dataService.getAdminDashboardPieChartData().pipe(
-                //     tap((data) => this.handlePieChartData(data))
-                // ))
-                mergeMap(() => this.dataService.getOverAllInvestmentStats(null).pipe(
-                    tap((data) => this.showOverAllInvestmentStats(data))
-                ))
-            )
-            .subscribe({
-                next: () => console.log('All dashboard data loaded successfully'),
-                error: (error) => {
-                    console.error('Error during dashboard data loading:', error);
-                    // No need for specific handling here since it's done in the interceptor
-                },
-            });
-    }
+  handleGraphData(data: any) {
+    const categories = data.transactionsGraphData.map(
+      (item: any) => item.xAxis
+    );
+    const transactionsData = data.transactionsGraphData.map(
+      (item: any) => item.yAxisValue
+    );
 
-    handleDashboardStats(data: any) {
-        this.dashboardStats = data;
-        this.errorMessage = null;
-    }
+    this.chartOptions.xAxis.categories = categories;
+    this.chartOptions.series[0].data = transactionsData;
+    this.updateColumnChartFlag = true;
+  }
 
-    handleGraphData(data: any) {
-        const categories = data.transactionsGraphData.map((item: any) => item.xAxis);
-        // const usersData = data.usersGraphData.map((item: any) => item.yAxisValue);
-        const transactionsData = data.transactionsGraphData.map((item: any) => item.yAxisValue);
+  showOverAllInvestmentStats(data: any) {
+    if (data) this.userStats = data;
+  }
 
-        this.chartOptions.xAxis.categories = categories;
-        // this.chartOptions.series[0].data = usersData;
-        this.chartOptions.series[0].data = transactionsData;
-        this.updateColumnChartFlag = true;
-    }
-
-    // handlePieChartData(data: any) {
-    //     const chartData = data.map((item: any) => ({
-    //         name: item.portfolioName,
-    //         y: item.amount,
-    //     }));
-    //     this.pieChartOptions.series[0].data = chartData;
-    //     this.updatePieChartFlag = true;
-    // }
-
-    showOverAllInvestmentStats(data: any) {
-        if (data)
-            this.userStats = data;
-    }
+  // Helper method to calculate progress bar width
+  getProgressWidth(part: number, total: number): number {
+    if (!part || !total) return 0;
+    const percentage = (part / total) * 100;
+    return Math.min(percentage, 100); // Cap at 100%
+  }
 }

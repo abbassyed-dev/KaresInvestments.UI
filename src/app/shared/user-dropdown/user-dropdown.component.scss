@@ -1,35 +1,39 @@
 .custom-dropdown {
-    display: flex;
-    align-items: center;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 5px;
-    width: 250px;
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 5px;
+  width: 250px;
 }
 
 .custom-dropdown input {
-    border: none;
-    outline: none;
-    flex: 1;
-    cursor: pointer;
-    background: none !important;
+  border: none;
+  outline: none;
+  flex: 1;
+  cursor: pointer;
+  background: none !important;
 }
 
 .custom-dropdown button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: var(--primary-color);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--primary-color);
 }
 
 .search-input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background: none;
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: none;
 }
 
 .user-dropdown .p-dialog {
-    width: 40vw !important;
+  width: 40vw !important;
+}
+#selectedUser::placeholder {
+  color: var(--text-color-secondary);
+  opacity: 0.7;
 }

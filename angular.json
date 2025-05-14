@@ -55,7 +55,6 @@
               "raf",
               "rgbcolor"
             ],
-            "baseHref": "/KaresInvestments.UI/",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [

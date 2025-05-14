@@ -1,4 +1,584 @@
-:host ::ng-deep ul {
-    margin-bottom: 0rem;
-    padding-left: 0rem;
+:host {
+  --card-border-radius: 12px;
+  --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  --card-shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.1);
+  --header-icon-bg: rgba(41, 98, 255, 0.1);
+  --header-icon-color: var(--primary-color);
+  --progress-bar-height: 8px;
+  --progress-bar-radius: 10px;
+  --transition-speed: 0.25s;
+  --primary-color: #2962ff;
+  --secondary-color: #ff884d;
+  --positive-color: #4caf50;
+  --negative-color: #ef4444;
+  --dividend-color: #ff884d;
+  --text-color: #333;
+  --text-color-secondary: #666;
+  --surface-overlay: #fff;
+  --surface-section: #f5f7fa;
+  --border-color: #e0e0e0;
+}
+
+.dashboard-container {
+  padding: 1.5rem;
+  background-color: var(--surface-section);
+  min-height: calc(100vh - 60px);
+}
+
+:host ::ng-deep {
+  .premium-tabs {
+    .p-tabview-nav {
+      border-bottom: 1px solid var(--border-color);
+      background-color: var(--surface-overlay);
+      border-radius: var(--card-border-radius) var(--card-border-radius) 0 0;
+      padding: 0 1rem;
+
+      li {
+        margin-right: 0.5rem;
+
+        .p-tabview-nav-link {
+          padding: 1rem 1.25rem;
+          color: var(--text-color);
+          font-weight: 500;
+          border: none;
+          border-radius: 0;
+          transition: all var(--transition-speed) ease;
+          position: relative;
+          background-color: transparent;
+
+          &:hover {
+            color: var(--primary-color);
+            background-color: transparent;
+          }
+
+          &:focus {
+            box-shadow: none;
+          }
+        }
+
+        &.p-highlight .p-tabview-nav-link {
+          color: var(--primary-color);
+          background-color: transparent;
+
+          &:after {
+            content: "";
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary-color);
+            border-radius: var(--progress-bar-radius) var(--progress-bar-radius)
+              0 0;
+          }
+        }
+      }
+    }
+
+    .p-tabview-panels {
+      background-color: var(--surface-overlay);
+      border-radius: 0 0 var(--card-border-radius) var(--card-border-radius);
+      padding: 1.5rem;
+      box-shadow: var(--card-shadow);
+    }
+  }
+}
+
+// shared-components.scss - Import this in your global styles or component styles
+
+// Base variables (same as in admin-home.component.scss)
+:root {
+  --card-border-radius: 12px;
+  --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  --card-shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.1);
+  --header-icon-bg: rgba(41, 98, 255, 0.1);
+  --header-icon-color: var(--primary-color);
+  --progress-bar-height: 8px;
+  --progress-bar-radius: 10px;
+  --transition-speed: 0.25s;
+  --primary-color: #2962ff;
+  --secondary-color: #ff884d;
+  --positive-color: #4caf50;
+  --negative-color: #ef4444;
+  --dividend-color: #ff884d;
+  --text-color: #333;
+  --text-color-secondary: #666;
+  --surface-overlay: #fff;
+  --surface-section: #f5f7fa;
+  --border-color: #e0e0e0;
+  --input-bg: #fff;
+  --input-border: #ced4da;
+  --input-focus-border: var(--primary-color);
+  --input-focus-shadow: 0 0 0 0.2rem rgba(41, 98, 255, 0.25);
+  --button-border-radius: 6px;
+  --table-header-bg: var(--surface-section);
+  --table-row-hover: rgba(41, 98, 255, 0.05);
+  --table-border: var(--border-color);
+  --dialog-header-bg: var(--surface-section);
+  --dialog-content-bg: var(--surface-overlay);
+}
+
+// Card styling
+.card {
+  background-color: var(--surface-overlay);
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--card-shadow);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  transition: box-shadow var(--transition-speed);
+
+  &:hover {
+    box-shadow: var(--card-shadow-hover);
+  }
+}
+
+// Table styling
+:deep(.p-datatable) {
+  .p-datatable-header {
+    background-color: var(--surface-overlay);
+    border: none;
+    padding: 1rem 1.5rem;
+  }
+
+  .p-datatable-thead > tr > th {
+    background-color: var(--table-header-bg);
+    color: var(--text-color);
+    font-weight: 600;
+    padding: 1rem;
+    border-color: var(--table-border);
+    transition: background-color var(--transition-speed);
+
+    &:hover {
+      background-color: darken(#f5f7fa, 3%);
+    }
+  }
+
+  .p-datatable-tbody > tr {
+    transition: background-color var(--transition-speed);
+
+    > td {
+      padding: 0.75rem 1rem;
+      border-color: var(--table-border);
+    }
+
+    &:hover {
+      background-color: var(--table-row-hover);
+    }
+
+    &:nth-child(even) {
+      background-color: rgba(0, 0, 0, 0.02);
+    }
+  }
+
+  .p-paginator {
+    background-color: var(--surface-overlay);
+    border-color: var(--table-border);
+    padding: 0.75rem 1rem;
+
+    .p-paginator-element {
+      border-radius: var(--button-border-radius);
+      min-width: 2.5rem;
+      height: 2.5rem;
+      margin: 0 0.125rem;
+
+      &.p-highlight {
+        background-color: var(--primary-color);
+        color: white;
+      }
+    }
+  }
+
+  .p-datatable-emptymessage {
+    padding: 2rem;
+    text-align: center;
+    color: var(--text-color-secondary);
+  }
+}
+
+// Dialog styling
+:deep(.p-dialog) {
+  border-radius: var(--card-border-radius);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+
+  .p-dialog-header {
+    background-color: var(--dialog-header-bg);
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+
+    .p-dialog-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-color);
+    }
+
+    .p-dialog-header-icon {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      transition: background-color var(--transition-speed);
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+      }
+    }
+  }
+
+  .p-dialog-content {
+    background-color: var(--dialog-content-bg);
+    padding: 1.5rem;
+  }
+
+  .p-dialog-footer {
+    background-color: var(--dialog-content-bg);
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+  }
+}
+
+// Confirm dialog styling
+:deep(.p-confirm-dialog) {
+  .p-dialog-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.5rem;
+
+    .p-confirm-dialog-icon {
+      font-size: 1.5rem;
+      color: var(--primary-color);
+    }
+
+    .p-confirm-dialog-message {
+      font-size: 1rem;
+      color: var(--text-color);
+      margin: 0;
+    }
+  }
+}
+
+// Form styling
+.formgrid.grid {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -0.5rem;
+
+  .field {
+    padding: 0 0.5rem;
+    margin-bottom: 1.25rem;
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-color);
+    }
+
+    .text-danger {
+      color: var(--negative-color);
+      font-size: 0.75rem;
+      margin-top: 0.25rem;
+    }
+  }
+}
+
+// Input styling
+:deep(.p-inputtext),
+:deep(.p-password input),
+:deep(.p-inputnumber input),
+:deep(.p-inputmask input),
+:deep(textarea.p-inputtextarea) {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  border: 1px solid var(--input-border);
+  border-radius: var(--button-border-radius);
+  background-color: var(--input-bg);
+  transition: border-color var(--transition-speed),
+    box-shadow var(--transition-speed);
+
+  &:hover {
+    border-color: darken(#ced4da, 10%);
+  }
+
+  &:focus {
+    outline: none;
+    border-color: var(--input-focus-border);
+    box-shadow: var(--input-focus-shadow);
+  }
+
+  &.ng-invalid.ng-touched {
+    border-color: var(--negative-color);
+  }
+}
+
+// Dropdown styling
+:deep(.p-dropdown) {
+  width: 100%;
+
+  .p-dropdown-label {
+    padding: 0.75rem 1rem;
+  }
+
+  .p-dropdown-trigger {
+    width: 3rem;
+  }
+
+  &.p-focus {
+    border-color: var(--input-focus-border);
+    box-shadow: var(--input-focus-shadow);
+  }
+}
+
+:deep(.p-dropdown-panel) {
+  border-radius: var(--button-border-radius);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+
+  .p-dropdown-items {
+    padding: 0.5rem 0;
+
+    .p-dropdown-item {
+      padding: 0.75rem 1rem;
+      color: var(--text-color);
+      transition: background-color var(--transition-speed);
+
+      &:hover {
+        background-color: var(--table-row-hover);
+      }
+
+      &.p-highlight {
+        background-color: var(--primary-color);
+        color: white;
+      }
+    }
+  }
+}
+
+// Calendar styling
+:deep(.p-calendar) {
+  width: 100%;
+
+  .p-inputtext {
+    width: 100%;
+  }
+
+  .p-button {
+    background-color: transparent;
+    border: none;
+    color: var(--text-color-secondary);
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+      color: var(--text-color);
+    }
+  }
+}
+
+:deep(.p-datepicker) {
+  border-radius: var(--button-border-radius);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem;
+
+  .p-datepicker-header {
+    padding: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+
+    .p-datepicker-title {
+      .p-datepicker-month,
+      .p-datepicker-year {
+        font-weight: 600;
+        color: var(--text-color);
+      }
+    }
+
+    .p-datepicker-prev,
+    .p-datepicker-next {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+      }
+    }
+  }
+
+  .p-datepicker-calendar {
+    th {
+      padding: 0.5rem;
+      font-weight: 600;
+      color: var(--text-color);
+    }
+
+    td {
+      padding: 0.25rem;
+
+      > span {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        transition: background-color var(--transition-speed);
+
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        &.p-highlight {
+          background-color: var(--primary-color);
+          color: white;
+        }
+      }
+    }
+  }
+}
+
+// Button styling
+:deep(.p-button) {
+  border-radius: var(--button-border-radius);
+  padding: 0.75rem 1.25rem;
+  font-weight: 500;
+  transition: background-color var(--transition-speed),
+    border-color var(--transition-speed), transform var(--transition-speed);
+
+  &:not(.p-button-text):not(.p-button-link):hover {
+    transform: translateY(-2px);
+  }
+
+  &.p-button-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
+
+  &.p-button-lg {
+    padding: 1rem 1.5rem;
+    font-size: 1.125rem;
+  }
+
+  &.p-button-icon-only {
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+
+    &.p-button-rounded {
+      border-radius: 50%;
+    }
+  }
+
+  // Success button
+  &.p-button-success {
+    background-color: var(--positive-color);
+    border-color: var(--positive-color);
+
+    &:hover {
+      background-color: darken(#4caf50, 5%);
+      border-color: darken(#4caf50, 5%);
+    }
+
+    &.p-button-outlined {
+      background-color: transparent;
+      color: var(--positive-color);
+
+      &:hover {
+        background-color: rgba(76, 175, 80, 0.1);
+      }
+    }
+  }
+
+  // Danger button
+  &.p-button-danger {
+    background-color: var(--negative-color);
+    border-color: var(--negative-color);
+
+    &:hover {
+      background-color: darken(#ef4444, 5%);
+      border-color: darken(#ef4444, 5%);
+    }
+
+    &.p-button-outlined {
+      background-color: transparent;
+      color: var(--negative-color);
+
+      &:hover {
+        background-color: rgba(239, 68, 68, 0.1);
+      }
+    }
+  }
+
+  // Text button
+  &.p-button-text {
+    background-color: transparent;
+    border: none;
+    color: var(--primary-color);
+
+    &:hover {
+      background-color: rgba(41, 98, 255, 0.05);
+    }
+  }
+
+  // Outlined button
+  &.p-button-outlined {
+    background-color: transparent;
+
+    &:hover {
+      background-color: rgba(41, 98, 255, 0.05);
+    }
+  }
+}
+
+// Search field styling
+:deep(.p-iconfield) {
+  position: relative;
+
+  .p-inputtext {
+    padding-left: 2.5rem;
+  }
+
+  .p-inputicon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0.75rem;
+    color: var(--text-color-secondary);
+  }
+}
+
+// Tooltip styling
+:deep(.p-tooltip) {
+  .p-tooltip-text {
+    background-color: var(--text-color);
+    color: white;
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--button-border-radius);
+    font-size: 0.75rem;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .p-tooltip-arrow {
+    border-top-color: var(--text-color);
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .formgrid.grid {
+    .field.col {
+      flex: 0 0 100%;
+    }
+  }
+
+  :deep(.p-datatable) {
+    .p-datatable-thead > tr > th,
+    .p-datatable-tbody > tr > td {
+      padding: 0.75rem 0.5rem;
+    }
+  }
+
+  :deep(.p-dialog) {
+    width: 95% !important;
+    max-width: 550px;
+  }
 }

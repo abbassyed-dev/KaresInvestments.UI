@@ -1,35 +1,301 @@
-<section class="home-container text-center">
-    <!-- Banner Section (Starts below navbar) -->
-    <div class="banner">
-        <!-- <div class="banner-content text-center">
-            <h1 class="display-4">Kares Investments for a Secure Future</h1>
-            <p>Your trusted partner in financial growth and stability.</p>
-        </div> -->
-    </div>
-    <!-- <div class="banner">
-        <img src="../../../assets/layout/images/banner7.jpeg" alt="Banner" class="banner-image">
-    </div> -->
-    <!-- Hero Section -->
-    <div class="hero-section">
-        <h1 class="display-4">Kares Investments for a Secure Future</h1>
-        <p class="lead typing">Secure, seamless, and innovative financial solutions at your fingertips.</p>
-        <button class="btn btn-primary btn-lg m-2" [routerLink]="'/register'">Begin Your Smart Investing</button>
-        <button class="btn btn-outline-light btn-lg m-2" [routerLink]="'/about'">Learn More</button>
-    </div>
-    <div class="features-section row text-center justify-content-center py-5">
-        <div *ngFor="let feature of features" class="col-md-3 p-3">
-            <!-- <div class="card shadow-lg p-4 bounce-card">
-                <lucide-icon [size]="48" [name]="feature.icon" class="display-3 text-primary"></lucide-icon>
-                <h3 class="mt-3">{{ feature.title }}</h3>
-            </div> -->
-            <div class="card shadow-lg p-4 bounce-card text-center">
-                <lucide-icon [size]="48" [name]="feature.icon" class="display-3 text-primary"></lucide-icon>
-                <h3 class="mt-3">{{ feature.title }}</h3>
-                <p class="mt-2" style="color: #ffffff">
-                    {{feature.description}}
-                </p>
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="hero-content">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 hero-text">
+          <div
+            class="badge-container"
+            pAnimateOnScroll
+            animateClass="animate__fadeInDown"
+          >
+            <span class="hero-badge">Trusted by 10,000+ Investors</span>
+          </div>
+          <h1
+            class="hero-title"
+            pAnimateOnScroll
+            animateClass="animate__fadeInLeft"
+          >
+            Invest in Your Future with Confidence
+          </h1>
+          <p
+            class="hero-subtitle"
+            pAnimateOnScroll
+            animateClass="animate__fadeInLeft"
+          >
+            Secure, seamless, and innovative financial solutions tailored to
+            your goals.
+          </p>
+          <div
+            class="hero-features"
+            pAnimateOnScroll
+            animateClass="animate__fadeInUp"
+          >
+            <div class="hero-feature">
+              <span class="feature-icon"
+                ><lucide-icon name="shield-check" [size]="16"></lucide-icon>
+              </span>
+              <span>Security Guaranteed</span>
             </div>
+            <div class="hero-feature">
+              <span class="feature-icon"
+                ><lucide-icon name="trending-up" [size]="16"></lucide-icon
+              ></span>
+              <span>High Return Potential</span>
+            </div>
+            <div class="hero-feature">
+              <span class="feature-icon"
+                ><lucide-icon name="users" [size]="16"></lucide-icon
+              ></span>
+              <span>Expert Advisory</span>
+            </div>
+          </div>
+          <div
+            class="hero-buttons"
+            pAnimateOnScroll
+            animateClass="animate__fadeInUp"
+          >
+            <button
+              pButton
+              pRipple
+              label="Begin Your Journey"
+              icon="pi pi-arrow-right"
+              iconPos="right"
+              class="p-button-lg p-button-raised"
+              routerLink="/register"
+            ></button>
+            <button
+              pButton
+              pRipple
+              label="Learn More"
+              class="p-button-outlined p-button-lg"
+              routerLink="/about"
+            ></button>
+          </div>
         </div>
-
+        <div
+          class="col-lg-6 hero-image-container"
+          pAnimateOnScroll
+          animateClass="animate__fadeInRight"
+        >
+          <div class="hero-dashboard">
+            <img
+            src="assets/layout/images/KARES_PIC1.png"
+            alt="About Kares Investments"
+            class="img-fluid about-main-image"
+          />
+            <!-- <div class="dashboard-header">
+              <div class="dashboard-title">
+                <lucide-icon name="bar-chart-2" [size]="20"></lucide-icon>
+                <span>Investment Portfolio</span>
+              </div>
+              <div class="dashboard-actions">
+                <lucide-icon name="bell" [size]="18"></lucide-icon>
+                <lucide-icon name="settings" [size]="18"></lucide-icon>
+              </div>
+            </div> -->
+            <!-- <div class="portfolio-summary">
+              <div class="portfolio-value">
+                <div class="value-label">Portfolio Value</div>
+                <div class="value-amount">$248,750.00</div>
+                <div class="value-change positive">
+                  <lucide-icon name="trending-up" [size]="16"></lucide-icon>
+                  <span>+6.2% this month</span>
+                </div>
+              </div>
+              <div class="portfolio-chart">
+                
+                <div class="chart-bars">
+                  <div class="chart-bar" style="height: 40%"></div>
+                  <div class="chart-bar" style="height: 65%"></div>
+                  <div class="chart-bar" style="height: 45%"></div>
+                  <div class="chart-bar" style="height: 70%"></div>
+                  <div class="chart-bar" style="height: 55%"></div>
+                  <div class="chart-bar" style="height: 80%"></div>
+                  <div class="chart-bar active" style="height: 95%"></div>
+                </div>
+              </div>
+            </div> -->
+            <!-- <div class="portfolio-assets">
+              <div class="asset-item">
+                <div class="asset-icon stock">
+                  <lucide-icon name="trending-up" [size]="16"></lucide-icon>
+                </div>
+                <div class="asset-info">
+                  <div class="asset-name">Stocks</div>
+                  <div class="asset-allocation">45%</div>
+                </div>
+                <div class="asset-value">
+                  <div class="value-amount">$112,937</div>
+                  <div class="value-change positive">+4.8%</div>
+                </div>
+              </div>
+              <div class="asset-item">
+                <div class="asset-icon bond">
+                  <lucide-icon name="shield" [size]="16"></lucide-icon>
+                </div>
+                <div class="asset-info">
+                  <div class="asset-name">Bonds</div>
+                  <div class="asset-allocation">25%</div>
+                </div>
+                <div class="asset-value">
+                  <div class="value-amount">$62,187</div>
+                  <div class="value-change positive">+2.1%</div>
+                </div>
+              </div>
+              <div class="asset-item">
+                <div class="asset-icon real-estate">
+                  <lucide-icon name="home" [size]="16"></lucide-icon>
+                </div>
+                <div class="asset-info">
+                  <div class="asset-name">Real Estate</div>
+                  <div class="asset-allocation">30%</div>
+                </div>
+                <div class="asset-value">
+                  <div class="value-amount">$74,625</div>
+                  <div class="value-change positive">+3.5%</div>
+                </div>
+              </div>
+            </div> -->
+            <!-- <div class="float-card float-card-1">
+              <div class="float-card-icon">
+                <lucide-icon name="trending-up" [size]="20"></lucide-icon>
+              </div>
+              <div class="float-card-content">
+                <p class="float-card-label">Investment Growth</p>
+                <p class="float-card-value">+27%</p>
+              </div>
+            </div>
+            <div class="float-card float-card-2">
+              <div class="float-card-icon">
+                <lucide-icon name="users" [size]="20"></lucide-icon>
+              </div>
+              <div class="float-card-content">
+                <p class="float-card-label">Happy Clients</p>
+                <p class="float-card-value">10K+</p>
+              </div>
+            </div> -->
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+</section>
+<!-- Trust Partners Section (Repositioned) -->
+<!-- <section class="trust-partners-section">
+  <div class="container">
+    <div
+      class="trust-partners-content"
+      pAnimateOnScroll
+      animateClass="animate__fadeIn"
+    >
+      <h3 class="trust-title">Trusted by Leading Financial Institutions</h3>
+      <div class="trust-logos">
+        <div class="trust-logo-item">
+          <div class="trust-icon-wrapper">
+            <lucide-icon name="landmark" [size]="36"></lucide-icon>
+          </div>
+          <span class="trust-name">Global Bank</span>
+        </div>
+        <div class="trust-logo-item">
+          <div class="trust-icon-wrapper">
+            <lucide-icon name="building" [size]="36"></lucide-icon>
+          </div>
+          <span class="trust-name">Wealth Corp</span>
+        </div>
+        <div class="trust-logo-item">
+          <div class="trust-icon-wrapper">
+            <lucide-icon name="briefcase" [size]="36"></lucide-icon>
+          </div>
+          <span class="trust-name">Invest Partners</span>
+        </div>
+        <div class="trust-logo-item">
+          <div class="trust-icon-wrapper">
+            <lucide-icon name="shield" [size]="36"></lucide-icon>
+          </div>
+          <span class="trust-name">Trust Secure</span>
+        </div>
+        <div class="trust-logo-item">
+          <div class="trust-icon-wrapper">
+            <lucide-icon name="bar-chart-2" [size]="36"></lucide-icon>
+          </div>
+          <span class="trust-name">Growth Finance</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+<!-- Features Section -->
+<!-- <section class="features-section">
+  <div class="container">
+    <div
+      class="section-header text-center"
+      pAnimateOnScroll
+      animateClass="animate__fadeInUp"
+    >
+      <h2>Why Choose Kares Investments</h2>
+      <p class="section-subtitle">Discover the advantages that set us apart</p>
+    </div>
+
+    <div class="row g-4 mt-4">
+      <div
+        *ngFor="let feature of features"
+        class="col-md-6 col-lg-3"
+        pAnimateOnScroll
+        animateClass="animate__fadeInUp"
+      >
+        <div class="feature-card">
+          <div class="feature-icon">
+            <lucide-icon [name]="feature.icon" [size]="48"></lucide-icon>
+          </div>
+          <h3 class="feature-title">{{ feature.title }}</h3>
+          <p class="feature-description">{{ feature.description }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<!-- Stats Section  -->
+<!-- <section class="stats-section">
+  <div class="container">
+    <div class="row g-4">
+      <div
+        *ngFor="let stat of stats"
+        class="col-6 col-md-3"
+        pAnimateOnScroll
+        animateClass="animate__fadeIn"
+      >
+        <div class="stat-card text-center">
+          <h2 class="stat-value">{{ stat.value }}</h2>
+          <p class="stat-label">{{ stat.label }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<!-- Secure Section  -->
+<section class="secure-section">
+  <div class="container">
+    <div
+      class="secure-content text-center"
+      pAnimateOnScroll
+      animateClass="animate__zoomIn"
+    >
+      <h2>Secure Your Financial Future with Personalized Strategies</h2>
+      <p>
+        KARES Investments: Your premier partner in financial services, dedicated
+        to generating regular income and achieving your unique goals through
+        tailored advice.
+      </p>
+      <button
+        pButton
+        pRipple
+        label="SCHEDULE A FREE CONSULTATION"
+        class="p-button-lg mt-3 p get-started"
+        routerLink="/register"
+      ></button>
+    </div>
+  </div>
 </section>

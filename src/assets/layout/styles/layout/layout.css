@@ -95,17 +95,25 @@ a {
   transition: left 0.2s;
   display: flex;
   align-items: center;
-  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.02), 0px 0px 2px rgba(0, 0, 0, 0.05), 0px 1px 4px rgba(0, 0, 0, 0.08);
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.02), 0px 0px 2px rgba(0, 0, 0, 0.05),
+    0px 1px 4px rgba(0, 0, 0, 0.08);
 }
 
 .layout-topbar .layout-topbar-logo {
   display: flex;
   align-items: center;
-  color: var(--surface-900);
   font-size: 1.5rem;
   font-weight: 500;
   width: 300px;
   border-radius: 12px;
+  background: linear-gradient(
+    135deg,
+    var(--primary-dark),
+    var(--primary-color)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .layout-topbar .layout-topbar-logo img {
@@ -203,7 +211,8 @@ a {
     position: absolute;
     flex-direction: column;
     background-color: var(--surface-overlay);
-    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.02), 0px 0px 2px rgba(0, 0, 0, 0.05), 0px 1px 4px rgba(0, 0, 0, 0.08);
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.02), 0px 0px 2px rgba(0, 0, 0, 0.05),
+      0px 1px 4px rgba(0, 0, 0, 0.08);
     border-radius: 12px;
     padding: 1rem;
     right: 2rem;
@@ -252,7 +261,8 @@ a {
   background-color: var(--surface-overlay);
   border-radius: 12px;
   padding: 0.5rem 1.5rem;
-  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.02), 0px 0px 2px rgba(0, 0, 0, 0.05), 0px 1px 4px rgba(0, 0, 0, 0.08);
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.02), 0px 0px 2px rgba(0, 0, 0, 0.05),
+    0px 1px 4px rgba(0, 0, 0, 0.08);
 }
 
 .layout-menu {
@@ -261,7 +271,7 @@ a {
   list-style-type: none;
 }
 
-.layout-menu .layout-root-menuitem>.layout-menuitem-root-text {
+.layout-menu .layout-root-menuitem > .layout-menuitem-root-text {
   font-size: 0.857rem;
   text-transform: uppercase;
   font-weight: 700;
@@ -269,7 +279,7 @@ a {
   margin: 0.75rem 0;
 }
 
-.layout-menu .layout-root-menuitem>a {
+.layout-menu .layout-root-menuitem > a {
   display: none;
 }
 
@@ -277,11 +287,11 @@ a {
   user-select: none;
 }
 
-.layout-menu a.active-menuitem>.layout-submenu-toggler {
+.layout-menu a.active-menuitem > .layout-submenu-toggler {
   transform: rotate(-180deg);
 }
 
-.layout-menu li.active-menuitem>a .layout-submenu-toggler {
+.layout-menu li.active-menuitem > a .layout-submenu-toggler {
   transform: rotate(-180deg);
 }
 
@@ -420,7 +430,6 @@ a {
 }
 
 @media screen and (min-width: 1960px) {
-
   .layout-main,
   .landing-wrapper {
     width: 1504px;
@@ -573,7 +582,7 @@ h6 {
 }
 
 mark {
-  background: #FFF8E1;
+  background: #fff8e1;
   padding: 0.25rem 0.4rem;
   border-radius: 12px;
   font-family: monospace;
@@ -582,7 +591,7 @@ mark {
 blockquote {
   margin: 1rem 0;
   padding: 0 2rem;
-  border-left: 4px solid #90A4AE;
+  border-left: 4px solid #90a4ae;
 }
 
 hr {

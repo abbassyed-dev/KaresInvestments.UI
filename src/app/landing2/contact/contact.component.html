@@ -10,6 +10,14 @@
   <div class="contact-content">
     <!-- Contact Information Column -->
     <div class="contact-info">
+
+      <div class="representative">
+        <div class="representative-image">
+          <img alt="Representative" src="assets/layout/images/kares-logo2.png" />
+        </div>
+        <!-- <h3 class="rep-name">Khurram Mohammed</h3>
+      <p class="rep-title">Senior Financial Advisor</p> -->
+      </div>
       <div class="info-item">
         <div class="info-icon">
           <i class="pi pi-envelope"></i>
@@ -20,16 +28,11 @@
         </div>
       </div>
 
-      <div class="info-item">
+      <!-- <div class="info-item">
         <div class="info-icon">
           <i class="pi pi-comments"></i>
         </div>
-        <div class="info-details">
-          <h3>Live Chat</h3>
-          <p>Available during business hours</p>
-          <span class="status-badge">Coming Soon..</span>
-        </div>
-      </div>
+      </div> -->
 
       <div class="info-item">
         <div class="info-icon">
@@ -42,16 +45,6 @@
       </div>
 
       <!-- Representative Section -->
-      <div class="representative">
-        <div class="representative-image">
-          <img
-            alt="Representative"
-            src="assets/layout/images/kares-logo2.png"
-          />
-        </div>
-        <h3 class="rep-name">Khurram Mohammed</h3>
-        <p class="rep-title">Senior Financial Advisor</p>
-      </div>
     </div>
 
     <!-- Form Column -->
@@ -64,31 +57,16 @@
         </p>
       </div>
 
-      <form
-        #contactForm="ngForm"
-        (ngSubmit)="onSubmit(contactForm)"
-        class="contact-form"
-      >
+      <form #contactForm="ngForm" (ngSubmit)="onSubmit(contactForm)" class="contact-form">
         <div class="form-row">
           <div class="form-group">
             <label for="firstName">Name</label>
             <div class="input-container">
               <i class="pi pi-user input-icon"></i>
-              <input
-                id="firstName"
-                name="firstName"
-                [(ngModel)]="model.firstName"
-                required
-                #firstNameCtrl="ngModel"
-                type="text"
-                placeholder="Your name"
-                class="form-input"
-              />
+              <input id="firstName" name="firstName" [(ngModel)]="model.firstName" required #firstNameCtrl="ngModel"
+                type="text" placeholder="Your name" class="form-input" />
             </div>
-            <div
-              *ngIf="firstNameCtrl.touched && firstNameCtrl.invalid"
-              class="validation-message"
-            >
+            <div *ngIf="firstNameCtrl.touched && firstNameCtrl.invalid" class="validation-message">
               <small>Name is required.</small>
             </div>
           </div>
@@ -98,22 +76,10 @@
           <label for="email">Email</label>
           <div class="input-container">
             <i class="pi pi-envelope input-icon"></i>
-            <input
-              id="email"
-              name="email"
-              [(ngModel)]="model.email"
-              required
-              email
-              #emailCtrl="ngModel"
-              type="email"
-              placeholder="your@email.com"
-              class="form-input"
-            />
+            <input id="email" name="email" [(ngModel)]="model.email" required email #emailCtrl="ngModel" type="email"
+              placeholder="your@email.com" class="form-input" />
           </div>
-          <div
-            *ngIf="emailCtrl.touched && emailCtrl.invalid"
-            class="validation-message"
-          >
+          <div *ngIf="emailCtrl.touched && emailCtrl.invalid" class="validation-message">
             <small>A valid email is required.</small>
           </div>
         </div>
@@ -122,21 +88,10 @@
           <label for="mobileNum">Phone Number</label>
           <div class="input-container">
             <i class="pi pi-mobile input-icon"></i>
-            <input
-              id="mobileNum"
-              name="mobile"
-              [(ngModel)]="model.mobileNum"
-              required
-              #mobileCtrl="ngModel"
-              type="text"
-              placeholder="Your phone number"
-              class="form-input"
-            />
+            <input id="mobileNum" name="mobile" [(ngModel)]="model.mobileNum" required #mobileCtrl="ngModel" type="text"
+              placeholder="Your phone number" class="form-input" />
           </div>
-          <div
-            *ngIf="mobileCtrl.touched && mobileCtrl.invalid"
-            class="validation-message"
-          >
+          <div *ngIf="mobileCtrl.touched && mobileCtrl.invalid" class="validation-message">
             <small>Phone number is required.</small>
           </div>
         </div>
@@ -145,14 +100,8 @@
           <label for="investmentInterest">Investment Interest</label>
           <div class="input-container">
             <i class="pi pi-chart-line input-icon"></i>
-            <select
-              id="investmentInterest"
-              name="investmentInterest"
-              [(ngModel)]="model.investmentInterest"
-              required
-              #interestCtrl="ngModel"
-              class="form-input"
-            >
+            <select id="investmentInterest" name="investmentInterest" [(ngModel)]="model.investmentInterest" required
+              #interestCtrl="ngModel" class="form-input">
               <option value="" disabled selected>
                 Select your investment interest
               </option>
@@ -163,10 +112,7 @@
               <option value="other">Other Financial Services</option>
             </select>
           </div>
-          <div
-            *ngIf="interestCtrl.touched && interestCtrl.invalid"
-            class="validation-message"
-          >
+          <div *ngIf="interestCtrl.touched && interestCtrl.invalid" class="validation-message">
             <small>Please select an investment interest.</small>
           </div>
         </div>
@@ -175,30 +121,16 @@
           <label for="remarks">Additional Information</label>
           <div class="input-container textarea-container">
             <i class="pi pi-comment input-icon textarea-icon"></i>
-            <textarea
-              id="remarks"
-              name="message"
-              [(ngModel)]="model.remarks"
-              required
-              #messageCtrl="ngModel"
+            <textarea id="remarks" name="message" [(ngModel)]="model.remarks" required #messageCtrl="ngModel"
               placeholder="Please provide any specific questions or details about your investment goals..."
-              class="form-textarea"
-              rows="3"
-            ></textarea>
+              class="form-textarea" rows="3"></textarea>
           </div>
-          <div
-            *ngIf="messageCtrl.touched && messageCtrl.invalid"
-            class="validation-message"
-          >
+          <div *ngIf="messageCtrl.touched && messageCtrl.invalid" class="validation-message">
             <small>Additional information is required.</small>
           </div>
         </div>
 
-        <button
-          type="submit"
-          class="submit-button"
-          [disabled]="contactForm.invalid"
-        >
+        <button type="submit" class="submit-button" [disabled]="contactForm.invalid">
           <i class="pi pi-send button-icon"></i>
           Submit Request
         </button>
@@ -207,13 +139,8 @@
   </div>
 </div>
 
-<p-dialog
-  header="Confirmation"
-  [(visible)]="registrationConfirmation"
-  [modal]="true"
-  [closable]="false"
-  [styleClass]="'confirmation-dialog'"
->
+<p-dialog header="Confirmation" [(visible)]="registrationConfirmation" [modal]="true" [closable]="false"
+  [styleClass]="'confirmation-dialog'">
   <div class="confirmation-content">
     <div class="confirmation-icon">
       <i class="pi pi-check-circle"></i>
@@ -225,11 +152,6 @@
   </div>
 
   <ng-template pTemplate="footer">
-    <button
-      pButton
-      label="OK"
-      class="dialog-button"
-      (click)="regDialogClose()"
-    ></button>
+    <button pButton label="OK" class="dialog-button" (click)="regDialogClose()"></button>
   </ng-template>
 </p-dialog>

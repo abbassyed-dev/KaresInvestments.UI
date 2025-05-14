@@ -23,28 +23,28 @@ export class Home2Component implements OnInit {
       icon: 'handshake',
       title: 'Personalized Service',
       description:
-        'Tailored financial strategies designed specifically for your unique goals and risk tolerance.',
+        'At KARES Investments, we take the time to understand your financial aspirations, risk tolerance, and personal circumstances. Our expert advisors craft personalized strategies tailored to your unique financial journey, ensuring that every decision aligns with your long-term goals.',
       animation: 'fade-right',
     },
     {
       icon: 'trophy',
       title: 'Commitment to Excellence',
       description:
-        'Dedicated to providing top-tier financial services with consistent results.',
+        'We are dedicated to providing top-tier financial services that deliver consistent results. Our commitment to excellence drives us to continuously refine our strategies, ensuring that you receive the best investment opportunities and wealth management solutions.',
       animation: 'fade-up',
     },
     {
       icon: 'users',
       title: 'Client-Centric Approach',
       description:
-        'Your success is our priority, with transparent planning that evolves with your needs.',
+        'Your success is our top priority. We foster long-term relationships built on trust, transparency, and proactive financial planning, ensuring that your financial strategies evolve alongside your life’s changing needs.',
       animation: 'fade-up',
     },
     {
       icon: 'rocket',
       title: 'Innovative Solutions',
       description:
-        'Cutting-edge financial tools that maximize returns while minimizing risk.',
+        'We leverage cutting-edge financial tools and industry insights to provide innovative solutions that maximize returns while minimizing risk. Our forward-thinking approach ensures that your investments stay ahead in an ever-changing financial landscape.',
       animation: 'fade-left',
     },
   ];

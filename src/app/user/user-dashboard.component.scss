@@ -22,7 +22,7 @@
 
 /* Dashboard Container */
 .dashboard-container {
-  padding: 24px;
+  // padding: 24px;
   max-width: 1600px;
   margin: 0 auto;
 }
@@ -83,7 +83,7 @@
 .card-header {
   display: flex;
   align-items: center;
-  padding: 18px 24px;
+  padding: 10px 24px;
   border-bottom: 1px solid var(--border-color);
 }
 
@@ -269,7 +269,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .table-title {
@@ -326,7 +326,7 @@ table {
 
 table th {
   background-color: var(--surface-section);
-  padding: 14px 20px !important;
+  padding: 10px 20px !important;
   text-align: left;
   font-size: 12px;
   font-weight: 600;
@@ -344,7 +344,7 @@ table th:last-child {
 }
 
 table td {
-  padding: 16px 20px;
+  padding: 5px 20px;
   font-size: 14px;
   color: var(--text-color);
   border-bottom: 1px solid var(--border-color);

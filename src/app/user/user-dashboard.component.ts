@@ -5,6 +5,9 @@ import { ToastrService } from 'ngx-toastr';
 import { UserDashboardService } from './user-dashboard.service';
 import Highcharts from 'highcharts';
 import { UserStats } from '../models/user-stats.model';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
+import { PdfService } from '../shared/services/pdf.service';
 
 interface PerformanceMetrics {
   monthlyGrowth: number;
@@ -45,14 +48,12 @@ export class UserDashboardComponent implements OnInit {
   // Chart configuration
   reportDialogVisible: boolean = false;
   selectedMonth: Date = new Date();
-  selectedFormat: any = null;
-  selectedReportType: any = null;
+  selectedFormat: string = 'pdf';
+  
 
   // Options for dropdowns
   reportFormats: any[] = [
     { name: 'PDF Document', code: 'pdf', icon: 'pi pi-file-pdf' },
-    { name: 'Excel Spreadsheet', code: 'xlsx', icon: 'pi pi-file-excel' },
-    { name: 'CSV File', code: 'csv', icon: 'pi pi-file' },
   ];
 
   reportTypes: any[] = [
@@ -66,7 +67,8 @@ export class UserDashboardComponent implements OnInit {
   constructor(
     private authStateService: AuthStateService,
     private toastr: ToastrService,
-    private dataService: UserDashboardService
+    private dataService: UserDashboardService,
+    private pdfService: PdfService
   ) {}
 
   ngOnInit() {
@@ -149,28 +151,95 @@ export class UserDashboardComponent implements OnInit {
   openReportDialog() {
     this.reportDialogVisible = true;
     this.selectedMonth = new Date();
-    this.selectedFormat = null;
-    this.selectedReportType = null;
+    this.selectedFormat = 'pdf';
+
   }
 
   downloadReport() {
     // Format date for report filename
-    const monthYear = this.selectedMonth.toLocaleDateString('en-US', {
-      month: 'long',
+    // const monthYear = this.selectedMonth.toLocaleDateString('en-US', {
+    //   month: 'long',
+    //   year: 'numeric',
+    // });
+
+    const monthYear: string = this.selectedMonth.toLocaleDateString('en-US', {
+      month: '2-digit',
       year: 'numeric',
-    });
-
-    // Generate a filename
-    const filename = `${this.selectedReportType.name.replace(
-      ' ',
-      '_'
-    )}_${monthYear.replace(' ', '_')}.${this.selectedFormat.code}`;
-
-    console.log(`Downloading ${this.selectedFormat.name} report: ${filename}`);
-
+    }).replace(/(\d{2})\/(\d{4})/, '$1/$2');
+    console.log(`Downloading`, monthYear);
+    if(this.userId) {
+      this.dataService.getUserTransactionsByMonth(this.userId, monthYear).subscribe((res) => {
+        console.log(res);
+        if(res.length > 0) {
+          // this.generatePdf(res);
+          this.pdfService.generateKaresStatement({
+            clientName: 'John Doe',
+            monthYear: 'April 2025',
+            initialInvestment: 10000,
+            dividend: 250,
+            fee: 10,
+            disbursement: 240,
+            capitalValue: 12000,
+            roi: 5,
+            roc: 25
+          });
+        }
+      })
+    }
     // Close dialog
-    this.reportDialogVisible = false;
+    // this.reportDialogVisible = false;
   }
+
+
+
+generatePdf(transactions: any[]) {
+
+  this.getBase64ImageFromUrl('assets/logo.png').then(base64 => {
+    const doc = new jsPDF();
+  
+    // Add logo at top-left
+    doc.addImage(base64, 'PNG', 20, 10, 40, 15); // x, y, width, height
+  
+    // Then continue with the rest of your content
+  });
+  const doc = new jsPDF();
+
+  // Title/Header
+  const title = 'User Transactions Report';
+  doc.setFontSize(16);
+  doc.text(title, 14, 20);
+
+  // Define table columns
+  const head = [['#', 'Date', 'Amount', 'Type', 'Mode']];
+
+  // Prepare rows from data
+  const body = transactions.map((t, i) => [
+    i + 1,
+    t.transactionDate,
+    t.amount.toFixed(2),
+    t.transactionType,
+    t.paymentMode
+  ]);
+
+  // Add table
+  autoTable(doc, {
+    head,
+    body,
+    startY: 30,
+    styles: { fontSize: 10 },
+    theme: 'grid',
+    headStyles: { fillColor: [41, 128, 185], halign: 'center' },
+    didDrawPage: (data) => {
+      // Footer
+      // const pageCount = doc.internal.getNumberOfPages();
+      // doc.setFontSize(10);
+      // doc.text(`Page ${pageCount}`, data.settings.margin.left, doc.internal.pageSize.height - 10);
+    }
+  });
+
+  doc.save('UserTransactions.pdf');
+}
+
 
   getUserStats() {
     if (this.userId) {
@@ -233,4 +302,29 @@ export class UserDashboardComponent implements OnInit {
         return 'pi pi-dollar';
     }
   }
+
+  getBase64ImageFromUrl(imageUrl: string): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.crossOrigin = 'Anonymous';
+      img.src = imageUrl;
+  
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+  
+        const ctx = canvas.getContext('2d');
+        ctx?.drawImage(img, 0, 0);
+  
+        const dataURL = canvas.toDataURL('image/png'); // or 'image/jpeg'
+        resolve(dataURL);
+      };
+  
+      img.onerror = error => reject(error);
+    });
+  }
+
+
+  
 }

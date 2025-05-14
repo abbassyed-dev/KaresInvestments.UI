@@ -175,7 +175,7 @@
             </thead>
             <tbody>
               <tr *ngFor="let transaction of userTransactions">
-                <td>{{ transaction.portfolioId }}</td>
+                <td>{{ transaction.portfolioName }}</td>
                 <td>
                   <span
                     class="transaction-badge"
@@ -184,11 +184,11 @@
                     {{ transaction.transactionType }}
                   </span>
                 </td>
-                <td>Investment</td>
+                <td>{{ transaction.transactionCategory }}</td>
                 <td class="amount-cell" [ngClass]="getAmountClass(transaction)">
-                  {{ "1.2-2" }}
+                  {{ transaction.amount }}
                 </td>
-                <td>{{ 00 }}</td>
+                <td>{{ transaction.transactionDate | date: 'MM/dd/yyyy' }}</td>
                 <td>
                   <span class="payment-method">
                     <lucide-icon
@@ -200,7 +200,7 @@
                       [size]="16"
                       class="payment-icon"
                     ></lucide-icon>
-                    {{ 00 }}
+                    {{ transaction.paymentMode }}
                   </span>
                 </td>
               </tr>
@@ -254,13 +254,12 @@
         id="reportMonth"
         [(ngModel)]="selectedMonth"
         view="month"
-        dateFormat="MMMM yyyy"
+        dateFormat="M yy"
         [showIcon]="true"
-        [readonlyInput]="true"
-        placeholder="Select month and year"
+        [showOnFocus]="false"
         [showButtonBar]="true"
         [yearNavigator]="true"
-        [yearRange]="'2020:2030'"
+        [yearRange]="'2020:2040'"
       >
       </p-calendar>
     </div>
@@ -279,7 +278,7 @@
     </div>
 
     <!-- Optional - Report Type Selection -->
-    <div class="form-group">
+    <!-- <div class="form-group">
       <label for="reportType">Report Type</label>
       <p-dropdown
         id="reportType"
@@ -290,7 +289,7 @@
         [showClear]="true"
       >
       </p-dropdown>
-    </div>
+    </div> -->
   </div>
 
   <ng-template pTemplate="footer">
@@ -306,7 +305,7 @@
       label="Download"
       icon="pi pi-download"
       class="p-button-primary"
-      [disabled]="!selectedFormat || !selectedMonth || !selectedReportType"
+      [disabled]="!selectedMonth"
       (click)="downloadReport()"
     ></button>
   </ng-template>

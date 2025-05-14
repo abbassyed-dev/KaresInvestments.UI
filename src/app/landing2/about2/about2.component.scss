@@ -1,8 +1,9 @@
 // Our Story Section
 .our-story-section {
   position: relative;
-  background-color: var(--surface-card);
-  color: var(--text-color);
+  // background-color: var(--surface-card);
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  // color: var(--text-color);
   padding: 6rem 0;
 
   .about-text {
@@ -34,7 +35,8 @@
     font-weight: 800;
     margin-bottom: 1.5rem;
     line-height: 1.1;
-    color: var(--text-color);
+    // color: var(--text-color);
+    color: white;
   }
 
   .about-subtitle {
@@ -42,7 +44,8 @@
     margin-bottom: 2rem;
     max-width: 540px;
     line-height: 1.6;
-    color: var(--text-color-secondary);
+    // color: var(--text-color-secondary);
+    color: white;
   }
 
   .about-image-container {
@@ -152,7 +155,8 @@
 // Services Section
 .services-section {
   padding: 6rem 0;
-  background-color: var(--surface-card);
+  // background-color: var(--surface-card);
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
   position: relative;
 
   .section-header {
@@ -162,12 +166,14 @@
       font-size: 2.5rem;
       font-weight: 700;
       margin-bottom: 1rem;
-      color: var(--text-color);
+      // color: var(--text-color);
+      color: white;
     }
 
     .section-subtitle {
       font-size: 1.2rem;
-      color: var(--text-color-secondary);
+      // color: var(--text-color-secondary);
+      color: white;
       max-width: 600px;
       margin: 0 auto;
     }

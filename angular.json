@@ -43,9 +43,10 @@
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": {
-              "base": "dist/kares-investments.ui",
+              "base": "dist/KaresInvestments.UI",
               "browser": ""
             },
+            "baseHref": "/KaresInvestments.UI/",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": ["zone.js"],
@@ -77,7 +78,7 @@
                 {
                   "type": "anyComponentStyle",
                   "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumError": "20kb"
                 }
               ],
               "outputHashing": "all"

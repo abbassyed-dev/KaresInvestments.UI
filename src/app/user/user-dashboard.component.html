@@ -26,29 +26,29 @@
       <div class="card-content">
         <div class="stat-row">
           <span class="stat-label">Total Investment:</span>
-          <span class="stat-value">{{ "$100,000.00" }}</span>
+          <span class="stat-value">{{ userStats.totalInvestment }}</span>
         </div>
         <div class="stat-row">
           <span class="stat-label">No of Dividends Paid:</span>
-          <span class="stat-value">{{ 0 }}</span>
+          <span class="stat-value">{{ userStats.numberOfDividendsPaid }}</span>
         </div>
         <div class="stat-row">
           <span class="stat-label">Dividends total:</span>
-          <span class="stat-value">{{ "$0.00" }}</span>
+          <span class="stat-value">{{ userStats.totalDividendsPaid }}</span>
         </div>
         <div class="stat-row">
           <span class="stat-label">Return on Investment:</span>
-          <span class="stat-value">{{ 0 }}%</span>
+          <span class="stat-value">{{ userStats.returnOnInvestment }}%</span>
         </div>
         <div class="stat-row">
           <span class="stat-label">Return of Capital:</span>
-          <span class="stat-value">{{ 0 }}%</span>
+          <span class="stat-value">{{ userStats.returnOfCapital }}%</span>
         </div>
       </div>
     </div>
 
     <!-- Portfolio Distribution Card -->
-    <div class="dashboard-card portfolio-distribution">
+    <!-- <div class="dashboard-card portfolio-distribution">
       <div class="card-header">
         <div class="header-icon">
           <lucide-icon name="pie-chart" [size]="20"></lucide-icon>
@@ -57,7 +57,7 @@
       </div>
       <div class="card-content">
         <div class="chart-container">
-          <!-- Pie chart container -->
+    
           <p-chart
             type="pie"
             [data]="portfolioChartData"
@@ -65,9 +65,9 @@
           ></p-chart>
         </div>
       </div>
-    </div>
+    </div> -->
     <!-- Performance Metrics Card -->
-    <div class="dashboard-card performance-metrics">
+    <!-- <div class="dashboard-card performance-metrics">
       <div class="card-header">
         <div class="header-icon">
           <lucide-icon name="trending-up" [size]="20"></lucide-icon>
@@ -134,7 +134,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <!-- Transactions Card -->
     <div class="dashboard-card transactions-card">

@@ -48,7 +48,7 @@
     </div>
 
     <!-- Portfolio Distribution Card -->
-    <!-- <div class="dashboard-card portfolio-distribution">
+    <div class="dashboard-card portfolio-distribution">
       <div class="card-header">
         <div class="header-icon">
           <lucide-icon name="pie-chart" [size]="20"></lucide-icon>
@@ -65,9 +65,9 @@
           ></p-chart>
         </div>
       </div>
-    </div> -->
+    </div>
     <!-- Performance Metrics Card -->
-    <!-- <div class="dashboard-card performance-metrics">
+    <div class="dashboard-card performance-metrics">
       <div class="card-header">
         <div class="header-icon">
           <lucide-icon name="trending-up" [size]="20"></lucide-icon>
@@ -77,64 +77,64 @@
       <div class="card-content">
         <div class="metrics-grid">
           <div class="metric-box">
-            <div class="metric-title">Monthly Growth</div>
+            <div class="metric-title">No of Dividends Paid:</div>
             <div class="metric-value positive-value">
-              {{ performanceData.monthlyGrowth }}%
+              {{ userStats.numberOfDividendsPaid }}
             </div>
-            <div class="progress-bar">
+            <!-- <div class="progress-bar">
               <div
                 class="progress-fill positive-fill"
                 [style.width.%]="
                   getProgressWidth(performanceData.monthlyGrowth * 10)
                 "
               ></div>
-            </div>
+            </div> -->
           </div>
           <div class="metric-box">
-            <div class="metric-title">Annual Return</div>
+            <div class="metric-title">Dividends total:</div>
             <div class="metric-value positive-value">
-              {{ performanceData.annualReturn }}%
+              $ {{ userStats.totalDividendsPaid }}
             </div>
-            <div class="progress-bar">
+            <!-- <div class="progress-bar">
               <div
                 class="progress-fill positive-fill"
                 [style.width.%]="
                   getProgressWidth(performanceData.annualReturn * 5)
                 "
               ></div>
-            </div>
+            </div> -->
           </div>
           <div class="metric-box">
-            <div class="metric-title">Dividend Yield</div>
+            <div class="metric-title">Return on Investment:</div>
             <div class="metric-value dividend-value">
-              {{ performanceData.dividendYield }}%
+              {{ userStats.returnOnInvestment }}%
             </div>
-            <div class="progress-bar">
+            <!-- <div class="progress-bar">
               <div
                 class="progress-fill dividend-fill"
                 [style.width.%]="
                   getProgressWidth(performanceData.dividendYield * 10)
                 "
               ></div>
-            </div>
+            </div> -->
           </div>
           <div class="metric-box">
-            <div class="metric-title">Capital Growth</div>
+            <div class="metric-title">Return of Capital:</div>
             <div class="metric-value positive-value">
-              {{ performanceData.capitalGrowth }}%
+              {{ userStats.returnOfCapital }}%
             </div>
-            <div class="progress-bar">
+            <!-- <div class="progress-bar">
               <div
                 class="progress-fill positive-fill"
                 [style.width.%]="
                   getProgressWidth(performanceData.capitalGrowth * 7)
                 "
               ></div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
-    </div> -->
+    </div>
 
     <!-- Transactions Card -->
     <div class="dashboard-card transactions-card">

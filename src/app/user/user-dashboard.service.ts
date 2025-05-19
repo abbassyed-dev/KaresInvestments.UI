@@ -20,4 +20,8 @@ export class UserDashboardService {
     getUserTransactionsByMonth(userId: string, monthYear: string) { //
         return this.http.get<UserTransactionLog[]>(`${environment.apiBaseUrl}/api/UserTransaction/${userId}/by-month?monthYear=${encodeURIComponent(monthYear)}`);
     }
+
+    getPortfolioDistribution(userId: string) { 
+        return this.http.get<UserTransactionLog[]>(`${environment.apiBaseUrl}/api/UserTransaction/user/${userId}/portfolio-summary`);
+    }
 }

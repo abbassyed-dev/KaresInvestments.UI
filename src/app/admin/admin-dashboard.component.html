@@ -14,20 +14,20 @@
         (userContextFromUserTab)="updateUserContext($event)"
       ></app-users>
     </p-tabPanel>
-    <p-tabPanel header="User Portfolios">
+    <!-- <p-tabPanel header="User Portfolios">
       <app-user-portfolios *ngIf="activeTabIndex === 2"></app-user-portfolios>
-    </p-tabPanel>
+    </p-tabPanel> -->
     <p-tabPanel header="User Transactions">
       <app-user-transactions
         [userFromContext]="userContext"
-        *ngIf="activeTabIndex === 3"
+        *ngIf="activeTabIndex === 2"
       ></app-user-transactions>
     </p-tabPanel>
     <p-tabPanel header="User Interests">
-      <app-user-interests *ngIf="activeTabIndex === 4"></app-user-interests>
+      <app-user-interests *ngIf="activeTabIndex === 3"></app-user-interests>
     </p-tabPanel>
     <p-tabPanel header="App Admins">
-      <app-users [fetchAdmins]="'Y'" *ngIf="activeTabIndex === 5"></app-users>
+      <app-users [fetchAdmins]="'Y'" *ngIf="activeTabIndex === 4"></app-users>
     </p-tabPanel>
     <!-- <p-tabPanel header="Configuration">
       <app-configuration *ngIf="activeTabIndex===6"></app-configuration>

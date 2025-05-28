@@ -271,9 +271,9 @@
   // Input validations
   .text-danger {
     color: var(--negative-color);
-    font-size: 0.75rem;
+    font-size: 1rem;
     margin-top: 0.25rem;
-    display: block;
+    display: inline-block;
   }
 
   // Calendar

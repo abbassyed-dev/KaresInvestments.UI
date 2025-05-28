@@ -25,7 +25,7 @@ export class AdminHomeComponent implements OnInit {
   constructor(
     private authStateService: AuthStateService,
     private dataService: AdminHomeService
-  ) {}
+  ) { }
 
   userName = `${this.authStateService.getLoggedInUserProperty(
     'lastName'
@@ -50,16 +50,28 @@ export class AdminHomeComponent implements OnInit {
         lineColor: 'var(--border-color)',
         tickColor: 'var(--border-color)',
       },
-      yAxis: {
-        min: 0,
+      // yAxis: {
+      //   min: 0,
+      //   title: {
+      //     text: null,
+      //   },
+      //   gridLineColor: 'var(--border-color)',
+      //   gridLineDashStyle: 'Dash',
+      // },
+      yAxis: [{ // Primary yAxis
+
         title: {
-          text: null,
+            text: 'Amount',
+            
+        }
+    }, { // Secondary yAxis
+        title: {
+            text: 'Transactions',
         },
-        gridLineColor: 'var(--border-color)',
-        gridLineDashStyle: 'Dash',
-      },
+        opposite: true
+    }],
       legend: {
-        enabled: false,
+        enabled: true,
       },
       credits: {
         enabled: false,
@@ -92,6 +104,16 @@ export class AdminHomeComponent implements OnInit {
       series: [
         {
           name: 'Transactions',
+          type: 'spline',
+          data: [5, 10, 15],
+        },
+               {
+          name: 'Investment',
+          type: 'column',
+          data: [5, 10, 15],
+        },
+               {
+          name: 'Dividend',
           type: 'column',
           data: [5, 10, 15],
         },
@@ -129,15 +151,59 @@ export class AdminHomeComponent implements OnInit {
   }
 
   handleGraphData(data: any) {
-    const categories = data.transactionsGraphData.map(
-      (item: any) => item.xAxis
-    );
-    const transactionsData = data.transactionsGraphData.map(
-      (item: any) => item.yAxisValue
-    );
+    // const categories = data.transactionsGraphData.map(
+    //   (item: any) => item.xAxis
+    // );
+    // const transactionsData = data.transactionsGraphData.map(
+    //   (item: any) => item.yAxisValue
+    // );
+
+    const categories = data.transactionsGraphData.map((d: any) => d.xAxis);
+    const transactionCounts = data.transactionsGraphData.map((d: any) => d.transactionCount);
+    const investmentAmounts = data.transactionsGraphData.map((d: any) => d.investmentAmount);
+    const dividendAmounts = data.transactionsGraphData.map((d: any) => d.dividendAmount);
 
     this.chartOptions.xAxis.categories = categories;
-    this.chartOptions.series[0].data = transactionsData;
+    this.chartOptions.series[0].data = transactionCounts;
+    this.chartOptions.series[1].data = investmentAmounts;
+    this.chartOptions.series[2].data = dividendAmounts;
+    // debugger;
+    // this.chartOptions = {
+    //   chart: { type: 'column' },
+    //   title: { text: '12-Month Transaction Overview' },
+    //   xAxis: {
+    //     categories,
+    //     crosshair: true
+    //   },
+    //   yAxis: {
+    //     min: 0,
+    //     title: { text: 'Amount / Count' }
+    //   },
+    //   tooltip: {
+    //     shared: true,
+    //     valueDecimals: 2
+    //   },
+    //   series: [
+    //     {
+    //       name: 'Transaction Count',
+    //       // type: 'column',
+    //       data: transactionCounts,
+    //       // color: '#7cb5ec'
+    //     },
+    //     // {
+    //     //   name: 'Investment Amount',
+    //     //   type: 'column',
+    //     //   data: investmentAmounts,
+    //     //   color: '#90ed7d'
+    //     // },
+    //     // {
+    //     //   name: 'Dividend Amount',
+    //     //   type: 'column',
+    //     //   data: dividendAmounts,
+    //     //   color: '#f7a35c'
+    //     // }
+    //   ]
+    // };
     this.updateColumnChartFlag = true;
   }
 

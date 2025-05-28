@@ -26,7 +26,7 @@
       <div class="card-content">
         <div class="stat-row">
           <span class="stat-label">Total Investment:</span>
-          <span class="stat-value">$ {{userStats.totalInvestment }}</span>
+          <span class="stat-value">{{userStats.totalInvestment | currencyFormat }}</span>
         </div>
         <div class="stat-row">
           <span class="stat-label">No of Dividends Paid:</span>
@@ -34,7 +34,7 @@
         </div>
         <div class="stat-row">
           <span class="stat-label">Dividends total:</span>
-          <span class="stat-value">$ {{ userStats.totalDividendsPaid }}</span>
+          <span class="stat-value">{{ userStats.totalDividendsPaid | currencyFormat}}</span>
         </div>
         <div class="stat-row">
           <span class="stat-label">Return on Investment:</span>
@@ -93,7 +93,7 @@
           <div class="metric-box">
             <div class="metric-title">Dividends total:</div>
             <div class="metric-value positive-value">
-              $ {{ userStats.totalDividendsPaid }}
+               {{ userStats.totalDividendsPaid | currencyFormat}}
             </div>
             <!-- <div class="progress-bar">
               <div
@@ -186,7 +186,7 @@
                 </td>
                 <td>{{ transaction.transactionCategory }}</td>
                 <td class="amount-cell" [ngClass]="getAmountClass(transaction)">
-                  {{ transaction.amount }}
+                  {{ transaction.amount | currencyFormat}}
                 </td>
                 <td>{{ transaction.transactionDate | date: 'MM/dd/yyyy' }}</td>
                 <td>

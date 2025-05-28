@@ -65,8 +65,11 @@ export class UserTransactionsComponent implements OnInit {
         // }
     }
 
-    setUserDetails(evt: any) {
+    setUserDetails(evt: any, loadPortfolios: boolean) {
         if (evt) {
+            if(loadPortfolios) {
+                this.fetchUserPortfolios(this.userTransaction.userId, false);
+            }
             this.userTransaction.userId = evt.userId;
             this.userFromContext.userId = evt.userId;
             this.userTransaction.email = evt.email;
@@ -83,7 +86,7 @@ export class UserTransactionsComponent implements OnInit {
             this.dataService.getUserPortfolios(userId).subscribe((res: any) => {
                 console.log(res.portfolios);
                 this.userPortfolios = res.portfolios;
-                this.lookupData["userPortfolios"] = res.portfolios;
+                // this.lookupData["userPortfolios"] = res.portfolios;
                 //this.cdr.detectChanges();
                 //console.log('rb', this.userPortfolios);
                 if (editMode) {
@@ -123,9 +126,9 @@ export class UserTransactionsComponent implements OnInit {
     editTransaction(userTransaction: UserTransaction) {
         this.userTransaction = { ...userTransaction };
         this.userTransaction.transactionDate = new Date(userTransaction.transactionDate);
-        if (this.userTransaction.userId) {
-            this.fetchUserPortfolios(this.userTransaction.userId, true);
-        }
+        // if (this.userTransaction.userId) {
+        //     this.fetchUserPortfolios(this.userTransaction.userId, true);
+        // }
         // this.userTransactionDialog = true;
         // this.isEditMode = true;
     }
@@ -133,15 +136,16 @@ export class UserTransactionsComponent implements OnInit {
     saveTransaction(form: any) {
         if (this.userTransaction.userTransactionId) {
             console.log("********Updating User Transaction***********", this.userTransaction);
-
+            this.userTransaction.ModifiedBy = this.authStateService.getLoggedInUserEmailId() || "Admin";
             this.dataService.updateTransaction(this.userTransaction.userTransactionId, this.userTransaction).subscribe((res: any) => {
-                this.userTransaction.ModifiedBy = this.authStateService.getLoggedInUserEmailId() || "Admin";
+            this.userTransaction = {} as UserTransaction;
                 this.getAllTransactions();
             })
         } else {
             console.log("********Inserting User***********", this.userTransaction);
             this.userTransaction.createdBy = this.authStateService.getLoggedInUserEmailId() || "Admin";
             this.dataService.saveTransaction(this.userTransaction).subscribe((res: any) => {
+            this.userTransaction = {} as UserTransaction;
                 // this.getAllTransactions();
                 if (!this.userFromContext.userId) {
                     this.getAllTransactions();

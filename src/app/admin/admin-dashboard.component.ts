@@ -20,7 +20,7 @@ export class AdminDashboardComponent implements OnInit {
     if (user) {
       this.userContext = user;
       console.log(this.userContext.userId, this.userContext.firstName);
-      this.activeTabIndex = 3;
+      this.activeTabIndex = 2;
     }
   }
 

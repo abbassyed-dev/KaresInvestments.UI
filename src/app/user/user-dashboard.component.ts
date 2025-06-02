@@ -75,9 +75,9 @@ export class UserDashboardComponent implements OnInit {
 
   ngOnInit() {
     this.initChartData();
-    this.userName = `${this.authStateService.getLoggedInUserProperty(
-      'lastName'
-    )} ${this.authStateService.getLoggedInUserProperty('firstName')}`;
+        this.userName = `${this.authStateService.getLoggedInUserProperty(
+      'firstName'
+    )} ${this.authStateService.getLoggedInUserProperty('lastName')}`;
     this.userId = this.authStateService.getLoggedInUserProperty('userId');
     if (this.userId) {
       this.getUserTransactions();

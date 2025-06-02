@@ -71,7 +71,7 @@ export class UsersComponent implements OnInit {
             console.log("********Updating User***********", this.user);
             this.user.isAdmin = this.fetchAdmins === "Y";
             this.user.userName = this.user.email;
-            this.user.zipCode = this.user.zipCode.toString();
+            this.user.zipCode = this.user.zipCode?.toString() || '';
             this.user.createdBy = this.authStateService.getLoggedInUserEmailId() || "Admin";
             this.dataService.updateUser(this.user.userId, this.user).subscribe((res: any) => {
                 this.getAllUsers();
@@ -130,6 +130,36 @@ export class UsersComponent implements OnInit {
                 this.deleteUser(user);
             }
         });
+    }
+
+    changeUserStatus(user: User) {
+        const newStatus = !user.isActive;
+        this.confirmationService.confirm({
+            message: `Are you sure you want to ${newStatus ? 'activate' : 'deactivate'} this user?`,
+            header: newStatus ? 'Activate Confirmation' : 'Deactivate Confirmation',
+            icon: 'pi pi-exclamation-triangle',
+            acceptButtonStyleClass: "p-button-danger p-button-text",
+            rejectButtonStyleClass: "p-button-text p-button-text",
+            accept: () => {
+                user.isActive = newStatus;
+                this.updateUserStatus(user, newStatus);
+            }
+        });
+    }
+
+    updateUserStatus(user: User, newStatus: boolean) {
+        if (user.userId) {
+            this.dataService.updateUserStatus(user.userId, user.isActive).subscribe({
+                next: (res: any) => {
+                    if (res.success) {
+                        this.toastr.success(res.message);
+                    } else {
+                        this.toastr.error(res.message);
+                    }
+                },
+                error: err => console.error('Update failed', err)
+            });
+        }
     }
 
 }

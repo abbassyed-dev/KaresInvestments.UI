@@ -15,6 +15,6 @@ export class User {
   userId: string;
   isAdmin: boolean;
   createdBy: string;
-
+  isActive: boolean;
   portfolioId: number;
 }

@@ -55,8 +55,12 @@ export class UsersService {
     }
 
     checkEmailExists(email: string) {
-        debugger;
         return this.http.get<boolean>(`${environment.apiBaseUrl}/api/User/check-email?email=${email}`);
+    }
+
+    updateUserStatus(userId: string, newStatus: boolean) {
+        const body = { userId, isActive: newStatus };
+        return this.http.put(`${environment.apiBaseUrl}/api/User/user-status`, body);
     }
 
 }

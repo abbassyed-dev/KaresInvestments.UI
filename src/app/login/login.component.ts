@@ -55,8 +55,8 @@ export class LoginComponent {
         }
       },
       error: (err: HttpErrorResponse) => {
-        if (err?.message) {
-          this.toastr.error(err.message);
+        if (err.error?.message) {
+          this.toastr.error(err.error?.message);
         } else {
           this.toastr.error('An unexpected error occurred.', 'Error');
         }

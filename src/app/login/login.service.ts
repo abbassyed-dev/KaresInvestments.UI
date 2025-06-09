@@ -31,7 +31,6 @@ export class LoginService {
         const refreshToken = this.cookieService.get('RefreshToken');
         return this.http.post<{ token: string, refreshToken: string }>(`${environment.apiBaseUrl}/api/auth/refresh-token`, { refreshToken }).pipe(
             switchMap(response => {
-                debugger;
                 this.cookieService.set('Authorization', response.token);
                 return of(response.refreshToken);
             }),

@@ -83,6 +83,16 @@
               severity="success"
               (onClick)="viewTransactions(user)"
             />
+            <p-button
+              icon="pi pi-download"
+              class="mr-2"
+              [rounded]="true"
+              [outlined]="true"
+              *ngIf="fetchAdmins === 'N'"
+              pTooltip="Download Statement"
+              severity="info"
+              (onClick)="openReportDialog(user)"
+            />
             <button
               pButton
               pRipple
@@ -323,3 +333,68 @@
 </form>
 
 <p-confirmDialog></p-confirmDialog>
+
+<!--  Monthly Report Dialog -->
+<p-dialog
+  header="Download Monthly Report"
+  [(visible)]="reportDialogVisible"
+  [style]="{ width: '450px', height: '600px' }"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [closeOnEscape]="true"
+  styleClass="report-dialog"
+>
+  <div class="report-dialog-content">
+    <div class="form-group">
+  <label for="fromMonth">From</label>
+  <p-calendar
+    id="fromMonth"
+    [(ngModel)]="selectedFromMonth"
+    view="month"
+    dateFormat="M yy"
+    [showIcon]="true"
+    [showOnFocus]="false"
+    [maxDate]="maxSelectableDate"
+    [showButtonBar]="true"
+    [yearNavigator]="true"
+    [yearRange]="'2020:2040'"
+  ></p-calendar>
+</div>
+
+<div class="form-group">
+  <label for="toMonth">To</label>
+  <p-calendar
+    id="toMonth"
+    [(ngModel)]="selectedToMonth"
+    view="month"
+    dateFormat="M yy"
+    [showIcon]="true"
+    [minDate]="selectedFromMonth"
+    [maxDate]="maxSelectableDate"
+    [showOnFocus]="false"
+    [showButtonBar]="true"
+    [yearNavigator]="true"
+    [yearRange]="'2020:2040'"
+  ></p-calendar>
+</div>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      label="Cancel"
+      icon="pi pi-times"
+      class="p-button-text"
+      (click)="reportDialogVisible = false"
+    ></button>
+    <button
+      pButton
+      label="Download"
+      icon="pi pi-download"
+      class="p-button-primary"
+      [disabled]="!selectedFromMonth && !selectedToMonth"
+      (click)="downloadReport()"
+    ></button>
+  </ng-template>
+</p-dialog>

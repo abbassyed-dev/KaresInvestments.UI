@@ -7,6 +7,7 @@ import { Landing2Component } from './landing2/landing2.component';
 import { Home2Component } from './landing2/home2/home2.component';
 import { About2Component } from './landing2/about2/about2.component';
 import { ContactComponent } from './landing2/contact/contact.component';
+import { DistributionStatementComponent } from './shared/distribution-statement/distribution-statement.component';
 
 @NgModule({
   imports: [
@@ -30,6 +31,9 @@ import { ContactComponent } from './landing2/contact/contact.component';
           { path: 'user', loadChildren: () => import("./user/user-dashboard.module").then(m => m.UserDashboardModule) },
         ]
       },
+      {
+        path: 'statement', component: DistributionStatementComponent
+      }
     ], { scrollPositionRestoration: 'enabled', anchorScrolling: 'enabled', onSameUrlNavigation: 'reload', preloadingStrategy: PreloadAllModules })
   ],
   exports: [RouterModule]

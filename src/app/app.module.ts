@@ -19,6 +19,7 @@ import { FormsModule } from '@angular/forms';
 import { PrimeNgModule } from './shared/prime-ng.module';
 import { SharedModule } from './shared/shared.module';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { DistributionStatementComponent } from './shared/distribution-statement/distribution-statement.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
     Home2Component,
     About2Component,
     ContactComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    DistributionStatementComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,67 @@
+<div class="action-bar" style="display: flex; justify-content: flex-end; gap: 10px; margin-bottom: 1rem;">
+  <button pButton icon="pi pi-save" severity="danger" (click)="downloadPdf()">
+  </button>
+  <button pButton icon="pi pi-arrow-left" (click)="goBack()"></button>
+</div>
+<div class="disbursement-statement" id="pdf-content">
+  <div class="header">
+    <div class="header-top">
+      <img src="assets/layout/images/kares-logo2.png" alt="Logo" class="logo" />
+      <h4>KARES Disbursement Statement</h4>
+    </div>
+    <p class="subtitle">Dear <strong>{{stats.userName}}</strong>,</p>
+    <p>
+      <!-- Please see below for the dividend disbursement information of your investments for the month of
+    <strong>{{fromDate | date: 'MMM yyyy'}}</strong>: -->
+
+      Please see below for the dividend disbursement information of your investments for the month of
+      <strong>{{fromDate | date: 'MMM yyyy'}}</strong>
+      <ng-container *ngIf="toDate"> to <strong>{{toDate | date: 'MMM yyyy'}}</strong></ng-container>:
+
+    </p>
+  </div>
+
+  <div class="investment-summary">
+    <div class="row">
+      <span>Initial Investment:</span>
+      <strong>{{stats.capitalInvestment}}</strong>
+    </div>
+    <div class="row">
+      <span>Dividends:</span>
+      <strong>{{stats.totalDividends}}</strong>
+    </div>
+    <div class="row">
+      <span>Processing Fee:</span>
+      <strong>{{stats.processingFee}}</strong>
+    </div>
+    <div class="row">
+      <span>Disbursement Amount:</span>
+      <strong>{{stats.disbursedAmount}}</strong>
+    </div>
+  </div>
+
+  <div class="capital-stats">
+    <div class="dist-card">
+      <h4>Capital Value<sup>1</sup></h4>
+      <p>$ {{stats.totalCapitalInvestment}}</p>
+    </div>
+    <div class="dist-card">
+      <h4>ROI<sup>2</sup></h4>
+      <p>{{stats.returnOnInvestment}}%</p>
+    </div>
+    <div class="dist-card">
+      <h4>ROC<sup>3</sup></h4>
+      <p>{{stats.returnOfCapital}}%</p>
+    </div>
+  </div>
+
+  <div class="rpt-gen-time">
+    <p>This statement was generated on <strong>{{ todaysDate | date:'MM/dd/yyyy, hh:mm a' }}</strong></p>
+  </div>
+
+  <div class="footnotes">
+    <p>1. Your capital holdings at KARES</p>
+    <p>2. ROI = Return on investment extrapolated yearly</p>
+    <p>3. ROC = Return of Capital to date</p>
+  </div>
+</div>

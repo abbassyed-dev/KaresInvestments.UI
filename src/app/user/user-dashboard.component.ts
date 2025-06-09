@@ -8,21 +8,15 @@ import { UserStats } from '../models/user-stats.model';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { PdfService } from '../shared/services/pdf.service';
-
-interface PerformanceMetrics {
-  monthlyGrowth: number;
-  annualReturn: number;
-  dividendYield: number;
-  capitalGrowth: number;
-}
+import { Router } from '@angular/router';
 
 interface PieChartData {
-    portfolioId: number;
-    portfolioName: string;
-    totalAmount: number;
+  portfolioId: number;
+  portfolioName: string;
+  totalAmount: number;
 }
 
-const PIE_CHART_COLOR_PALLETE = ['#4361ee','#3a0ca3','#7209b7','#f72585'];
+const PIE_CHART_COLOR_PALLETE = ['#4361ee', '#3a0ca3', '#7209b7', '#f72585'];
 
 @Component({
   selector: 'app-user-dashboard',
@@ -39,7 +33,7 @@ export class UserDashboardComponent implements OnInit {
   userName = '';
   userId: string | undefined = '';
   userStats = {} as UserStats;
-  portfolioData : PieChartData[]= [];
+  portfolioData: PieChartData[] = [];
   // Portfolio data for pie chart
   // portfolioData = [
   //   { name: 'Stocks', value: 55000, color: '#4361ee' },
@@ -50,7 +44,6 @@ export class UserDashboardComponent implements OnInit {
   // Chart configuration
   reportDialogVisible: boolean = false;
   selectedMonth: Date = new Date();
-  selectedFormat: string = 'pdf';
 
 
   // Options for dropdowns
@@ -65,17 +58,19 @@ export class UserDashboardComponent implements OnInit {
     { name: 'Tax Statement', code: 'tax' },
   ];
   chartOptions: any;
+  maxSelectableDate = new Date();
 
   constructor(
     private authStateService: AuthStateService,
     private toastr: ToastrService,
     private dataService: UserDashboardService,
-    private pdfService: PdfService
+    private pdfService: PdfService,
+    public router: Router
   ) { }
 
   ngOnInit() {
     this.initChartData();
-        this.userName = `${this.authStateService.getLoggedInUserProperty(
+    this.userName = `${this.authStateService.getLoggedInUserProperty(
       'firstName'
     )} ${this.authStateService.getLoggedInUserProperty('lastName')}`;
     this.userId = this.authStateService.getLoggedInUserProperty('userId');
@@ -84,17 +79,19 @@ export class UserDashboardComponent implements OnInit {
       this.getUserStats();
       this.getUserPortfolioDistribution();
     }
+    const today = new Date();
+    this.maxSelectableDate = new Date(today.getFullYear(), today.getMonth(), 0); // 0 gives last day of previous month
   }
 
   initChartData() {
     // Setup pie chart data
     this.portfolioChartData = {
-      labels: this.portfolioData.map((item,index) => item.portfolioName),
+      labels: this.portfolioData.map((item, index) => item.portfolioName),
       datasets: [
         {
           data: this.portfolioData.map((item) => item.totalAmount),
-          backgroundColor: this.portfolioData.map((item,index) => PIE_CHART_COLOR_PALLETE[index]),
-          hoverBackgroundColor: this.portfolioData.map((item,index) => PIE_CHART_COLOR_PALLETE[index]),
+          backgroundColor: this.portfolioData.map((item, index) => PIE_CHART_COLOR_PALLETE[index]),
+          hoverBackgroundColor: this.portfolioData.map((item, index) => PIE_CHART_COLOR_PALLETE[index]),
         },
       ],
     };
@@ -154,8 +151,6 @@ export class UserDashboardComponent implements OnInit {
   openReportDialog() {
     this.reportDialogVisible = true;
     this.selectedMonth = new Date();
-    this.selectedFormat = 'pdf';
-
   }
 
   downloadReport() {
@@ -164,31 +159,42 @@ export class UserDashboardComponent implements OnInit {
     //   month: 'long',
     //   year: 'numeric',
     // });
+    console.log(this.selectedMonth.toLocaleDateString());
+    // const monthYear: string = this.selectedMonth.toLocaleDateString('en-US', {
+    //   month: '2-digit',
+    //   year: 'numeric',
+    // }).replace(/(\d{2})\/(\d{4})/, '$1/$2');
+    console.log(`Downloading`, this.selectedMonth.toLocaleDateString());
 
-    const monthYear: string = this.selectedMonth.toLocaleDateString('en-US', {
-      month: '2-digit',
-      year: 'numeric',
-    }).replace(/(\d{2})\/(\d{4})/, '$1/$2');
-    console.log(`Downloading`, monthYear);
-    if (this.userId) {
-      this.dataService.getUserTransactionsByMonth(this.userId, monthYear).subscribe((res) => {
-        console.log(res);
-        if (res.length > 0) {
-          // this.generatePdf(res);
-          this.pdfService.generateKaresStatement({
-            clientName: 'John Doe',
-            monthYear: 'April 2025',
-            initialInvestment: 10000,
-            dividend: 250,
-            fee: 10,
-            disbursement: 240,
-            capitalValue: 12000,
-            roi: 5,
-            roc: 25
-          });
-        }
-      })
-    }
+    const queryParams: any = {
+      userId: this.userId,
+      date1: this.selectedMonth.toLocaleDateString()
+    };
+
+    this.router.navigate(['/dashboard/user/statement'], { queryParams });
+
+
+
+    // if (this.userId) {
+    //   this.dataService.getUserTransactionsByMonth(this.userId, monthYear).subscribe((res) => {
+    //     console.log(res);
+    //     if (res.length > 0) {
+    //       // this.generatePdf(res);
+    //       console.log(res);
+    //       this.pdfService.generateKaresStatement({
+    //         clientName: 'John Doe',
+    //         monthYear: 'April 2025',
+    //         initialInvestment: 10000,
+    //         dividend: 250,
+    //         fee: 10,
+    //         disbursement: 240,
+    //         capitalValue: 12000,
+    //         roi: 5,
+    //         roc: 25
+    //       });
+    //     }
+    //   })
+    // }
     // Close dialog
     // this.reportDialogVisible = false;
   }
@@ -343,7 +349,4 @@ export class UserDashboardComponent implements OnInit {
       img.onerror = error => reject(error);
     });
   }
-
-
-
 }

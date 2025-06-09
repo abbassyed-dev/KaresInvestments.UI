@@ -5,6 +5,7 @@ import { AuthStateService } from "../../shared/services/auth-state.service";
 import { ToastrService } from "ngx-toastr";
 import { debounceTime, Subject, switchMap } from "rxjs";
 import { ConfirmationService } from "primeng/api";
+import { Router } from "@angular/router";
 
 
 @Component({
@@ -24,11 +25,19 @@ export class UsersComponent implements OnInit {
     emailExists = false;
     private emailCheckSubject = new Subject<string>();
 
+    reportDialogVisible: boolean = false;
+    selectedFromMonth: Date = new Date();
+    selectedToMonth: Date = new Date();
+    maxSelectableDate = new Date(); 
+
+    userSelectedForStatement: User = {} as User;
+
     @Output() userContextFromUserTab = new EventEmitter<User>();
 
     @Input() fetchAdmins = 'N';
 
     constructor(private dataService: UsersService, private toastr: ToastrService,
+        public router: Router,
         private authStateService: AuthStateService, private confirmationService: ConfirmationService) {
         this.emailCheckSubject.pipe(
             debounceTime(500), // Waits 500ms after last input
@@ -38,6 +47,8 @@ export class UsersComponent implements OnInit {
         });
     }
     ngOnInit(): void {
+        const today = new Date();
+        this.maxSelectableDate = new Date(today.getFullYear(), today.getMonth(), 0); // 0 gives last day of previous month
         this.getLovs();
         this.getAllUsers();
     }
@@ -162,4 +173,23 @@ export class UsersComponent implements OnInit {
         }
     }
 
+    openReportDialog(user: User) {
+        this.reportDialogVisible = true;
+        this.selectedFromMonth = new Date();
+        this.selectedToMonth = new Date();
+        this.userSelectedForStatement = user;
+    }
+
+    downloadReport() {
+        console.log(this.selectedFromMonth.toLocaleDateString());
+        console.log(this.selectedToMonth.toLocaleDateString());
+
+        const queryParams: any = {
+            userId: this.userSelectedForStatement.userId,
+            date1: this.selectedFromMonth.toLocaleDateString(),
+            date2: this.selectedToMonth.toLocaleDateString()
+        };
+
+        this.router.navigate(['/dashboard/user/statement'], { queryParams });
+    }
 }

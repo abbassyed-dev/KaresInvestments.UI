@@ -24,34 +24,34 @@
   <div class="investment-summary">
     <div class="row">
       <span>Initial Investment:</span>
-      <strong>{{stats.capitalInvestment}}</strong>
+      <strong>{{stats.capitalInvestment | currencyFormat}}</strong>
     </div>
     <div class="row">
       <span>Dividends:</span>
-      <strong>{{stats.totalDividends}}</strong>
+      <strong>{{stats.totalDividends | currencyFormat}}</strong>
     </div>
     <div class="row">
       <span>Processing Fee:</span>
-      <strong>{{stats.processingFee}}</strong>
+      <strong>{{stats.processingFee | currencyFormat}}</strong>
     </div>
     <div class="row">
       <span>Disbursement Amount:</span>
-      <strong>{{stats.disbursedAmount}}</strong>
+      <strong>{{stats.disbursedAmount | currencyFormat}}</strong>
     </div>
   </div>
 
   <div class="capital-stats">
     <div class="dist-card">
       <h4>Capital Value<sup>1</sup></h4>
-      <p>$ {{stats.totalCapitalInvestment}}</p>
+      <p>$ {{stats.totalCapitalInvestment | currencyFormat}}</p>
     </div>
     <div class="dist-card">
       <h4>ROI<sup>2</sup></h4>
-      <p>{{stats.returnOnInvestment}}%</p>
+      <p>{{stats.returnOnInvestment}} %</p>
     </div>
     <div class="dist-card">
       <h4>ROC<sup>3</sup></h4>
-      <p>{{stats.returnOfCapital}}%</p>
+      <p>{{stats.returnOfCapital}} %</p>
     </div>
   </div>
 

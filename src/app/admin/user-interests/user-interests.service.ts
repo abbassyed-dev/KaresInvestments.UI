@@ -37,9 +37,9 @@ export class UserInterestService {
     // Function to convert date to UTC and format it in 'yyyy-MM-dd' format
     getFormattedDate(date: Date): string | null {
         // Ensure the date is in UTC
-        const utcDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
-        console.log(utcDate);
+        // const utcDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+        // console.log(utcDate);
         // Use DatePipe to format the UTC date
-        return this.datePipe.transform(utcDate, 'yyyy-MM-dd');
+        return this.datePipe.transform(date, 'yyyy-MM-dd');
     }
 }

@@ -28,7 +28,7 @@ export class UsersComponent implements OnInit {
     reportDialogVisible: boolean = false;
     selectedFromMonth: Date = new Date();
     selectedToMonth: Date = new Date();
-    maxSelectableDate = new Date(); 
+    maxSelectableDate = new Date();
 
     userSelectedForStatement: User = {} as User;
 
@@ -76,7 +76,7 @@ export class UsersComponent implements OnInit {
         this.user.dateOfBirth = new Date(user.dateOfBirth);
         this.userDialog = true;
     }
-
+    
     saveUser(form: any) {
         if (this.user.userId) {
             console.log("********Updating User***********", this.user);

@@ -111,7 +111,7 @@
 <form #userForm="ngForm" (ngSubmit)="saveUser(userForm)">
   <p-dialog
     [(visible)]="userDialog"
-    [style]="{ width: '550px' }"
+    [style]="{ width: '40vw' }"
     header="Add/Edit User"
     [modal]="true"
     styleClass="p-fluid"
@@ -120,7 +120,7 @@
       <div class="formgrid grid mb-2">
         <div class="field col">
           <label for="firstName"
-            >First Name<span class="text-danger">&nbsp;*</span></label
+            >First Name<span style="display: inline-block;" class="text-danger">&nbsp;*</span></label
           >
           <input
             type="text"
@@ -137,7 +137,7 @@
         </div>
         <div class="field col">
           <label for="lastName"
-            >Last Name<span class="text-danger">&nbsp;*</span></label
+            >Last Name<span style="display: inline-block;" class="text-danger">&nbsp;*</span></label
           >
           <input
             type="text"
@@ -156,7 +156,7 @@
       <div class="formgrid grid mb-2">
         <div class="field col">
           <label for="dateOfBirth"
-            >Date Of Birth<span class="text-danger">&nbsp;*</span></label
+            >Date Of Birth<span style="display: inline-block;" class="text-danger">&nbsp;*</span></label
           >
           <p-calendar
             id="dateOfBirth"
@@ -176,7 +176,7 @@
         </div>
         <div class="field col">
           <label for="phoneNo"
-            >Mobile # <span class="text-danger">&nbsp;*</span></label
+            >Mobile # <span style="display: inline-block;" class="text-danger">&nbsp;*</span></label
           >
           <!-- <input type="text" pInputText id="phoneNo" name="phoneNo" [(ngModel)]="user.phoneNo" required
                         #phoneNo="ngModel" pattern="^\d{10}$" /> -->
@@ -197,7 +197,7 @@
       <div class="formgrid grid mb-2">
         <div class="field col">
           <label for="email"
-            >Email <span class="text-danger">&nbsp;*</span></label
+            >Email <span style="display: inline-block;" class="text-danger">&nbsp;*</span></label
           >
           <input
             type="text"
@@ -219,7 +219,7 @@
         </div>
         <div class="field col">
           <label for="portfolio"
-            >Default Portfolio <span class="text-danger">&nbsp;*</span></label
+            >Default Portfolio <span style="display: inline-block;" class="text-danger">&nbsp;*</span></label
           >
           <p-dropdown
             [options]="lookupData.portfolios"

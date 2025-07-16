@@ -23,7 +23,6 @@ export class AdminHomeService {
     }
 
     getOverAllInvestmentStats(userId: string | null = null) {
-        // return this.http.get<UserStats>(`${environment.apiBaseUrl}/api/User/user-stats?userId=${userId}`);
         return this.http.get<UserStats>(`${environment.apiBaseUrl}/api/User/user-stats`, {
             params: userId ? { userId } : {}  // If userId is null, send an empty params object
         });

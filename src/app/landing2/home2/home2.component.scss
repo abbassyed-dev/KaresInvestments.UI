@@ -724,6 +724,93 @@
   }
 }
 
+// Mission Section
+.mission-section {
+  padding: 2rem 0;
+  position: relative;
+  background-color: var(--surface-ground);
+
+  .section-header {
+    margin-bottom: 2rem;
+
+    .badge-container {
+      margin-bottom: 1.5rem;
+    }
+
+    .section-badge {
+      background-color: var(--primary-100);
+      color: var(--primary-700);
+      border-radius: 2rem;
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: inline-block;
+    }
+
+    h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--text-color);
+    }
+
+    .section-subtitle {
+      font-size: 1.2rem;
+      color: var(--text-color-secondary);
+      max-width: 600px;
+      line-height: 1.6;
+    }
+  }
+
+  .mission-content {
+    p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--text-color-secondary);
+      margin-bottom: 1.5rem;
+    }
+
+    p:last-of-type {
+      margin-bottom: 2rem;
+    }
+  }
+
+  .mission-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-top: 2rem;
+
+    .mission-feature {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+
+      .feature-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--primary-dark)
+        );
+        color: white;
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        box-shadow: 0 5px 15px rgba(var(--primary-color-rgb), 0.3);
+      }
+
+      span {
+        font-weight: 600;
+        color: var(--text-color);
+        font-size: 1.1rem;
+      }
+    }
+  }
+}
+
 // Features Section
 .features-section {
   padding: 6rem 0;
@@ -843,8 +930,8 @@
 .secure-section {
   padding: 2rem 0;
   position: relative;
-  // background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-  background: white;
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  // background: white;
 
   .secure-content {
     h2 {
@@ -852,15 +939,15 @@
       font-weight: 700;
       margin-bottom: 1.5rem;
       // color: var(--text-color);
-      color: var(--text-color-secondary);
-      // color: white;
+      // color: var(--text-color-secondary);
+      color: white;
     }
 
     p {
       font-size: 1.2rem;
       // color: var(--text-color-secondary);
-      // color:white;
-      color: var(--text-color-secondary);
+      color:white;
+      // color: var(--text-color-secondary);
       margin-bottom: 2rem;
       max-width: 650px;
       margin-left: auto;

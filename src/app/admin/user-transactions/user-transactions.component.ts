@@ -49,6 +49,19 @@ export class UserTransactionsComponent implements OnInit {
         });
     }
 
+    getAmountClass(transaction: any): string {
+        switch (transaction.transactionTypeId) {
+            case 1:
+                return 'investment-amount';
+            case 2:
+                return 'dividend-amount';
+            case 4:
+                return 'fee-amount';
+            default:
+                return '';
+        }
+    }
+
     filterCategories() {
         if (!this.userTransaction.transactionTypeId) {
             this.filteredCategories = [];
@@ -67,7 +80,7 @@ export class UserTransactionsComponent implements OnInit {
 
     setUserDetails(evt: any, loadPortfolios: boolean) {
         if (evt) {
-            if(loadPortfolios) {
+            if (loadPortfolios) {
                 this.fetchUserPortfolios(this.userTransaction.userId, false);
             }
             this.userTransaction.userId = evt.userId;
@@ -138,14 +151,14 @@ export class UserTransactionsComponent implements OnInit {
             console.log("********Updating User Transaction***********", this.userTransaction);
             this.userTransaction.ModifiedBy = this.authStateService.getLoggedInUserEmailId() || "Admin";
             this.dataService.updateTransaction(this.userTransaction.userTransactionId, this.userTransaction).subscribe((res: any) => {
-            this.userTransaction = {} as UserTransaction;
+                this.userTransaction = {} as UserTransaction;
                 this.getAllTransactions();
             })
         } else {
             console.log("********Inserting User***********", this.userTransaction);
             this.userTransaction.createdBy = this.authStateService.getLoggedInUserEmailId() || "Admin";
             this.dataService.saveTransaction(this.userTransaction).subscribe((res: any) => {
-            this.userTransaction = {} as UserTransaction;
+                this.userTransaction = {} as UserTransaction;
                 // this.getAllTransactions();
                 if (!this.userFromContext.userId) {
                     this.getAllTransactions();

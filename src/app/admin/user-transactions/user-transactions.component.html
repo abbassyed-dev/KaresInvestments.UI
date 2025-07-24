@@ -103,7 +103,7 @@
         <tr>
           <td>{{ transaction.userName }}</td>
           <td>{{ transaction.email }}</td>
-          <td>{{ transaction.amount | currencyFormat }}</td>
+          <td [ngClass]="getAmountClass(transaction)">{{ transaction.amount | currencyFormat }}</td>
           <td>{{ transaction.portfolioName }}</td>
           <td>{{ transaction.transactionDate | date : "MM/dd/yyyy" }}</td>
           <td>{{ transaction.transactionType }}</td>

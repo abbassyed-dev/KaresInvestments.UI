@@ -135,18 +135,18 @@ export class UserDashboardComponent implements OnInit {
     }
   }
 
-  getAmountClass(transaction: any): string {
-    switch (transaction.transactionType) {
-      case 'INVESTMENT':
-        return 'investment-amount';
-      case 'DIVIDEND':
-        return 'positive-amount';
-      case 'WITHDRAWAL':
-        return 'negative-amount';
-      default:
-        return '';
+    getAmountClass(transaction: any): string {
+        switch (transaction.transactionTypeId) {
+            case 1:
+                return 'investment-amount';
+            // case 2:
+            //     return 'dividend-amount';
+            case 4:
+                return 'fee-amount';
+            default:
+                return 'investment-amount';
+        }
     }
-  }
 
   openReportDialog() {
     this.reportDialogVisible = true;

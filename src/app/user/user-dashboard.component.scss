@@ -456,6 +456,16 @@ table td.no-data {
   transition: all var(--transition-speed);
 }
 
+.investment-amount {
+  color: green !important;
+}
+// .dividend-amount {
+//   color: red !important;
+// }
+.fee-amount {
+  color: red !important;
+}
+
 .pagination-btn:hover {
   background-color: var(--surface-section);
   color: var(--text-color);

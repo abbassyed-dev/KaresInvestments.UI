@@ -53,12 +53,12 @@ export class UserTransactionsComponent implements OnInit {
         switch (transaction.transactionTypeId) {
             case 1:
                 return 'investment-amount';
-            case 2:
-                return 'dividend-amount';
+            // case 2:
+            //     return 'dividend-amount';
             case 4:
                 return 'fee-amount';
             default:
-                return '';
+                return 'investment-amount';
         }
     }
 
@@ -142,8 +142,9 @@ export class UserTransactionsComponent implements OnInit {
         // if (this.userTransaction.userId) {
         //     this.fetchUserPortfolios(this.userTransaction.userId, true);
         // }
-        // this.userTransactionDialog = true;
-        // this.isEditMode = true;
+        this.filterCategories();
+        this.userTransactionDialog = true;
+        this.isEditMode = true;
     }
 
     saveTransaction(form: any) {
